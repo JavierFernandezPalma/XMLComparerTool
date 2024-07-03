@@ -1,0 +1,18 @@
+Instalar Node.js v18.13.0 o superior.
+
+//------------Dependencias necesarias:
+npm install express multer
+
+Inicializar server (posicionarse donde esta el archivo server.js):
+	node server.js
+
+//------------Parsear XML y Comparar diferencias
+Validación usando npm:
+    npm list xmldom
+    npm list diff
+Si resultado = (empty) instalar:
+    npm install xmldom diff
+Desinstalar paquete:
+    npm uninstall xmldom
+Limpiar dependencias:
+    npm prune

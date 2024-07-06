@@ -1,0 +1,31 @@
+body {
+    background-color:#cfd8dc;
+    align-content: center;
+    margin: 5rem;
+  }
+
+.node {
+    color: red;
+}
+.cdata {
+    color: blue;
+}
+.prologo {
+    color:#3949ab;
+}
+
+.butt {
+    color: brown;
+    background-color: #eceff1;
+    color-scheme: red;
+    width: 50rem;
+    margin: 0.5rem;
+}
+
+.valido {
+    color: green;
+}
+.invalido {
+    color: red;
+    background-color:aliceblue;
+}

@@ -1,0 +1,99 @@
+body {
+    background-color: #cfd8dc;
+    align-content: center;
+    margin: 5rem;
+}
+
+.diff {
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+
+.diff .added {
+    background-color: red;
+    color: white;
+}
+
+.diff .removed {
+    background-color: rgb(5, 168, 5);
+    color: white;
+}
+
+.match {
+    background-color: #d4edda; /* Color de fondo verde claro */
+    color: #155724; /* Color de letra verde oscuro */
+    padding: 10px; /* Relleno interno */
+    border: 1px solid #155724; /* Borde verde oscuro */
+    margin: 10px 0; /* Margen superior e inferior */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.mismatch {
+    background-color: #fff3cd; /* Color de fondo amarillo claro */
+    color: #856404; /* Color de letra amarillo oscuro */
+    padding: 10px; /* Relleno interno */
+    border: 1px solid #856404; /* Borde amarillo oscuro */
+    margin: 10px 0; /* Margen superior e inferior */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.error {
+    background-color: #ffdddd; /* Color de fondo rojo claro */
+    color: #d8000c; /* Color de letra rojo oscuro */
+    padding: 10px; /* Relleno interno para hacer que el mensaje sea más visible */
+    border: 1px solid #d8000c; /* Borde rojo oscuro */
+    margin: 10px 0; /* Margen superior e inferior */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.info {
+    background-color: #e7f3fe; /* Fondo azul claro */
+    color: #0056b3; /* Texto azul */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #b3d7ff; /* Borde azul claro */
+}
+
+.CodeMirror {
+    height: auto;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.node {
+    color: red;
+}
+
+.cdata {
+    color: blue;
+}
+
+.prologo {
+    color: #3949ab;
+}
+
+.butt {
+    color: brown;
+    background-color: #eceff1;
+    color-scheme: red;
+    width: 50%;
+    margin: 0.5rem;
+}
+
+.valido {
+    color: green;
+}
+
+.invalido {
+    color: red;
+}
+
+.selectors {
+    display: inline-block;
+    width: 20%;
+    margin-bottom: 1rem;
+}
+
+.selectors2 {
+    background-color: greenyellow;
+}

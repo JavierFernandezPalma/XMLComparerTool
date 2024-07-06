@@ -140,10 +140,10 @@ out/
 
 # Gatsby files
 .cache/
-public/
+## public/
 
 # Hugo
-/public/
+## /public/
 
 # Serverless directories
 .serverless/

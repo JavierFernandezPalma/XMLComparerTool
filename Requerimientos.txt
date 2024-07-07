@@ -6,6 +6,9 @@ npm install express multer
 Inicializar server (posicionarse donde esta el archivo server.js):
 	node server.js
 
+Listar dependencias instaladas:
+    npm list --depth=0
+
 //------------Parsear XML y Comparar diferencias
 Validación usando npm:
     npm list xmldom

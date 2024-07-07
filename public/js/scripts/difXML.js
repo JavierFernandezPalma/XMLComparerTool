@@ -13,7 +13,7 @@ export function compareDifXML(xmlString1, xmlString2) {
     } else {
         comparisonResultElement.innerHTML = diff2html(diff); // Convertir diff a HTML para mostrar diferencias
         comparisonResultElement.style.backgroundColor = '';
-        comparisonResultElement.style.color = '';
+        comparisonResultElement.style.color = 'black';
     }
 }
 

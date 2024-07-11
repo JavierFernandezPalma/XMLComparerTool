@@ -4,6 +4,7 @@ import { compareDifXML, clearComparisonResult } from './difXML.js'; // Importar 
 import { handleDeleteFile } from './deleteFile.js'; // Importar la función desde deleteFile.js
 import { handleFileSelect } from './uploadFile.js'; // Importar la función desde uploadFile.js
 import { compareNodosXML } from './difNodosXML.js'; // Importar la función desde uploadFile.js
+import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange } from './config.js';
 
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
@@ -74,20 +75,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById('deleteForm').addEventListener('submit', handleDeleteFile);
 
+    
+    const scrollSwitch = document.getElementById('scrollSwitch');
+    const scrollSizeInput = document.getElementById('scrollSizeInput');
+
+    handleScrollSwitchChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput2);
+    handleScrollSizeInputChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput2);
+
     // Guardar en el global scope para que sea accesible en otros scripts
     window.editor1 = xmlInput1;
     window.editor2 = xmlInput2;
 
 });
-
-// Función para inicializar CodeMirror
-function initializeCodeMirror(elementId) {
-    return CodeMirror.fromTextArea(document.getElementById(elementId), {
-        mode: 'xml',
-        theme: 'monokai', // Tema Monokai para el editor (default - eclipse - material - solarized)
-        lineNumbers: true, // Habilitar números de línea
-        autoCloseTags: true, // Cierre automático de etiquetas
-        matchTags: { bothTags: true }, // Resaltar etiqueta coincidente
-        extraKeys: { "Ctrl-Space": "autocomplete" } // Función adicional 'Ctrl-Space' activa autocompletado
-    });
-}

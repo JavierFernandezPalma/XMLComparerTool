@@ -1,7 +1,6 @@
-import { showAlert } from '../utils.js';
 import { fetchXmlFiles } from './readFiles.js'; // Importar la función desde readFiles.js
 import { compareDifXML, clearComparisonResult } from './difXML.js'; // Importar funciones desde diffXML.js
-import { handleDeleteFile } from './deleteFile.js'; // Importar la función desde deleteFile.js
+// import { handleDeleteFile } from './deleteFile.js'; // Importar la función desde deleteFile.js
 import { handleFileSelect } from './uploadFile.js'; // Importar la función desde uploadFile.js
 import { compareNodosXML } from './difNodosXML.js'; // Importar la función desde uploadFile.js
 import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange } from './config.js';
@@ -48,10 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const messageContainer = document.getElementById('messageContainer');
 
         if (radio1Checked) {
-            compareDifXML(xmlString1, xmlString2); // Llamar a la función para comparar fiferencias XML
+            compareDifXML(xmlString1, xmlString2); // Llamar a la función para comparar diferencias XML
             messageContainer.innerHTML = '<p>Se seleccionó Diferencias XML.</p>';
         } else if (radio2Checked) {
-            compareNodosXML(xmlString1, xmlString2); // Llamar a la función para comparar fiferencias nodos XML
+            compareNodosXML(xmlString1, xmlString2); // Llamar a la función para comparar diferencias nodos XML
             messageContainer.innerHTML = '<p>Se seleccionó Diferencias nodos XML.</p>';
         } else {
             messageContainer.innerHTML = '<p>Por favor selecciona una opción.</p>';
@@ -73,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
         clearComparisonResult(); // Limpiar resultado de comparación
     });
 
-    document.getElementById('deleteForm').addEventListener('submit', handleDeleteFile);
+    // document.getElementById('deleteForm').addEventListener('submit', handleDeleteFile);
 
     
     const scrollSwitch = document.getElementById('scrollSwitch');

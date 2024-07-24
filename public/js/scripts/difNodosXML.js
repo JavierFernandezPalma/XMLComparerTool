@@ -1,3 +1,4 @@
+import { useRegex } from "./useRegex.js";
 // Función principal para comparar los XML
 export function compareNodosXML(xmlString1, xmlString2) {
     // Obtener los valores de los editores CodeMirror
@@ -113,7 +114,7 @@ function compareNodes(node1, node2) {
     const children2 = Array.from(node2.children);
 
     if (children1.length !== children2.length) {
-        result += `<div class="mismatch">La cantidad de hijos de &#60;${node1.nodeName}&#62; en XML1 y &#60;${node2.nodeName}&#62; en XML2 no coincide</div>`;
+        result += `<div class="mismatch">La cantidad de hijos del nodo &#60;${node1.nodeName}&#62; del XML Base no coinciden con los hijos del nodo XML a Comparar.</div>`;
     }
 
     // Verificar los nombres de los hijos en ambos conjuntos
@@ -121,7 +122,7 @@ function compareNodes(node1, node2) {
     const childNames2 = children2.map(child => child.nodeName);
 
     if (!arraysEqual(childNames1, childNames2)) {
-        result += `<div class="mismatch">Los nombres de los nodos hijos de &#60;${node1.nodeName}&#62; en XML1 y &#60;${node2.nodeName}&#62; en XML2 no coinciden</div>`;
+        result += `<div class="mismatch">Los nombres de los nodos hijos de &#60;${node1.nodeName}&#62; en XML Base y &#60;${node2.nodeName}&#62; en XML a Comparar no coinciden.</div>`;
     }
 
     // Recorrer cada hijo de node1 y buscar un equivalente en node2
@@ -131,7 +132,7 @@ function compareNodes(node1, node2) {
 
         // Si no se encuentra el equivalente del hijo en node2, agregar mensaje de desacuerdo
         if (!child2) {
-            result += `<div class="mismatch">No se encontró el nodo hijo &#60;${child1.nodeName}&#62; de XML1 en el nodo &#60;${node2.nodeName}&#62; de XML2</div>`;
+            result += `<div class="mismatch">No se encontró el nodo hijo &#60;${child1.nodeName}&#62; de XML Base en el nodo &#60;${node2.nodeName}&#62; del XML a comparar.</div>`;
         } else {
             // Comparar recursivamente los hijos
             result += compareNodes(child1, child2);
@@ -141,6 +142,21 @@ function compareNodes(node1, node2) {
     // Si no se han encontrado discrepancias, agregar mensaje de coincidencia
     if (result === '') {
         result += `<div class="match">Los nodos &#60;${node1.nodeName}&#62; coinciden</div>`;
+        let regExpNode1 = useRegex(node1.textContent);
+        if (!regExpNode1.test(node2.textContent)) {
+            if (node1.nodeName !=="Org" && node1.nodeName !=="Name" && node1.nodeName !=="StatusDesc") {
+                node1.nodeName === "Amt"
+                  ? (result += `<div class="info">el contenido del nodo &#60;${node1.nodeName}&#62; debe ser numérico con 2 decimales.</div>`)
+                  : node1.nodeName === "StatusCode"
+                  ? (result += `<div class="info">posibles valores de &#60;${node1.nodeName}&#62; pueden ser: (0, -001, -002, -003, -004, -005, -006, -099).</div>`)
+                  : (result += `<div class="info2">el contenido del nodo &#60;${node1.nodeName}&#62; no coincide con el de referencia.</div>`);
+            }
+        }
+        // console.log("node1.nodeName:",node1.nodeName)
+        // console.log("node1.textContent:",node1.textContent)
+        // console.log("node2.nodeName:",node2.nodeName)
+        // console.log("node2.textContent:",node2.textContent)
+        // console.log("================");
     }
 
     // Retornar el resultado para este nivel de nodos

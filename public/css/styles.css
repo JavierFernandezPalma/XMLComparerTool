@@ -49,10 +49,10 @@ h2, h4 {
 }
 
 .mismatch {
-    background-color: #fff3cd;
-    color: #856404;
+    background-color: #F1948A;
+    color: #1d1b1b;
     padding: 10px;
-    border: 1px solid #856404;
+    border: 1px solid #E74C3C;
     margin: 10px 0;
     border-radius: 5px;
 }
@@ -69,9 +69,18 @@ h2, h4 {
 .info {
     background-color: #e7f3fe;
     color: #0056b3;
-    padding: 10px;
+    padding: 1px;
+    margin-left: 3rem;
     margin-bottom: 10px;
     border: 1px solid #b3d7ff;
+}
+.info2 {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1px;
+    margin-left: 3rem;
+    margin-bottom: 10px;
+    border: 1px solid #856404;
 }
 
 .CodeMirror {

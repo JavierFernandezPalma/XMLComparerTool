@@ -80,6 +80,13 @@ h2, h4 {
     margin-bottom: 20px;
 }
 
+#navbarCollapse.dropup .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 1rem; /* Ajusta este valor según sea necesario */
+}
+
+
 /* #comparisonResult {
     color: blue;
 } */

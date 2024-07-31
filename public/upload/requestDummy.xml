@@ -1,17 +1,13 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
    <soapenv:Header/>
-   <!--Optional despues del header-->
    <soapenv:Body>
-   <!--Optional2 despues body-->
       <tem:VerificarEstadoWebService>
-         <!--Optional:-->
-         <tem:infoDummy><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+         <tem:infoDummy><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 		<IFX>
 		<SignonRq>
-		<ClientDt>Fecha y hora</ClientDt>
+		<ClientDt>0000-00-00T00:00:00</ClientDt>
 		<CustLangPref>es-CO</CustLangPref>
 		<ClientApp>
-		</tst>
 		<Org>Bancolombia</Org>
 		<Name>RIN</Name>
 		<Version>1.0</Version>

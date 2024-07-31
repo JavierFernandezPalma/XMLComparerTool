@@ -3,6 +3,7 @@ const multer = require('multer'); // Importar el módulo Multer para manejar la 
 const cors = require('cors'); // Importar el módulo CORS para habilitar solicitudes desde otros dominios
 const fs = require('fs'); // Importar el módulo fs para manejar operaciones del sistema de archivos
 const path = require('path'); // Importar el módulo Path para trabajar con rutas de archivos y directorios
+const libxmljs = require('libxmljs2');
 
 const app = express(); // Crear una aplicación Express
 const PORT = 3000; // Definir el puerto en el que el servidor escuchará
@@ -20,6 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }); // Crear una instancia de multer con la configuración de almacenamiento
 
 app.use(cors()); // Habilitar CORS para permitir solicitudes desde otros dominios
+// Middleware para servir archivos estáticos
 app.use(express.json()); // Middleware para parsear JSON
 app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos desde la carpeta "public"
 
@@ -140,6 +142,74 @@ app.delete('/delete', (req, res) => {
             });
         });
     });
+});
+
+// Endpoint para la validación del XML
+app.post('/validate', (req, res) => {
+    const { xml, xsd } = req.body;
+
+    // console.log('XML:', xml);
+    // console.log('XSD:', xsd);
+
+    // Primero, verifica si el XSD es válido
+    let xsdDoc;
+    try {
+        xsdDoc = libxmljs.parseXml(xsd);
+        // console.log(xsdDoc);
+    } catch (err) {
+        // XSD inválido
+        console.error('Error al parsear el XSD:', err);
+        return res.status(400).json({ error: 'El esquema XSD proporcionado es inválido.', details: err.message });
+    }
+
+    try {
+
+        // Parse XML
+        const xmlDoc = libxmljs.parseXml(xml);
+        // Validar XML contra XSD
+        const isValid = xmlDoc.validate(xsdDoc);
+
+        if (isValid) {
+            console.log('Validación:', isValid);
+            res.status(200).json({ isValid, message: 'XML válido respecto al XSD.' });
+        } else {
+            console.log('Errores de validación:', xmlDoc.validationErrors);
+            const validationErrors = xmlDoc.validationErrors.map(err => ({
+                message: err.message,
+                line: err.line,
+                column: err.column
+            }));
+            res.status(400).json({
+                isValid: false,
+                message: 'El XML no es válido respecto al XSD.',
+                validationErrors: validationErrors
+            });
+        }
+    } catch (error) {
+        // console.error('Error al validar XML contra XSD:', error);
+        // Manejar errores relacionados con el esquema XSD
+        if (error.message.includes('Invalid XSD schema')) {
+            // Inicializar el array
+            let validationErrors = [];
+            // Agregar objetos al array
+            validationErrors.push({ message: error.message });
+            res.status(400).json({
+                isValid: false,
+                message: 'Error en el esquema XSD.',
+                validationErrors: validationErrors
+            });
+        } else {
+            // Manejar otros errores internos
+            // console.error('Error al validar XML contra XSD:', error);
+            res.status(500).json({
+                error: 'Error interno al validar XML contra XSD.',
+                details: {
+                    message: error.message,
+                    stack: error.stack
+                }
+            });
+        }
+    }
 });
 
 

@@ -2,20 +2,19 @@
 <soapenv:Header/>
 <soapenv:Body>
 	<tem:VerificarEstadoWebServiceResponse>
-		<tem:VerificarEstadoWebServiceResult><![CDATA[
-		<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+		<tem:VerificarEstadoWebServiceResult><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 			<IFX>
-			<SignonRs>
-			<ClientDt>Fecha y Hora</ClientDt>
-			<CustLangPref>es-CO</CustLangPref>
-			<ClientApp>
-			<Org>Nombre del Cliente</Org>
-			<Name>Aplicación del cliente</Name>
-			<Version>1.0</Version>
-			</ClientApp>
-			<ServerDt>Fecha y Hora</ServerDt>
-			<Language>es-CO</Language>
-			</SignonRs>
+				<SignonRs>
+					<ClientDt>0000-00-00T00:00:00</ClientDt>
+					<CustLangPref>es-CO</CustLangPref>
+					<ClientApp>
+						<Org>NombredelCliente</Org>
+						<Name>RIN</Name>
+						<Version>1.0</Version>
+					</ClientApp>
+					<ServerDt>0000-00-00T00:00:00</ServerDt>
+					<Language>es-CO</Language>
+				</SignonRs>
 			</IFX>]]></tem:VerificarEstadoWebServiceResult>
 	</tem:VerificarEstadoWebServiceResponse>
 </soapenv:Body>

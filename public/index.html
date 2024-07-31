@@ -118,8 +118,10 @@
                     <div class="d-flex align-items-center">
                         <!-- Switch para activar/desactivar el scroll vertical -->
                         <div class="form-check form-switch me-3">
-                            <input class="form-check-input" type="checkbox" id="scrollSwitch">
-                            <label class="form-check-label" for="scrollSwitch">Activar Scroll Vertical</label>
+                            <input class="form-check-input" type="checkbox" id="scrollSwitch"
+                                title="Activar Scroll Vertical">
+                            <label class="form-check-label d-none d-md-flex" for="scrollSwitch">Activar Scroll
+                                Vertical</label>
                         </div>
                         <!-- Campo de texto para el tamaño del scroll -->
                         <div>
@@ -177,6 +179,36 @@
         </div>
     </div>
 
+
+    <!-- Navegación fija en la parte inferior -->
+    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+        <!-- Botón de alternancia para la barra de navegación en pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- Icono del botón de alternancia -->
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenedor colapsable para los elementos de la barra de navegación -->
+        <div class="collapse navbar-collapse dropup" id="navbarCollapse">
+            <!-- Lista de navegación principal -->
+            <ul class="navbar-nav mr-auto">
+                <!-- Elemento de navegación con un menú desplegable -->
+                <li class="nav-item dropup">
+                    <!-- Enlace del menú desplegable -->
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Herramientas XML</a>
+                    <!-- Contenido del menú desplegable -->
+                    <div class="dropdown-menu" aria-labelledby="dropdown10">
+                        <!-- Opción del menú que enlaza a 'Comparar Estructuras XML' -->
+                        <a class="dropdown-item" href="index.html">Comparar Estructuras XML</a>
+                        <!-- Opción del menú que enlaza a 'Validar XML' -->
+                        <a class="dropdown-item" href="pages/validarXML.html">Validar XML</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Incluir la biblioteca jsdiff para comparar diferencias -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js"></script>
     <!-- Incluir CodeMirror para la edición de XML -->
@@ -187,7 +219,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
 
     <!-- Incluir el script JavaScript personalizado -->
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/mainIndex.js"></script>
+    
 </body>
 
 </html>

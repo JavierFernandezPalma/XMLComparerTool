@@ -25,7 +25,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <!-- Enlace a estilos personalizados -->
-    <link rel='stylesheet' type='text/css' media='screen' href='./css/styles.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/styles.css'>
 </head>
 
 <body>
@@ -93,7 +93,7 @@
             <div class="card-body">
                 <h4 class="card-title">Resultado de la validación</h4>
                 <!-- Resultado de la comparación -->
-                <pre id="comparisonResult" class="diff p-3 bg-light rounded"></pre>
+                <pre id="validationResult" class="diff p-3 bg-light rounded"></pre>
                 <div id="messageContainer" class="diff p-3 bg-light rounded"></div>
             </div>
         </div>
@@ -139,11 +139,8 @@
     <!-- Incluir js-beautify para formatear XML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
 
-    <!-- Incluir X2JS -->
-    <script src="https://unpkg.com/x2js@3.2.3/x2js.js"></script>
-
     <!-- Incluir el script JavaScript personalizado -->
-    <script type="module" src="./js/mainValidarXML.js"></script>
+    <script type="module" src="../js/mainValidarXML.js"></script>
 </body>
 
 </html>

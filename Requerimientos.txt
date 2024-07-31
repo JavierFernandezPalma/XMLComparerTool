@@ -1,5 +1,11 @@
 Instalar Node.js v18.13.0 o superior.
 
+Crear proyecto y posicionado en la raíz inicializar proyecto Node.js:
+    npm init -y
+
+Para permitir que el servidor Node.js acepte solicitudes de diferentes origenes middleware 'cors'
+    npm install cors
+
 //------------Dependencias necesarias:
 npm install express multer
 
@@ -19,3 +25,26 @@ Desinstalar paquete:
     npm uninstall xmldom
 Limpiar dependencias:
     npm prune
+
+//--------------Validar XML
+Instalar biblioteca 'libxmljs2'
+    npm install libxmljs2
+
+
+Datos XML:
+
+<tem:RegistrarPagoResponse xmlns:tem="http://tempuri.org/">
+	<tem:RegistrarPagoResult>?</tem:RegistrarPagoResult>
+</tem:RegistrarPagoResponse>
+
+XML schema (XSD):
+
+<s:schema xmlns:s="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+	<s:element name="RegistrarPagoResponse">
+		<s:complexType>
+			<s:sequence>
+				<s:element minOccurs="0" maxOccurs="1" name="RegistrarPagoResult" type="s:string"/>
+			</s:sequence>
+		</s:complexType>
+	</s:element>
+</s:schema>

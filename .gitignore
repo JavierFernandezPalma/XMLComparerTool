@@ -43,7 +43,7 @@ Thumbs.db
 .node_repl_history
 
 # Secret environment variables
-# .env
+.env
 .env.test
 .env.production
 
@@ -114,7 +114,7 @@ Gemfile.lock
 vendor/
 node_modules/
 npm-debug.log
-# .env
+.env
 Homestead.yaml
 Homestead.json
 .phpunit.result.cache

@@ -20,6 +20,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }); // Crear una instancia de multer con la configuración de almacenamiento
 
+app.get('/api/saludo', (req, res) => {
+    res.json({ message: 'Hola desde la API' });
+});
+
 app.use(cors()); // Habilitar CORS para permitir solicitudes desde otros dominios
 // Middleware para servir archivos estáticos
 app.use(express.json()); // Middleware para parsear JSON

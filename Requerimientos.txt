@@ -30,6 +30,13 @@ Limpiar dependencias:
 Instalar biblioteca 'libxmljs2'
     npm install libxmljs2
 
+//--------------Indice de archivos Git
+Elimina los archivos del índice de Git sin borrarlos del sistema de archivos
+    git rm -r --cached .
+Añade los archivos nuevamente al índice de Git
+    git add .
+
+
 
 Datos XML:
 

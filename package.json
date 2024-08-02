@@ -2,10 +2,10 @@
     "name": "xml-comparer-tool",
     "version": "1.0.0",
     "description": "",
-    "main": "public/server.js",
+    "main": "public/index.html",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "public/server.js"
+        "start": "node public/server.js"
     },
     "repository": {
         "type": "git",

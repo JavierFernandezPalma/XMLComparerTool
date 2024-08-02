@@ -6,7 +6,7 @@ const path = require('path'); // Importar el módulo Path para trabajar con ruta
 const libxmljs = require('libxmljs2');
 
 const app = express(); // Crear una aplicación Express
-const PORT = 3000; // Definir el puerto en el que el servidor escuchará
+const PORT = process.env.PORT || 3000; // Definir el puerto en el que el servidor escuchará
 
 // Configurar multer para almacenar archivos en la carpeta "upload"
 const storage = multer.diskStorage({
@@ -244,35 +244,34 @@ app.post('/validate', (req, res) => {
     }
 });
 
-
-try {
-    // Crear la carpeta 'upload' si no existe
-    if (!fs.existsSync('upload')) {
-        fs.mkdirSync('upload'); // Crear la carpeta 'upload' si no existe
+// Crear la carpeta 'upload' si no existe
+if (!fs.existsSync('upload')) {
+    try {
+        fs.mkdirSync('upload');
+    } catch (error) {
+        console.error('Error al crear la carpeta upload:', error);
     }
-} catch (err) {
-    console.error('Error al crear la carpeta upload:', err.message);
 }
 
-try {
-    // Crear la carpeta 'data' si no existe
-    if (!fs.existsSync('data')) {
-        fs.mkdirSync('data'); // Crear la carpeta 'data' si no existe
+// Crear la carpeta 'data' y el archivo 'files.json' si no existen
+if (!fs.existsSync('data')) {
+    try {
+        fs.mkdirSync('data');
+    } catch (error) {
+        console.error('Error al crear la carpeta data:', error);
     }
-} catch (err) {
-    console.error('Error al crear la carpeta data:', err.message);
 }
 
-try {
-    const filePath = path.join(__dirname, 'data', 'files.json');
-    // Crear el archivo 'files.json' si no existe
-    if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(filePath, JSON.stringify({ xmlFiles: ["Select template"] }, null, 2)); // Crear el archivo 'files.json' con un valor inicial si no existe
+// Crear el archivo 'files.json' si no existe
+const filePath = path.join(__dirname, 'data', 'files.json');
+if (!fs.existsSync(filePath)) {
+    try {
+        // Crear el archivo 'files.json' con un valor inicial si no existe
+        fs.writeFileSync(filePath, JSON.stringify({ xmlFiles: ["Select template"] }, null, 2));
+    } catch (error) {
+        console.error('Error al crear el archivo files.json:', error);
     }
-} catch (err) {
-    console.error('Error al crear el archivo files.json:', err.message);
 }
-
 
 // Iniciar el servidor
 app.listen(PORT, () => {

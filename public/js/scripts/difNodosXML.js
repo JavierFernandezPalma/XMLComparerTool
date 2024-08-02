@@ -77,7 +77,7 @@ function compareNodes(node1, node2) {
 
     // Comparar los nombres de los nodos
     if (node1.nodeName !== node2.nodeName) {
-        result += `<div class="mismatch">Los nodos ${node1.nodeName} de XML1 y ${node2.nodeName} de XML2 no coinciden</div>`;
+        result += `<div class="mismatch">Los nodos &#60;${node1.nodeName}&#62; de XML1 y &#60;${node2.nodeName}&#62; de XML2 no coinciden</div>`;
         return result; // Salir de la función si los nombres de los nodos no coinciden
     }
 

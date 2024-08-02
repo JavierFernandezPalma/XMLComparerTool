@@ -1,7 +1,15 @@
 {
-    "name": "file-upload",
+    "name": "xml-comparer-tool",
     "version": "1.0.0",
+    "description": "",
     "main": "public/server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JavierFernandezPalma/XMLComparerTool.git"
+    },
     "dependencies": {
         "cors": "^2.8.5",
         "diff": "^5.2.0",

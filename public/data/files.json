@@ -5,7 +5,7 @@
     "RequestRegistrarPagoIFX_WS1via.xml",
     "RequestRegistrarPagoIFX_WS2vias.xml",
     "ResponseConsultaPorNum.xml",
-    "ResponseConsultaPorNumShort.xml",
+    "ResponseConsultaPorNumShortWS2vias.xml",
     "ResponseRegistrarPagoIFX_WS1via.xml",
     "ResponseRegistrarPagoIFX_WS2vias.xml"
   ]

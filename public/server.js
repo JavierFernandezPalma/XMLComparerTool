@@ -20,6 +20,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }); // Crear una instancia de multer con la configuración de almacenamiento
 
+// Ruta para servir index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.get('/api/saludo', (req, res) => {
     res.json({ message: 'Hola desde la API' });
 });

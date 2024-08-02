@@ -213,6 +213,34 @@ app.post('/validate', (req, res) => {
 });
 
 
+try {
+    // Crear la carpeta 'upload' si no existe
+    if (!fs.existsSync('upload')) {
+        fs.mkdirSync('upload'); // Crear la carpeta 'upload' si no existe
+    }
+} catch (err) {
+    console.error('Error al crear la carpeta upload:', err.message);
+}
+
+try {
+    // Crear la carpeta 'data' si no existe
+    if (!fs.existsSync('data')) {
+        fs.mkdirSync('data'); // Crear la carpeta 'data' si no existe
+    }
+} catch (err) {
+    console.error('Error al crear la carpeta data:', err.message);
+}
+
+try {
+    const filePath = path.join(__dirname, 'data', 'files.json');
+    // Crear el archivo 'files.json' si no existe
+    if (!fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, JSON.stringify({ xmlFiles: ["Select template"] }, null, 2)); // Crear el archivo 'files.json' con un valor inicial si no existe
+    }
+} catch (err) {
+    console.error('Error al crear el archivo files.json:', err.message);
+}
+
 
 // Iniciar el servidor
 app.listen(PORT, () => {

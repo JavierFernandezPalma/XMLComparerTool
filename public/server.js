@@ -24,7 +24,30 @@ app.get('/api/saludo', (req, res) => {
     res.json({ message: 'Hola desde la API' });
 });
 
-app.use(cors()); // Habilitar CORS para permitir solicitudes desde otros dominios
+// Lista de dominios permitidos
+const allowedOrigins = [
+    'https://xml-comparer-tool.vercel.app',
+    'https://xml-comparer-tool-prueba.vercel.app'
+];
+
+// Configuración de CORS
+const corsOptions = {
+    origin: (origin, callback) => {
+        // Verifica si el origen de la solicitud está en la lista de dominios permitidos
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            // Permite el origen si está en la lista o si no se proporciona un origen (por ejemplo, solicitudes locales)
+            callback(null, true);
+        } else {
+            // Rechaza el origen si no está en la lista
+            callback(new Error('No autorizado por CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'DELETE'], // Métodos HTTP permitidos
+    allowedHeaders: ['Content-Type'] // Encabezados permitidos en las solicitudes
+};
+
+// Habilitar CORS para permitir solicitudes desde otros dominios
+app.use(cors(corsOptions));
 // Middleware para servir archivos estáticos
 app.use(express.json()); // Middleware para parsear JSON
 app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos desde la carpeta "public"

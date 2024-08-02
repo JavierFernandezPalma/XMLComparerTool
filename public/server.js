@@ -20,15 +20,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }); // Crear una instancia de multer con la configuración de almacenamiento
 
-// Ruta para servir index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.get('/api/saludo', (req, res) => {
-    res.json({ message: 'Hola desde la API' });
-});
-
 // Lista de dominios permitidos
 const allowedOrigins = [
     'https://xml-comparer-tool.vercel.app',
@@ -56,6 +47,15 @@ app.use(cors(corsOptions));
 // Middleware para servir archivos estáticos
 app.use(express.json()); // Middleware para parsear JSON
 app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos desde la carpeta "public"
+
+// Ruta para servir index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/api/saludo', (req, res) => {
+    res.json({ message: 'Hola desde la API' });
+});
 
 // Ruta para la carga de archivos
 app.post('/upload', upload.single('file'), (req, res) => {

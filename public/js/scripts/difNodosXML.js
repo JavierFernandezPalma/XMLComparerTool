@@ -1,4 +1,5 @@
 import { useRegex } from "./useRegex.js";
+import { validaContenido } from "./validaContenido.js";
 // Función principal para comparar los XML
 export function compareNodosXML(xmlString1, xmlString2) {
     // Obtener los valores de los editores CodeMirror
@@ -74,6 +75,7 @@ function displayResult(result) {
 // Función recursiva para comparar nodos XML
 function compareNodes(node1, node2) {
     // Inicializar el resultado para este nivel de nodos
+    // console.log("node1.nodeName: ",node1.nodeName) 
     let result = '';
 
     // Comparar los nombres de los nodos
@@ -142,25 +144,11 @@ function compareNodes(node1, node2) {
     // Si no se han encontrado discrepancias, agregar mensaje de coincidencia
     if (result === '') {
         result += `<div class="match">Los nodos &#60;${node1.nodeName}&#62; coinciden</div>`;
-        let regExpNode1 = useRegex(node1.textContent);
-        if (!regExpNode1.test(node2.textContent)) {
-            if (node1.nodeName !=="Org" && node1.nodeName !=="Name" && node1.nodeName !=="StatusDesc") {
-                node1.nodeName === "Amt"
-                  ? (result += `<div class="info">el contenido del nodo &#60;${node1.nodeName}&#62; debe ser numérico con 2 decimales.</div>`)
-                  : node1.nodeName === "StatusCode"
-                  ? (result += `<div class="info">posibles valores de &#60;${node1.nodeName}&#62; pueden ser: (0, -001, -002, -003, -004, -005, -006, -099).</div>`)
-                  : (result += `<div class="info2">el contenido del nodo &#60;${node1.nodeName}&#62; no coincide con el de referencia.</div>`);
-            }
-        }
-        // console.log("node1.nodeName:",node1.nodeName)
-        // console.log("node1.textContent:",node1.textContent)
-        // console.log("node2.nodeName:",node2.nodeName)
-        // console.log("node2.textContent:",node2.textContent)
-        // console.log("================");
+        result += validaContenido(node1,node2,result);
     }
 
     // Retornar el resultado para este nivel de nodos
-    return result;
+    return  result;
 }
 
 // Función para comparar secciones CDATA

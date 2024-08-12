@@ -83,7 +83,17 @@ h2, h4 {
 #navbarCollapse.dropup .dropdown-menu {
     top: auto;
     bottom: 100%;
-    margin-bottom: 1rem; /* Ajusta este valor según sea necesario */
+    margin-bottom: 1rem; /* Ajustar este valor según sea necesario */
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
 }
 
 

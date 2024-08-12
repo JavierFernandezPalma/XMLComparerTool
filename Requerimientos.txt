@@ -1,5 +1,11 @@
 Instalar Node.js v18.13.0 o superior.
 
+//--------------Verificar PATH proyecto
+    which node
+Actualizar PATH proyecto
+    export PATH=$PATH:/path/to/node/bin
+    export PATH=$PATH:"/c/Program Files/nodejs"
+
 Crear proyecto y posicionado en la raíz inicializar proyecto Node.js:
     npm init -y
 
@@ -35,6 +41,16 @@ Elimina los archivos del índice de Git sin borrarlos del sistema de archivos
     git rm -r --cached .
 Añade los archivos nuevamente al índice de Git
     git add .
+
+//----------------Agregar paseo
+Instalar Shepherd.js: librería para crear tours interactivos con popups en páginas web.
+    npm install parcel@latest
+
+//------------------Script de Node.js con concurrently
+Ejecutar múltiples comandos en paralelo
+    npm install concurrently --save-dev
+        Ejm: "start": "concurrently \"npm run start:server\" \"npm run start:parcel\""
+
 
 
 

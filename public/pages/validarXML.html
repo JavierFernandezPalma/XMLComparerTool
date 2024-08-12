@@ -11,6 +11,8 @@
     <!-- Enlace a CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <!-- Incluir el CSS de Shepherd.js para tour en la APP -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css" />
     <!-- Enlaces a jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -36,34 +38,40 @@
         <!-- Card para ingresar datos XML a validar -->
         <div class="card mb-4">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="card-title mb-0">Validador XML (XSD)</h4>
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                    <h4 class="card-title mb-2 mb-md-0">Validador XML (XSD)</h4>
+                    <!-- Contenedor para el botón de tour -->
                     <div class="d-flex align-items-center">
-                        <!-- Switch para activar/desactivar el scroll vertical -->
-                        <div class="form-check form-switch me-3">
-                            <input class="form-check-input" type="checkbox" id="scrollSwitch"
-                                title="Activar Scroll Vertical">
-                            <label class="form-check-label d-none d-md-flex" for="scrollSwitch">Activar Scroll
-                                Vertical</label>
-                        </div>
-                        <!-- Campo de texto para el tamaño del scroll -->
-                        <div>
-                            <input type="number" class="form-control" id="scrollSizeInput" list="presetScrollSizes"
-                                min="1" pattern="\d*" disabled title="Ingrese el tamaño del scroll en píxeles">
-                            <datalist id="presetScrollSizes">
-                                <option value="100">
-                                <option value="200">
-                                <option value="300">
-                                <option value="400">
-                                <option value="500">
-                                <option value="1000">
-                            </datalist>
-                        </div>
+                        <!-- Botón para iniciar el paseo -->
+                        <button onclick="startTourValidateXML()" class="btn btn-primary btn-circle"
+                            type="button">?</button>
+                    </div>
+                </div>
+                <div id="switchScroll" class="d-flex justify-content-end flex-wrap mb-3">
+                    <!-- Switch para activar/desactivar el scroll vertical -->
+                    <div class="form-check form-switch me-3 mb-2 mb-md-0">
+                        <input class="form-check-input" type="checkbox" id="scrollSwitch"
+                            title="Activar Scroll Vertical">
+                        <label class="form-check-label d-none d-md-flex" for="scrollSwitch">Activar Scroll
+                            Vertical</label>
+                    </div>
+                    <!-- Campo de texto para el tamaño del scroll -->
+                    <div class="mb-2 mb-md-0">
+                        <input type="number" class="form-control" id="scrollSizeInput" list="presetScrollSizes" min="1"
+                            pattern="\d*" disabled title="Ingrese el tamaño del scroll en píxeles">
+                        <datalist id="presetScrollSizes">
+                            <option value="100">
+                            <option value="200">
+                            <option value="300">
+                            <option value="400">
+                            <option value="500">
+                            <option value="1000">
+                        </datalist>
                     </div>
                 </div>
 
                 <!-- Textarea Datos XML para validar -->
-                <div class="mb-3">
+                <div id="xmlValitate" class="mb-3">
                     <label for="xmlInput1" class="form-label">Datos XML para validar</label>
                     <textarea class="form-control" id="xmlInput1" rows="10"></textarea>
                     <div class="d-flex justify-content-end mt-2">
@@ -72,7 +80,7 @@
                     </div>
                 </div>
                 <!-- Textarea para Datos del esquema XML (XSD) -->
-                <div class="mb-3">
+                <div id="schemaValidate" class="mb-3">
                     <label for="xmlInput2" class="form-label">Datos del esquema XML (XSD)</label>
                     <textarea class="form-control" id="xmlInput2" rows="10"></textarea>
                     <div class="d-flex justify-content-end mt-2">
@@ -89,7 +97,7 @@
         </div>
 
         <!-- Card para mostrar el resultado de la validación -->
-        <div class="card">
+        <div id="cardResultComparer" class="card">
             <div class="card-body">
                 <h4 class="card-title">Resultado de la validación</h4>
                 <!-- Resultado de la comparación -->
@@ -138,6 +146,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
     <!-- Incluir js-beautify para formatear XML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
+    <!-- Incluir el JavaScript de Shepherd.js para tour en la APP -->
+    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.0.0/dist/js/shepherd.min.js"></script>
 
     <!-- Incluir el script JavaScript personalizado -->
     <script type="module" src="../js/mainValidarXML.js"></script>

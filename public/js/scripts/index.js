@@ -1,9 +1,10 @@
 import { showAlert } from '../utils.js';
 import { fetchXmlFiles } from './readFiles.js'; // Importar la función desde readFiles.js
-import { compareDifXML, clearComparisonResult } from './difXML.js'; // Importar funciones desde diffXML.js
+import { compareDifXML } from './difXML.js'; // Importar funciones desde diffXML.js
 import { handleFileSelect } from './uploadFile.js'; // Importar la función desde uploadFile.js
 import { handleDeleteFile } from './deleteFile.js'; // Importar la función desde deleteFile.js
 import { compareNodosXML } from './difNodosXML.js'; // Importar la función desde uploadFile.js
+import { clearComparisonResult } from './config.js';
 
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
@@ -44,9 +45,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const messageContainer = document.getElementById('messageContainer');
 
         if (radio1Checked) {
+            clearComparisonResult(); // Limpiar resultado de comparación
             compareDifXML(xmlString1, xmlString2); // Llamar a la función para comparar fiferencias XML
             messageContainer.innerHTML = '<p>Se seleccionó Diferencias XML.</p>';
         } else if (radio2Checked) {
+            clearComparisonResult(); // Limpiar resultado de comparación
             compareNodosXML(xmlString1, xmlString2); // Llamar a la función para comparar fiferencias nodos XML
             messageContainer.innerHTML = '<p>Se seleccionó Diferencias nodos XML.</p>';
         } else {

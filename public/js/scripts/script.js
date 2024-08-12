@@ -1,7 +1,6 @@
 import { showAlert } from '../utils.js';
 import { fetchXmlFiles } from './readFiles.js'; // Importar la función desde readFiles.js
-import { compareDifXML, clearComparisonResult } from './difXML.js'; // Importar funciones desde diffXML.js
-import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange } from './config.js';
+import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml } from './config.js';
 
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {

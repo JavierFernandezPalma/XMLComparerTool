@@ -1,3 +1,5 @@
+import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml } from './config.js';
+
 // Función principal para comparar los XML
 export function compareNodosXML(xmlString1, xmlString2) {
     // Obtener los valores de los editores CodeMirror
@@ -55,19 +57,12 @@ function getPartialContentUntilError(xmlString, errorMessage) {
     return xmlString;
 }
 
-// Función para escapar caracteres HTML
-function escapeHtml(unsafe) {
-    return unsafe
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
 // Función para mostrar el resultado en el DOM
 function displayResult(result) {
-    document.getElementById('comparisonResult').innerHTML = result;
+    const comparisonResultElement = document.getElementById('comparisonResult');
+    comparisonResultElement.innerHTML = result; // Convertir result a HTML para mostrar diferencias
+    comparisonResultElement.style.color = 'black';
+    comparisonResultElement.style.fontSize = '100%';
 }
 
 // Función recursiva para comparar nodos XML

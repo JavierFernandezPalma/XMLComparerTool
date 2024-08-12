@@ -11,6 +11,38 @@ Este proyecto es una aplicación web que permite comparar estructuras XML de man
 
 ## Estructura del Proyecto
 
+<details>
+  <summary>Estructura del Proyecto</summary>
+
+  ```text
+  xml-comparer-tool/
+  ├── .vscode/ (esta carpeta será ignorada)
+  ├── node_modules/ (esta carpeta será ignorada)
+  ├── public/
+  │   ├── css/
+  │   ├── data/
+  │   │   └── files.json
+  │   ├── images/
+  │   ├── js/
+  │   │   └── scripts/
+  │   ├── pages/
+  │   │   └── validarXML.html
+  │   ├── upload/
+  │   ├── server.js
+  │   └── index.html
+  ├── src/
+  │   ├── controllers/
+  │   ├── models/
+  │   ├── routes/
+  ├── .gitignore
+  ├── package-lock.json (esta carpeta será ignorada)
+  ├── package.json
+  ├── README.md
+  └── vercel.json
+  ```
+</details>
+
+
 ### Archivos y Directorios Principales
 
 - **index.html**: Archivo principal que contiene la estructura HTML de la aplicación.

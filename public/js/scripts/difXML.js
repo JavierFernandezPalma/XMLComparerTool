@@ -1,4 +1,5 @@
 // difXML.js
+import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml } from './config.js';
 
 // Función para comparar XML y mostrar el resultado en el elemento de resultado
 export function compareDifXML(xmlString1, xmlString2) {
@@ -19,29 +20,11 @@ export function compareDifXML(xmlString1, xmlString2) {
 
 // Función para convertir diff (resultado de la comparación) en formato HTML
 function diff2html(diff) {
-    let html = '===================================================================<br><div>--- Base</div><div>+++ Compare</div><br>';
+    let html = '==================================================================<br><div class="removed">--- Base</div><div class="added">+++ Compare</div><br>';
     diff.forEach(part => {
         const className = part.added ? 'added' : part.removed ? 'removed' : '';
         const prefix = part.added ? '+' : part.removed ? '-' : '   ';
         html += `<span class="${className}">${prefix} ${escapeHtml(part.value)}</span>`;
     });
     return html;
-}
-
-// Función para escapar caracteres HTML
-function escapeHtml(text) {
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-// Función para limpiar el resultado de la comparación
-export function clearComparisonResult() {
-    const comparisonResultElement = document.getElementById('comparisonResult');
-    comparisonResultElement.innerHTML = ''; // Limpiar contenido HTML del resultado
-    comparisonResultElement.style.backgroundColor = '';
-    comparisonResultElement.style.color = '';
 }

@@ -52,5 +52,23 @@ function handleScrollSizeInputChange(scrollSwitch, scrollSizeInput, xmlInput1, x
     });
 }
 
+// Función para limpiar el resultado de la comparación
+function clearComparisonResult() {
+    const comparisonResultElement = document.getElementById('comparisonResult');
+    comparisonResultElement.innerHTML = ''; // Limpiar contenido HTML del resultado
+    comparisonResultElement.style.backgroundColor = '';
+    comparisonResultElement.style.color = '';
+}
+
+// Función para escapar caracteres HTML
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 // Exportar las funciones necesarias
-export { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange };
+export { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml };

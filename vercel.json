@@ -19,7 +19,7 @@
         },
         {
             "src": "public/*.html",
-            "dest": "@vercel/static"
+            "use": "@vercel/static"
         }
     ],
     "routes": [

@@ -4,6 +4,7 @@ import { handleDeleteFile } from './deleteFile.js'; // Importar la función desd
 import { handleFileSelect } from './uploadFile.js'; // Importar la función desde uploadFile.js
 import { compareNodosXML } from './difNodosXML.js'; // Importar la función desde uploadFile.js
 import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange } from './config.js';
+import { indexDeleteXML, indexUploadXML} from './indexDinamico.js';
 
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
@@ -84,5 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Guardar en el global scope para que sea accesible en otros scripts
     window.editor1 = xmlInput1;
     window.editor2 = xmlInput2;
+
+    // contenido de index.html dinámico
+    indexDeleteXML();
+    indexUploadXML();
 
 });

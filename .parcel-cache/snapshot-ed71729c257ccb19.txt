@@ -1,4 +1,4 @@
-19988
+19990
 127C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\upload\ResponseConsultaPorNum_WS2vias.xml133668646428508056 0
 133C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\src\internal\operators\windowWhen.ts133676479068704181 0
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\dicer\test\fixtures\many-noend\part3.header133676451244560245 0
@@ -13,13 +13,6 @@
 138C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\types\internal\util\applyMixins.d.ts133676478771726360 0
 119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\caniuse-lite\data\agents.js133676451170413010 0
 91C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\package.json133677942949186505 0
-124C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hu\index.js.flow133676478688348381 0
-145C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\fp\lastDayOfWeekWithOptions\package.json133676480489101862 0
-125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\ca\index.d.ts133676481196107016 0
-98C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\semver133676451385794421 1
-89C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\src\routes133637202564130535 1
-83C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\data133676453400696593 1
-126C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\utility-types\dist\mapped-types.js133676451080395637 0
 104C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\svgo\LICENSE133676450948607493 0
 139C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\th\_lib\formatRelative\index.js133676480108632037 0
 92C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\upload133671187094193850 1
@@ -74,7 +67,7 @@
 144C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\operators\combineLatestAll.js133676477909414389 0
 119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\svgo\plugins\_transforms.js133676451368809457 0
 115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lodash\fp\forInRight.js133676478150489064 0
-83C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist133678999922038377 1
+83C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist133679025544759486 1
 132C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\fp\startOfWeekYear\index.js133676479069060417 0
 125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\compareDesc\index.js133676478846862729 0
 117C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\max\package.json133676480908510092 0
@@ -114,7 +107,7 @@
 133C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\operators\scan.js133676478193123158 0
 98C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\mkdirp133676451075304676 1
 151C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\observable\ConnectableObservable.js133676477940625800 0
-95C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\server.js133678124457304786 0
+95C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\server.js133679028223574623 0
 109C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\csso\lib\utils.js133676451458511454 0
 110C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lodash\fp\plant.js133676478240811639 0
 133C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\svgo\plugins\addAttributesToSVGElement.js133676451373375167 0
@@ -163,19 +156,6 @@
 133C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\startOfISOWeekYear\index.js.flow133676478740255935 0
 124C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\formatDistanceToNow133676481006753854 1
 82C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\src133640013312679164 1
-143C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\scheduler\AsyncAction.js.map133676478323632940 0
-134C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\hoursToMilliseconds\index.js.flow133676478618897659 0
-141C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\mtest5.c133676451435503459 0
-90C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\data133668656755673277 1
-134C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\src\internal\testing\HotObservable.ts133676478843643140 0
-137C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\operators\retry.js.map133676478643036013 0
-100C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\ee-first133676451005768754 1
-136C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\util\arrRemove.js.map133676478309980263 0
-85C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\upload133676453400686580 1
-126C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\htmlnano\lib\modules\minifySvg.cjs133676451249851894 0
-119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lmdb\src\ordered-binary.cpp133676451458481096 0
-142C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\operators\elementAt.js.map133676478438181347 0
-119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\eo\index.js133676479812615290 0
 139C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\dicer\test\fixtures\nested-full\preamble.header133676451387952602 0
 111C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\nan\doc\callback.md133676451334016806 0
 113C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lodash\fp\overArgs.js133676478232027210 0
@@ -212,6 +192,11 @@
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\fp\intervalToDuration\index.js133676478948882636 0
 117C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\semver\ranges\simplify.js133676451375488328 0
 136C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\differenceInMonths\index.js.flow133676478454214944 0
+124C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hu\index.js.flow133676478688348381 0
+145C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\fp\lastDayOfWeekWithOptions\package.json133676480489101862 0
+125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\ca\index.d.ts133676481196107016 0
+98C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\semver133676451385794421 1
+89C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\src\routes133637202564130535 1
 104C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@floating-ui133676450753450155 1
 119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\setDay\index.js133676479548478367 0
 137C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\operators\skipWhile.js133676478214630890 0
@@ -226,7 +211,7 @@
 115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lodash\wrapperLodash.js133676478362436358 0
 105C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\.bin\svgo.ps1133676452080541591 0
 103C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\utils-merge133676451046895043 1
-106C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\js\mainValidarXML.js133668646427799623 0
+106C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\js\mainValidarXML.js133679006496526279 0
 132C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\hoursToMinutes\package.json133676480551390091 0
 176C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\optimizer-htmlnano\node_modules\css-select\lib\pseudo-selectors\pseudos.d.ts133676451353688922 0
 129C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\transformer-html\package.json133676451135536162 0
@@ -260,6 +245,10 @@
 89C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\css133668646427372461 1
 129C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\subQuarters\index.js.flow133676478597003491 0
 140C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\operators\throwIfEmpty.js133676478233837892 0
+143C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\scheduler\AsyncAction.js.map133676478323632940 0
+134C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\hoursToMilliseconds\index.js.flow133676478618897659 0
+141C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\mtest5.c133676451435503459 0
+90C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\data133668656755673277 1
 113C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\posthtml\package.json133676451021442860 0
 109C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\y18n\CHANGELOG.md133676477738108465 0
 125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\previousTuesday\index.js133676480277468799 0
@@ -467,7 +456,7 @@
 107C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\xtend\.jshintrc133676450966749741 0
 102C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\pages\page1.html133647599513263412 0
 134C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\operators\sample.js133676478191769348 0
-107C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\pages\validarXML.html133678995820180081 0
+107C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\pages\validarXML.html133679013816601884 0
 143C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\fp\millisecondsToSeconds\index.js.flow133676478170158684 0
 119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\merge-descriptors\README.md133676450967683741 0
 101C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\is-number133676450999209004 1
@@ -475,7 +464,7 @@
 143C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\types\internal\operators\switchMapTo.d.ts133676479026680145 0
 104C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\deepmerge-ts133676451128166959 1
 157C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\csso\node_modules\css-tree\lib\syntax\node\PseudoClassSelector.js133676451704614207 0
-101C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\js\mainIndex.js133678999014291715 0
+101C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\js\mainIndex.js133679001748468528 0
 139C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\gl\_lib\formatDistance\index.js133676479877178136 0
 161C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\optimizer-htmlnano\node_modules\css-tree\lib\syntax\create.js133676451313355472 0
 105C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\tr46\index.js133676450981887442 0
@@ -492,8 +481,10 @@
 122C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\fp\getDaysInMonth133676481095601346 1
 141C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\types\internal\operators\retry.d.ts.map133676478642598824 0
 122C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\src\internal\util\pipe.ts133676478904583110 0
-115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\js\scripts\comparerXMLTour.js133678999073129273 0
+115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\js\scripts\comparerXMLTour.js133679014538728121 0
 142C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\csso\node_modules\css-tree\cjs\generator\index.cjs133676451404239977 0
+115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\km\_lib133676479958074006 1
+98C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@lezer133676450749176344 1
 102C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\nullthrows133676451096055578 1
 118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\side-channel\tsconfig.json133676451129828473 0
 106C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\once\README.md133676450964630072 0
@@ -578,7 +569,7 @@
 137C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\operators\startWith.js133676478215183761 0
 112C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lodash\_arrayPush.js133676477749634497 0
 118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\set-function-length\env.js133676451010083306 0
-115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\js\scripts\validateXMLTour.js133678998148552935 0
+115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\public\js\scripts\validateXMLTour.js133679015093479912 0
 125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\cs\index.d.ts133676481196341843 0
 138C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\csso\node_modules\css-tree\lib\syntax\function133676451724355245 1
 124C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\_lib\toInteger\index.js133676478802383175 0
@@ -604,6 +595,7 @@
 133C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\lt\_lib\localize\index.js133676479970301270 0
 120C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\getDay\index.js133676479079033249 0
 116C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\fp\index.js133676478948627282 0
+101C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.4e3ff09d.js133679025543086172 0
 137C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\caniuse-lite\data\features\permissions-api.js133676451826259538 0
 139C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\ms\_lib\formatRelative\index.js133676479993910309 0
 113C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\side-channel\index.js133676451066250902 0
@@ -617,8 +609,6 @@
 124C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\bs\index.js.flow133676478665330081 0
 155C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\optimizer-htmlnano\node_modules\css-select\lib\index.js133676451130746883 0
 98C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@babel133676477663427707 1
-115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\km\_lib133676479958074006 1
-98C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@lezer133676450749176344 1
 122C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\src\internal\ajax\ajax.ts133676478765903903 0
 139C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\observable\timer.js.map133676478716506463 0
 119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lodash\_assignMergeValue.js133676477769611227 0
@@ -1166,6 +1156,9 @@
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\endOfWeekWithOptions\index.d.ts133676481273754016 0
 128C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\hoursToMinutes\index.js133676479083953108 0
 105C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\dotenv-expand133676451090043767 1
+134C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\src\internal\testing\HotObservable.ts133676478843643140 0
+137C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\operators\retry.js.map133676478643036013 0
+100C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\ee-first133676451005768754 1
 101C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\encodeurl133676451061942420 1
 121C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\nextDay\index.js133676479410413761 0
 134C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\te\_lib\formatRelative133676479356844115 1
@@ -2259,6 +2252,11 @@
 110C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\tslib\package.json133676451122810927 0
 114C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\logger\LICENSE133676450949586254 0
 113C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\yargs\locales\ja.json133676477796610974 0
+130C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\util\isDate.js133676478097120400 0
+141C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\operators\mergeScan.js.map133676478550439348 0
+125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\getWeek\index.js.flow133676478506822664 0
+129C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\differenceInMilliseconds133676480987746675 1
+126C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\diff\lib\util\distance-iterator.js133676451343492347 0
 170C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\optimizer-htmlnano\node_modules\css-tree\lib\syntax\node\StyleSheet.js133676451546489637 0
 114C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\streamsearch\README.md133676450966643350 0
 114C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\whatwg-url\LICENSE.txt133676450982046854 0
@@ -2295,13 +2293,13 @@
 113C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\yargs\locales\uz.json133676477827249000 0
 116C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\to-regex-range\README.md133676451019319017 0
 127C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\monthsToYears\index.js133676479409720362 0
-125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\ta\_lib\match133676479353892842 1
-118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\yargs\build\lib\command.js133676477742952965 0
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\operators\connect.js133676477933331977 0
 155C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@babel\runtime\helpers\classStaticPrivateFieldDestructureSet.js133676477797399944 0
 136C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\web-streams-polyfill\dist\ponyfill.es2018.js133676451292533590 0
 125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\css-tree\cjs\generator\create.cjs133676451285575460 0
 123C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\update-browserslist-db\index.js133676451013381207 0
+125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\ta\_lib\match133676479353892842 1
+118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\yargs\build\lib\command.js133676477742952965 0
 116C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\yargs\locales\zh_CN.json133676477832112265 0
 126C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\css-what\lib\es\stringify.d.ts.map133676451196222589 0
 144C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\operators\combineLatestAll.js133676477908468522 0
@@ -2712,6 +2710,15 @@
 146C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\types\internal\operators\combineAll.d.ts.map133676478361998393 0
 134C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\web-streams-polyfill\dist\polyfill.es6.mjs133676451612263838 0
 116C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\path-is-absolute\license133676450982565377 0
+133C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\en-AU\_lib\formatLong133676479182056851 1
+119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\de\_lib133676479178074898 1
+118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\node-addon-api\common.gypi133676451001801698 0
+131C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\set-function-length\.github\FUNDING.yml133676451159051930 0
+130C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\pt\_lib\formatLong133676479318753187 1
+140C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\operators\mergeMap.js.map133676478548568986 0
+146C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\differenceInQuartersWithOptions\index.d.ts133676481264362966 0
+127C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\ro\package.json133676480625654976 0
+112C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\shell-quote\quote.js133676477751647957 0
 137C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\fp\parseWithOptions\package.json133676480508399086 0
 151C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lmdb\dependencies\lmdb-data-v1\libraries\liblmdb\mdb_load.c133676451379147545 0
 108C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lodash\fp\ary.js133676478069611446 0
@@ -2927,6 +2934,7 @@
 136C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\operators\takeLast.js133676478228174628 0
 114C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\libxmljs2\src\xml_pi.h133676451704078082 0
 128C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\utility-types\dist\mapped-types.d.ts133676451240411281 0
+126C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\utility-types\dist\mapped-types.js133676451080395637 0
 124C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\it\_lib\localize133676479932892067 1
 125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\libxmljs2\vendor\libxml\xmlsave.c133676451537542383 0
 130C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\utility-types\dist\mapped-types.js.map133676451151759617 0
@@ -3927,15 +3935,6 @@
 127C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\fp\subSeconds\index.js133676479076379204 0
 143C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\types\internal\observable\throwError.d.ts133676479046826160 0
 112C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\shell-quote\parse.js133676477746708662 0
-133C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\en-AU\_lib\formatLong133676479182056851 1
-119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\de\_lib133676479178074898 1
-118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\node-addon-api\common.gypi133676451001801698 0
-131C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\set-function-length\.github\FUNDING.yml133676451159051930 0
-130C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\pt\_lib\formatLong133676479318753187 1
-140C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\operators\mergeMap.js.map133676478548568986 0
-146C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\differenceInQuartersWithOptions\index.d.ts133676481264362966 0
-127C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\ro\package.json133676480625654976 0
-112C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\shell-quote\quote.js133676477751647957 0
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\dicer\test\fixtures\many-noend\part7.header133676451303122386 0
 137C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\types\internal\symbol\iterator.d.ts133676478862706854 0
 144C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@babel\runtime\helpers\classPrivateFieldLooseBase.js133676477788562096 0
@@ -4241,8 +4240,8 @@
 119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\webSocket\package.json133676478268768245 0
 117C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\testing\package.json133676478268247658 0
 127C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\isThisISOWeek\index.js133676479092528798 0
-109C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\minimist\index.js133676451138969024 0
 139C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\scheduler\QueueAction.js133676478166678234 0
+109C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\minimist\index.js133676451138969024 0
 137C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\scheduled\scheduled.js133676478198760015 0
 128C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\secondsToHours\package.json133676480919573047 0
 143C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\util\executeSchedule.js.map133676478448061497 0
@@ -5823,11 +5822,6 @@
 125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\eo\index.d.ts133676481199910458 0
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\util\isArrayLike.js133676478095853912 0
 143C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\util\isAsyncIterable.js.map133676478505592326 0
-130C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\util\isDate.js133676478097120400 0
-141C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\operators\mergeScan.js.map133676478550439348 0
-125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\getWeek\index.js.flow133676478506822664 0
-129C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\differenceInMilliseconds133676480987746675 1
-126C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\diff\lib\util\distance-iterator.js133676451343492347 0
 134C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\util\isDate.js.map133676478506741148 0
 128C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\addBusinessDays\index.js133676479452858702 0
 119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\ug\index.js133676480138806895 0
@@ -6159,6 +6153,11 @@
 125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\previousDay\package.json133676480915370426 0
 110C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lmdb\src\windows.c133676451439226743 0
 138C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\operators\elementAt.js133676478005211529 0
+136C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\util\arrRemove.js.map133676478309980263 0
+126C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\htmlnano\lib\modules\minifySvg.cjs133676451249851894 0
+119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\lmdb\src\ordered-binary.cpp133676451458481096 0
+142C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\operators\elementAt.js.map133676478438181347 0
+119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\eo\index.js133676479812615290 0
 136C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\operators\endWith.js133676478016863946 0
 115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\lastDayOfMonth133676481364403123 1
 115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\fill-range\package.json133676450983149099 0
@@ -6499,6 +6498,8 @@
 131C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\csso\node_modules\mdn-data\package.json133676451187779489 0
 142C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm\internal\util\UnsubscriptionError.js133676478253579816 0
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\observable\merge.js133676478126609692 0
+108C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\minimist\example133676451176352557 1
+115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\ipaddr.js\ipaddr.min.js133676450964477615 0
 139C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\esm5\internal\observable\merge.js.map133676478539065445 0
 142C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\rxjs\dist\cjs\internal\operators\mergeInternals.js133676478127782222 0
 118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\node-domexception\.history133676451360859663 1
@@ -8453,8 +8454,6 @@
 130C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\minizlib\node_modules\minipass\LICENSE133676450950781554 0
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\minizlib\node_modules\minipass\package.json133676450994645723 0
 110C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\minipass\index.mjs133676451100086174 0
-108C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\minimist\example133676451176352557 1
-115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\ipaddr.js\ipaddr.min.js133676450964477615 0
 108C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\minimist\LICENSE133676450984633616 0
 126C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@swc\helpers\src\_create_super.mjs133676451758157065 0
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\formatDistanceToNow\index.d.ts133676481006803046 0
@@ -10957,6 +10956,7 @@
 123C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\caniuse-lite\data\regions\BZ.js133676451450868016 0
 115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\es-errors\test\index.js133676451077792666 0
 120C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\es-define-property\.eslintrc133676450947992037 0
+139C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hr\_lib\formatDistance\index.js133676479900924987 0
 118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\es-define-property\.github133676451151897610 1
 136C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\eachWeekendOfInterval\index.js.flow133676477826506366 0
 117C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\es-define-property\.nycrc133676450964013134 0
@@ -12339,7 +12339,6 @@
 123C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hr\package.json133676480889494133 0
 115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hr\_lib133676479904085377 1
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hr\_lib\formatLong\index.js133676479901204247 0
-139C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hr\_lib\formatDistance\index.js133676479900924987 0
 121C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hi\index.d.ts133676481380639689 0
 119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hi\index.js133676479900612488 0
 115C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\locale\hi\_lib133676479900162815 1
@@ -13021,7 +13020,7 @@
 122C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\isMatch\index.js.flow133676478641938162 0
 135C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\differenceInWeeks\index.js.flow133676478455481351 0
 125C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\isLeapYear\index.js.flow133676478641667769 0
-89C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\pages133678999921668380 1
+89C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\pages133679025544792841 1
 141C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\csso\node_modules\css-tree\lib\convertor\index.js133676451680548002 0
 118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\isFuture\index.js133676479586116823 0
 120C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\isFriday\index.d.ts133676481352773328 0
@@ -13251,7 +13250,7 @@
 111C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\getWeek133676481285139271 1
 118C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\getWeekOfMonth133676481285702936 1
 114C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\kk133676481210419357 1
-105C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\pages\validarXML.html133678999921588359 0
+105C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\pages\validarXML.html133679025543086172 0
 129C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\getWeekOfMonthWithOptions133676481285980280 1
 137C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\esm\locale\ms\_lib\localize\index.js133676479276968777 0
 119C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\date-fns\fp\getWeeksInMonth133676481286322851 1
@@ -19318,6 +19317,7 @@
 164C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\plugins\removeEmptyAttrs.js133676451388874922 0
 163C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\plugins\removeEmptyText.js133676451392187532 0
 162C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\plugins\removeMetadata.js133676451398233478 0
+116C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\pages\validarXML.e85a43e1.js.map133679025544585622 0
 131C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@babel\runtime\helpers\applyDecs2301.js133676477743632498 0
 168C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\plugins\removeOffCanvasPaths.js133676451402156571 0
 166C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\plugins\removeRasterImages.js133676451403158427 0
@@ -19981,9 +19981,11 @@
 101C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.0bae739c.js133678121127814305 0
 105C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.19e9c513.js.map133677944777580813 0
 106C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.4273c7c4.css.map133678121128064298 0
+105C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.4e3ff09d.js.map133679025544575649 0
 102C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.720f48ac.css133677944776484292 0
 105C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.7be4191d.js.map133678999921988364 0
 106C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.bed62e3b.css.map133678111892023897 0
-94C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.html133678999921588359 0
+94C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\index.html133679025543046176 0
 112C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\pages\validarXML.5bc6b31f.js133678111891650140 0
 116C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\pages\validarXML.5bc6b31f.js.map133678111892033898 0
+112C:\Users\jafernandez\Documentos_dos\Bancolombia\WS_Bancolombia\XMLComparerTool\dist\pages\validarXML.e85a43e1.js133679025543056141 0

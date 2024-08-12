@@ -247,18 +247,18 @@ app.post('/validate', (req, res) => {
 });
 
 // Crear la carpeta 'upload' si no existe
-if (!fs.existsSync('upload')) {
+if (!fs.existsSync('public/upload')) {
     try {
-        fs.mkdirSync('upload');
+        fs.mkdirSync('public/upload');
     } catch (error) {
         console.error('Error al crear la carpeta upload:', error);
     }
 }
 
 // Crear la carpeta 'data' y el archivo 'files.json' si no existen
-if (!fs.existsSync('data')) {
+if (!fs.existsSync('public/data')) {
     try {
-        fs.mkdirSync('data');
+        fs.mkdirSync('public/data');
     } catch (error) {
         console.error('Error al crear la carpeta data:', error);
     }

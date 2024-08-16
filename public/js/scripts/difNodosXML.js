@@ -1,4 +1,6 @@
 import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml } from './config.js';
+import { useRegex } from "./useRegex.js";
+import { validaContenido } from "./validaContenido.js";
 
 // Función principal para comparar los XML
 export function compareNodosXML(xmlString1, xmlString2) {
@@ -108,7 +110,7 @@ function compareNodes(node1, node2) {
     const children2 = Array.from(node2.children);
 
     if (children1.length !== children2.length) {
-        result += `<div class="mismatch">La cantidad de hijos de &#60;${node1.nodeName}&#62; en XML1 y &#60;${node2.nodeName}&#62; en XML2 no coincide</div>`;
+        result += `<div class="mismatch">La cantidad de hijos del nodo &#60;${node1.nodeName}&#62; del XML Base no coinciden con los hijos del nodo XML a Comparar.</div>`;
     }
 
     // Verificar los nombres de los hijos en ambos conjuntos
@@ -116,7 +118,7 @@ function compareNodes(node1, node2) {
     const childNames2 = children2.map(child => child.nodeName);
 
     if (!arraysEqual(childNames1, childNames2)) {
-        result += `<div class="mismatch">Los nombres de los nodos hijos de &#60;${node1.nodeName}&#62; en XML1 y &#60;${node2.nodeName}&#62; en XML2 no coinciden</div>`;
+        result += `<div class="mismatch">Los nombres de los nodos hijos de &#60;${node1.nodeName}&#62; en XML Base y &#60;${node2.nodeName}&#62; en XML a Comparar no coinciden.</div>`;
     }
 
     // Recorrer cada hijo de node1 y buscar un equivalente en node2
@@ -126,7 +128,7 @@ function compareNodes(node1, node2) {
 
         // Si no se encuentra el equivalente del hijo en node2, agregar mensaje de desacuerdo
         if (!child2) {
-            result += `<div class="mismatch">No se encontró el nodo hijo &#60;${child1.nodeName}&#62; de XML1 en el nodo &#60;${node2.nodeName}&#62; de XML2</div>`;
+            result += `<div class="mismatch">No se encontró el nodo hijo &#60;${child1.nodeName}&#62; de XML Base en el nodo &#60;${node2.nodeName}&#62; del XML a comparar.</div>`;
         } else {
             // Comparar recursivamente los hijos
             result += compareNodes(child1, child2);
@@ -136,6 +138,7 @@ function compareNodes(node1, node2) {
     // Si no se han encontrado discrepancias, agregar mensaje de coincidencia
     if (result === '') {
         result += `<div class="match">Los nodos &#60;${node1.nodeName}&#62; coinciden</div>`;
+        result += validaContenido(node1, node2, result);
     }
 
     // Retornar el resultado para este nivel de nodos

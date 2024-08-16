@@ -86,15 +86,22 @@
                 </div>
                 <!-- Accordion para secciones de eliminar y subir archivos XML -->
                 <div class="accordion accordion-flush mt-4" id="accordionFlushExample">
-                    <!-- Sección de eliminar archivos XML -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingOne">
+                        
+                        <!-- Sección de eliminar archivos XML -->
+                         <div id="containerborrarplant">
+                        <!-- contenido a insertar de templateborrarplant -->
+                         </div>
+                        <template id="templateborrarplant">
+                            <h2 class="accordion-header" id="flush-headingOne">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#flush-collapseOne" aria-expanded="false"
                                 aria-controls="flush-collapseOne">
                                 Eliminar Archivos XML
                             </button>
                         </h2>
+                        </template>
+
                         <div id="flush-collapseOne" class="accordion-collapse collapse"
                             aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
@@ -105,25 +112,31 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Sección de subir archivos XML -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                aria-controls="flush-collapseTwo">
-                                Subir Archivos (plantillas) XML
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <form id="uploadForm" enctype="multipart/form-data" class="d-flex">
-                                    <input type="file" class="form-control me-2" id="fileInput" name="file"
-                                        accept=".xml" required>
-                                    <button type="submit" class="btn btn-primary">Subir</button>
-                                </form>
-                            </div>
+                        <!-- Sección de subir archivos XML -->
+                        <div id="containersubirplant">
+                            <!-- contenido a insertar de templateborrarplant -->
                         </div>
+                        <template id="templatesubirplant">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                    Subir Archivos (plantillas) XML
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <form id="uploadForm" enctype="multipart/form-data" class="d-flex">
+                                        <input type="file" class="form-control me-2" id="fileInput" name="file"
+                                            accept=".xml" required>
+                                        <button type="submit" class="btn btn-primary">Subir</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </template>
+
                     </div>
                 </div>
                 <!-- Fin del Accordion -->
@@ -230,10 +243,13 @@
 
     <!-- Incluir la biblioteca jsdiff para comparar diferencias -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js"></script>
+    <!-- <script src="/public/js/scripts/libraries/diff.min.js"></script> -->
     <!-- Incluir CodeMirror para la edición de XML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <!-- <script src="/public/js/scripts/libraries/codemirror.min.js"></script> -->
     <!-- Incluir modo XML para CodeMirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
+    <!-- <script src="/public/js/scripts/libraries/xml.min.js"></script> -->
     <!-- Incluir js-beautify para formatear XML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
     <!-- Incluir el JavaScript de Shepherd.js para tour en la APP -->

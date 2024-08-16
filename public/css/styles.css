@@ -1,10 +1,17 @@
+* {
+    font-family: avenir, arial, monospace;
+    font-size: large;
+    transition: 0.5s;
+}
+
 body {
     background-color: #f5f5f5;
     margin: 0;
     font-family: Arial, sans-serif;
 }
 
-h2, h4 {
+h2,
+h4 {
     color: #333;
 }
 
@@ -83,7 +90,8 @@ h2, h4 {
 #navbarCollapse.dropup .dropdown-menu {
     top: auto;
     bottom: 100%;
-    margin-bottom: 1rem; /* Ajustar este valor según sea necesario */
+    /* Ajustar este valor según sea necesario */
+    margin-bottom: 1rem;
 }
 
 .btn-circle {
@@ -100,4 +108,3 @@ h2, h4 {
 /* #comparisonResult {
     color: blue;
 } */
-

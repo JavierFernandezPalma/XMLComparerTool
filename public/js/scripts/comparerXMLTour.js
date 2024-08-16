@@ -5,7 +5,7 @@ window.startTourComparerXML = function startTour() {
 
     const tour = new Shepherd.Tour({
         defaultStepOptions: {
-            classes: 'shepherd-theme-dark',
+            classes: 'shepherd-theme-custom',
             scrollTo: { behavior: 'smooth', block: 'center' }, // Configuración de desplazamiento suave
             cancelIcon: {
                 enabled: true, // Muestra un icono para cancelar el tour
@@ -23,12 +23,11 @@ window.startTourComparerXML = function startTour() {
     tour.addStep({
         id: 'step-1',
         title: 'Cargar archivos',
-        text: 'Aquí cargas archivos XML o ingrésalos manualmente en los TextAreas para comparar.',
+        text: 'Aquí cargas archivos XML para comparar o ingrésalos manualmente en los TextAreas.',
         attachTo: {
             element: '#inputFiles',
             on: 'bottom' // top, top-start, top-end, left, right, left-start, left-end, right-start, right-end, bottom, bottom-start, bottom-end.
         },
-        classes: 'shepherd-theme-dark',
         buttons: [
             {
                 text: 'Siguiente (1/5)',
@@ -80,7 +79,7 @@ window.startTourComparerXML = function startTour() {
     tour.addStep({
         id: 'step-4',
         title: 'TextAreas de contenido XML',
-        text: 'Aquí visualice e interactúe con las estructuras XML a comparar.',
+        text: 'Aquí visualizas e interactúas con las estructuras XML a comparar.',
         attachTo: {
             element: '#textAreasComparar',
             on: 'top'

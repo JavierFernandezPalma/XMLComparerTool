@@ -52,8 +52,6 @@ Ejecutar múltiples comandos en paralelo
         Ejm: "start": "concurrently \"npm run start:server\" \"npm run start:parcel\""
 
 
-
-
 Datos XML:
 
 <tem:RegistrarPagoResponse xmlns:tem="http://tempuri.org/">

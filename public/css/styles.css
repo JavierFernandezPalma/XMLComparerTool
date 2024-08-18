@@ -1,7 +1,13 @@
+/* Aplica la transición solo a los elementos enfocados por Shepherd.js */
+.shepherd-target {
+    transition: 0.5s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ejemplo de efecto de sombra */
+    transform: scale(1.05); /* Ejemplo de escalado suave */
+}
+
 * {
     font-family: avenir, arial, monospace;
     font-size: large;
-    transition: 0.5s;
 }
 
 body {
@@ -84,10 +90,12 @@ h4 {
 .info2 {
     background-color: #fff3cd;
     color: #856404;
-    padding: 1px;
+    padding: 10px;
     margin-left: 3rem;
     margin-bottom: 10px;
     border: 1px solid #856404;
+    margin: 10px 0;
+    border-radius: 5px;
 }
 
 .CodeMirror {
@@ -99,8 +107,7 @@ h4 {
 #navbarCollapse.dropup .dropdown-menu {
     top: auto;
     bottom: 100%;
-    /* Ajustar este valor según sea necesario */
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* Ajustar este valor según sea necesario */
 }
 
 .btn-circle {
@@ -113,6 +120,10 @@ h4 {
     line-height: 1.42857;
 }
 
+/* Ajusta el color del texto dentro de la barra de navegación */
+.navbar-dark {
+    color: #ffffff; /* Establece el color del texto a blanco */
+}
 
 /* #comparisonResult {
     color: blue;

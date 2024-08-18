@@ -70,5 +70,20 @@ function escapeHtml(text) {
         .replace(/'/g, "&#039;");
 }
 
+// Función para obtener la versión de la API y actualizar el span
+async function loadVersion() {
+    try {
+        const response = await fetch('http://localhost:3000/version'); // Cambia al puerto correcto
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        document.getElementById('app-version').textContent = data.version;
+    } catch (error) {
+        console.error('Error al cargar la versión:', error.message);
+        document.getElementById('app-version').textContent = 'Error al cargar versión';
+    }
+}
+
 // Exportar las funciones necesarias
-export { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml };
+export { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml, loadVersion };

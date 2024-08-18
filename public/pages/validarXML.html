@@ -31,6 +31,16 @@
 </head>
 
 <body>
+    <!-- Barra de navegación con fondo oscuro y texto en color blanco -->
+    <nav class="navbar navbar-dark bg-dark">
+        <!-- Contenedor fluido que asegura que el contenido ocupa todo el ancho disponible -->
+        <div class="container-fluid d-flex justify-content-end">
+            <!-- Párrafo alineado a la derecha con el margen inferior eliminado -->
+            <p class="mb-0">Version: <span id="app-version"></span></p>
+            <!-- El <span> con id="app-version" se usará para mostrar la versión de la aplicación -->
+        </div>
+    </nav>
+
     <div class="container my-5">
         <!-- Título de la página -->
         <h2 class="text-center mb-4">Validar XML</h2>
@@ -147,7 +157,7 @@
     <!-- Incluir js-beautify para formatear XML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
     <!-- Incluir el JavaScript de Shepherd.js para tour en la APP -->
-    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.0.0/dist/js/shepherd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
 
     <!-- Incluir el script JavaScript personalizado -->
     <script type="module" src="../js/mainValidarXML.js"></script>

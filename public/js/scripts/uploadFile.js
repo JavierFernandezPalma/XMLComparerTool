@@ -1,33 +1,43 @@
-document.getElementById('uploadForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
+// Ejecuta cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function () {
+    // Esperar a que los elementos estén en el DOM
+    setTimeout(() => {
+        const uploadForm = document.getElementById('uploadForm');
+        if (uploadForm) {
+            // Maneja el envío del formulario de subida
+            document.getElementById('uploadForm').addEventListener('submit', async function (event) {
+                event.preventDefault(); // Previene el envío por defecto
 
-    const formData = new FormData();
-    const fileInput = document.getElementById('fileInput');
-    formData.append('file', fileInput.files[0]);
+                const formData = new FormData(); // Crea un nuevo FormData
+                const fileInput = document.getElementById('fileInput'); // Selecciona el input de archivo
+                formData.append('file', fileInput.files[0]); // Añade el archivo a FormData
 
-    try {
-        const response = await fetch('http://localhost:3000/upload', {
-            method: 'POST',
-            body: formData
-        });
+                try {
+                    const response = await fetch('http://localhost:3000/upload', { // Envía la petición POST
+                        method: 'POST',
+                        body: formData
+                    });
 
-        if (response.ok) {
-            alert('Archivo subido exitosamente');
+                    // Muestra resultado
+                    response.ok ? alert('Subido con éxito') : alert('Error al subir');
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                    alert('Error uploading file');
+                }
+            });
         } else {
-            alert('Error al subir el archivo');
+            // console.error('Elemento uploadForm No está en el DOM');
         }
-    } catch (error) {
-        console.error('Error uploading file:', error);
-        alert('Error uploading file');
-    }
+    }, 100); // Ajusta el tiempo según sea necesario
 });
 
-// Función para manejar la carga de archivos XML desde input type="file"
+
+// Maneja la carga de archivos para editor (CodeMirror)
 function handleFileSelect(event, fileNumber, editor) {
-    const file = event.target.files[0];
+    const file = event.target.files[0]; // Obtiene el archivo
     if (!file) return;
 
-    const reader = new FileReader();
+    const reader = new FileReader(); // Instancia FileReader
 
     reader.onload = function (event) {
         const xmlString = event.target.result;

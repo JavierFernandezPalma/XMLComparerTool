@@ -1,7 +1,7 @@
 import { showAlert } from '../utils.js';
 import { fetchXmlFiles } from './readFiles.js'; // Importar la función desde readFiles.js
 import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml } from './config.js';
-import { indexDeleteXML, indexUploadXML } from './indexDinamico.js';
+import { loadVersion } from './config.js';
 
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
@@ -36,8 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.editor1 = xmlInput1;
     window.editor2 = xmlInput2;
 
-    // contenido de index.html dinámico
-    indexDeleteXML();
-    indexUploadXML();
+    // Cargar la versión cuando se carga la página
+    window.onload = loadVersion;
 
 });

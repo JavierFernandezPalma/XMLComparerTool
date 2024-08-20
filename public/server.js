@@ -33,6 +33,7 @@ const allowedOrigins = [
 // Configuración de CORS
 const corsOptions = {
     origin: (origin, callback) => {
+        console.log(`Origen recibido: ${origin}`); // Para depuración
         // Verifica si el origen de la solicitud está en la lista de dominios permitidos
         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
             // Permite el origen si está en la lista o si no se proporciona un origen (por ejemplo, solicitudes locales)

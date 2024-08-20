@@ -51,6 +51,23 @@ Ejecutar múltiples comandos en paralelo
     npm install concurrently --save-dev
         Ejm: "start": "concurrently \"npm run start:server\" \"npm run start:parcel\""
 
+//---------------instalar WebPack
+    npm install webpack webpack-cli -D
+Ejecutar webpack con la configuración personalizada
+    npx --mode production --config webpack.config.js
+Intalar Babel para utilidad en todos los navegadores
+    npm install babel-loader @babel/core @babel/preset-env @babel/plugin-transform-runtime -D
+Instalar plugin para manejo de HTLM
+    npm install html-webpack-plugin -D
+Dependencias para manejo de CSS
+    npm install mini-css-extract-plugin css-loader -D
+Preprocesaror de stylus
+    npm install stylus stylus-loader -D
+Copia de archivos
+    npm install copy-webpack-plugin -D
+Mover archivos de fuentes
+    npm install url-loader file-loader -D
+
 
 Datos XML:
 

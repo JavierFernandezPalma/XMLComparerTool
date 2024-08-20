@@ -1,5 +1,5 @@
 // difXML.js
-import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml } from './config.js';
+import { escapeHtml } from './config.js';
 
 // Función para comparar XML y mostrar el resultado en el elemento de resultado
 export function compareDifXML(xmlString1, xmlString2) {

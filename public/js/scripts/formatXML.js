@@ -16,6 +16,9 @@ function formatXmlEditor(editor) {
     // Obtener el contenido del editor
     var xml = editor.getValue().trim();  // Obtener y recortar el contenido
 
+    // Asegurar que la declaración XML sea tratada correctamente
+    xml = xml.replace(/<\?xml/, "<xml").replace(/\?>/g, ">XML</xml>");
+
     // Validar que haya contenido en xml
     if (xml.length > 0) {
         // Crear un parser XML
@@ -42,9 +45,6 @@ function formatXml(xml) {
     // Dividir el XML en nodos individuales usando una expresión regular
     var nodes = xmlString.split(/>\s*</);
 
-    // Asegurar que la declaración XML sea tratada correctamente
-    nodes[0] = nodes[0].replace(/^<\?xml/, "<?xml");
-
     for (var i = 0; i < nodes.length; i++) {
         var node = nodes[i];
 
@@ -69,7 +69,9 @@ function formatXml(xml) {
         }
     }
 
-    // Devolver el XML formateado
-    return formattedXml.replace('<<', '<').replace('>>', '>').trim();
-}
+    // Asegurar que la declaración XML sea tratada correctamente
+    formattedXml = formattedXml.replace(/<\xml/, "<?xml").replace(/>XML<\/xml>/g, '?>').replace('<<', '<').replace('>>', '>').trim();
 
+    // Devolver el XML formateado
+    return formattedXml;
+}

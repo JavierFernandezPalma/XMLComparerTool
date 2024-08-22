@@ -31,6 +31,8 @@ Desinstalar paquete:
     npm uninstall xmldom
 Limpiar dependencias:
     npm prune
+Eliminar carpeta dist y cache
+    rm -rf dist
 
 //--------------Validar XML
 Instalar biblioteca 'libxmljs2'

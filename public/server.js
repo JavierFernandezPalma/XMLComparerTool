@@ -68,7 +68,7 @@ app.get('/api/saludo', (req, res) => {
     res.json({ message: 'Hola desde la API' });
 });
 
-app.get('/api', (req, res) => {
+app.get('/papa', (req, res) => {
     res.json({ message: 'Hola desde la API' });
 });
 

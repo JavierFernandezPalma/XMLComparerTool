@@ -20,7 +20,7 @@
             "dest": "/public/$1"
         },
         {
-            "src": "/papa",
+            "src": "/papa/(.*)",
             "dest": "public/server.js"
         }
     ]

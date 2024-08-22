@@ -89,7 +89,24 @@ async function checkServerStatus(url, retries = 2, delay = 20000) {
 // Función para obtener la versión de la API y actualizar el span
 async function loadVersion() {
 
-    let serverUrl = 'http://localhost:3000/version';
+    let serverUrl;
+
+    // Detectar el entorno
+    const hostname = window.location.hostname;
+    
+    if (hostname === '127.0.0.1') {
+        // Entorno local
+        serverUrl = 'http://localhost:3000/version';
+    } else if (hostname === 'xml-comparer-tool-prueba.vercel.app') {
+        // Entorno de desarrollo en Vercel
+        serverUrl = 'https://xml-comparer-tool-prueba.vercel.app/version';
+    } else if (hostname === 'xml-comparer-tool.vercel.app') {
+        // Entorno de producción
+        serverUrl = 'https://xml-comparer-tool.vercel.app/version';
+    } else {
+        // URL por defecto en caso de que no coincida con ninguno de los casos anteriores
+        serverUrl = 'https://xml-comparer-tool.vercel.app/version';
+    }
 
     // Verifica si el servidor está disponible
     const isServerUp = await checkServerStatus(serverUrl);

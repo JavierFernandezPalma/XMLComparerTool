@@ -70,18 +70,63 @@ function escapeHtml(text) {
         .replace(/'/g, "&#039;");
 }
 
+// Función para verificar si el servidor está disponible
+async function checkServerStatus(url, retries = 3, delay = 2000) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                return true; // Servidor disponible
+            }
+        } catch (error) {
+            // Ignorar error y reintentar
+        }
+        await new Promise(resolve => setTimeout(resolve, delay)); // Esperar antes de reintentar
+    }
+    return false; // Servidor no disponible después de los reintentos
+}
+
 // Función para obtener la versión de la API y actualizar el span
 async function loadVersion() {
-    try {
-        const response = await fetch('http://localhost:3000/version'); // Cambia al puerto correcto
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+
+        let serverUrl; // Cambia a la url correcta según el entorno
+
+        // Detectar el entorno
+        if (window.location.hostname === '127.0.0.1') {
+            // Entorno local
+            serverUrl = 'http://localhost:3000/version';
+        } else if (window.location.hostname === 'xml-comparer-tool-prueba.vercel.app') {
+            // Entorno de desarrollo en Vercel
+            serverUrl = 'https://xml-comparer-tool-prueba.vercel.app/version';
+        } else if (window.location.hostname === 'xml-comparer-tool.vercel.app') {
+            // Entorno de producción
+            serverUrl = 'https://xml-comparer-tool.vercel.app/version';
+        } else {
+            // URL por defecto en caso de que no coincida con ninguno de los casos anteriores
+            serverUrl = 'https://xml-comparer-tool.vercel.app/version';
         }
-        const data = await response.json();
-        document.getElementById('app-version').textContent = data.version;
-    } catch (error) {
-        console.error('Error al cargar la versión:', error.message);
-        document.getElementById('app-version').textContent = 'Error al cargar versión';
+
+    // Verifica si el servidor está disponible
+    const isServerUp = await checkServerStatus(serverUrl);
+
+    if (isServerUp) {
+        try {
+            const response = await fetch(serverUrl);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            document.getElementById('app-version').textContent = data.version;
+        } catch (error) {
+            console.error('Error al cargar la versión:', error.message);
+            console.error('Hostname: ' + window.location.hostname);
+            document.getElementById('app-version').textContent = 'Error al cargar versión';
+        }
+    } else {
+        console.error('Servidor no disponible.');
+        console.error('Hostname: ' + window.location.hostname);
+        document.getElementById('app-version').textContent = 'Servidor no disponible';
     }
 }
 

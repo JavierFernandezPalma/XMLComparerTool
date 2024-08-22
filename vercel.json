@@ -20,8 +20,8 @@
             "dest": "/public/$1"
         },
         {
-            "src": "/package.json",
-            "dest": "/package.json"
+            "src": "/version",
+            "dest": "public/server.js"
         }
     ]
 }

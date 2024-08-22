@@ -68,6 +68,10 @@ app.get('/api/saludo', (req, res) => {
     res.json({ message: 'Hola desde la API' });
 });
 
+app.get('/api', (req, res) => {
+    res.json({ message: 'Hola desde la API' });
+});
+
 // Ruta para la carga de archivos
 app.post('/upload', upload.single('file'), (req, res) => {
     if (!req.file) { // Comprobar si no se ha subido ningún archivo

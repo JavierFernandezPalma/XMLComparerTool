@@ -37,6 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
     window.editor2 = xmlInput2;
 
     // Cargar la versión cuando se carga la página
-    window.onload = loadVersion;
+    // window.onload = loadVersion;
 
 });

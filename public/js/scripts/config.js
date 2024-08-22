@@ -71,7 +71,7 @@ function escapeHtml(text) {
 }
 
 // Función para verificar si el servidor está disponible
-async function checkServerStatus(url, retries = 5, delay = 2000) {
+async function checkServerStatus(url, retries = 2, delay = 20000) {
     for (let i = 0; i < retries; i++) {
         try {
             const response = await fetch(url);
@@ -89,7 +89,7 @@ async function checkServerStatus(url, retries = 5, delay = 2000) {
 // Función para obtener la versión de la API y actualizar el span
 async function loadVersion() {
 
-    const serverUrl = await fetch('http://localhost:3000/version'); // Cambia al puerto correcto
+    let serverUrl = 'http://localhost:3000/version';
 
     // Verifica si el servidor está disponible
     const isServerUp = await checkServerStatus(serverUrl);
@@ -97,7 +97,6 @@ async function loadVersion() {
     if (isServerUp) {
         try {
             const response = await fetch(serverUrl);
-            
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

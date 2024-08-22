@@ -69,7 +69,7 @@ app.get('/api/saludo', (req, res) => {
 });
 
 app.get('/papa', (req, res) => {
-    res.json({ message: 'Hola desde la API' });
+    res.json({ message: 'Esta es papa' });
 });
 
 // Ruta para la carga de archivos

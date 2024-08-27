@@ -1,5 +1,4 @@
 import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml } from './config.js';
-import { useRegex } from "./useRegex.js";
 import { validaContenido } from "./validaContenido.js";
 
 // Función principal para comparar los XML
@@ -124,21 +123,27 @@ function compareNodes(node1, node2) {
     // Recorrer cada hijo de node1 y buscar un equivalente en node2
     for (let i = 0; i < children1.length; i++) {
         const child1 = children1[i];
-        const child2 = Array.from(node2.children).find(child => child.nodeName === child1.nodeName);
-
-        // Si no se encuentra el equivalente del hijo en node2, agregar mensaje de desacuerdo
-        if (!child2) {
-            result += `<div class="mismatch">No se encontró el nodo hijo &#60;${child1.nodeName}&#62; de XML Base en el nodo &#60;${node2.nodeName}&#62; del XML a comparar.</div>`;
-        } else {
-            // Comparar recursivamente los hijos
+        let child2 = children2[i]
+        
+        //Valida primero sí coincide la posición del nodo1 y nodo2
+        if(child1.nodeName === child2.nodeName){
             result += compareNodes(child1, child2);
+        } else{
+            child2 = children2.find(child => child.nodeName === child1.nodeName);
+            // Si no se encuentra el equivalente del hijo en node2, agregar mensaje de desacuerdo
+            if (!child2) {
+                result += `<div class="mismatch">No se encontró el nodo hijo &#60;${child1.nodeName}&#62; de XML Base en el nodo &#60;${node2.nodeName}&#62; del XML a comparar.</div>`;
+            } else {
+                // Comparar recursivamente los hijos
+                result += compareNodes(child1, child2);
+            }
         }
     }
 
     // Si no se han encontrado discrepancias, agregar mensaje de coincidencia
     if (result === '') {
         result += `<div class="match">Los nodos &#60;${node1.nodeName}&#62; coinciden</div>`;
-        result += validaContenido(node1, node2, result);
+        result = validaContenido(node1, node2, result);
     }
 
     // Retornar el resultado para este nivel de nodos

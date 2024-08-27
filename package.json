@@ -22,6 +22,7 @@
         "parcel": "^2.12.0",
         "shepherd.js": "^13.0.3",
         "tv4": "^1.3.0",
+        "xml-comparer-tool": "file:",
         "xmldom": "^0.6.0",
         "xmllint": "^0.1.1"
     },

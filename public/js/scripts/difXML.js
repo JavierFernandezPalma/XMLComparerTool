@@ -8,7 +8,7 @@ export function compareDifXML(xmlString1, xmlString2) {
 
     // Mostrar resultado de la comparación basado en si las estructuras coinciden o no
     if (diff.length === 1 && !diff[0].added && !diff[0].removed) {
-        comparisonResultElement.innerHTML = '<div><span class="match">Las estructuras coinciden</span></div>';
+        comparisonResultElement.innerHTML = '<div><span class="match"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>Las estructuras coinciden</span></div>';
         comparisonResultElement.style.backgroundColor = 'green';
         comparisonResultElement.style.color = 'white';
     } else {

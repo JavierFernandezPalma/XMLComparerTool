@@ -1,4 +1,4 @@
-import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml } from './config.js';
+import { escapeHtml } from './config.js';
 import { validaContenido } from "./validaContenido.js";
 
 // Función principal para comparar los XML
@@ -117,7 +117,7 @@ function compareNodes(node1, node2) {
     const childNames2 = children2.map(child => child.nodeName);
 
     if (!arraysEqual(childNames1, childNames2)) {
-        result += `<div class="mismatch">Los nombres de los nodos hijos de &#60;${node1.nodeName}&#62; en XML Base y &#60;${node2.nodeName}&#62; en XML a Comparar no coinciden.</div>`;
+        result += `<div class="mismatch"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>Los nombres de los nodos hijos de &#60;${node1.nodeName}&#62; en XML Base y &#60;${node2.nodeName}&#62; en XML a Comparar no coinciden.</div>`;
     }
 
     // Recorrer cada hijo de node1 y buscar un equivalente en node2
@@ -142,7 +142,7 @@ function compareNodes(node1, node2) {
 
     // Si no se han encontrado discrepancias, agregar mensaje de coincidencia
     if (result === '') {
-        result += `<div class="match">Los nodos &#60;${node1.nodeName}&#62; coinciden</div>`;
+        result += `<div class="match">Los nodos &#60;${node1.nodeName}&#62; coinciden.</div>`;
         result = validaContenido(node1, node2, result);
     }
 

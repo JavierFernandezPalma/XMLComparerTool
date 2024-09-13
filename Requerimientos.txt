@@ -33,6 +33,11 @@ Limpiar dependencias:
     npm prune
 Eliminar carpeta dist y cache
     rm -rf dist
+    rm -rf node_modules
+    rm package-lock.json
+
+    npm install
+    npm update
 
 //--------------Validar XML
 Instalar biblioteca 'libxmljs2'
@@ -69,6 +74,22 @@ Copia de archivos
     npm install copy-webpack-plugin -D
 Mover archivos de fuentes
     npm install url-loader file-loader -D
+Optimización de proyecto (minimizar css y JavaScript)
+    npm i css-minimizer-webpack-plugin terser-webpack-plugin -D
+Variables de entorno
+    npm i dotenv-webpack -D
+Limpiar el código para modo productivo
+    npm i clean-webpack-plugin -D
+Instalar stylus
+    npm install stylus -D
+Servidor para ver cambios en tiempo real (WebPack Dev Server)
+    npm install webpack-dev-server -D
+Optimizar paquetes y dependencias
+    npm i webpack-bundle-analyzer -D
+        Nota: ejecutar el comando
+            npx webpack --profile --json > stats.json
+            npx webpack-bundle-analyzer stats.json
+
 
 
 Datos XML:

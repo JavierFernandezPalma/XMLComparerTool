@@ -10,7 +10,7 @@
             "use": "@vercel/node",
             "config": {
               "maxLambdaSize": "50mb",
-              "installCommand": "apt-get update && apt-get install -y openjdk-11-jdk && npm install"
+              "installCommand": "apt-get update && apt-get install -y openjdk-11-jdk && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 && npm install"
             }
         }
     ],

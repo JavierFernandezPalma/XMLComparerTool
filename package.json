@@ -4,9 +4,10 @@
     "description": "Este proyecto es una aplicación web que permite comparar estructuras XML de manera visual. Utiliza varias tecnologías como HTML, CSS, JavaScript, Bootstrap, CodeMirror y jsdiff para proporcionar una interfaz amigable y funcional.",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "install-java": "apt-get update && apt-get install -y openjdk-11-jre",
         "start:parcel": "parcel build public/index.html --dist-dir dist --no-cache",
         "start:server": "node server.js",
-        "start": "concurrently \"npm run start:server\"",
+        "start": "concurrently \"npm run install-java && npm run start:server\"",
         "build": "npx webpack --mode production --config webpack.config.js",
         "dev": "npx webpack --mode development --config webpack.config.dev.js"
     },

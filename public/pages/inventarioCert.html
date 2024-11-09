@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validar Estructuras XML</title>
+    <title>Certificado XML Parser</title>
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -28,7 +28,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="bg-light">
     <!-- Barra de navegación con fondo oscuro y texto en color blanco -->
     <nav class="navbar navbar-dark bg-dark">
         <!-- Contenedor fluido que asegura que el contenido ocupa todo el ancho disponible -->
@@ -43,84 +43,17 @@
             <!-- El <span> con id="app-version" se usará para mostrar la versión de la aplicación -->
         </div>
     </nav>
-
     <div class="container my-5">
-        <!-- Título de la página -->
-        <h2 class="text-center mb-4">Validar XML</h2>
-
-        <!-- Card para ingresar datos XML a validar -->
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-                    <h4 class="card-title mb-2 mb-md-0">Validador XML (XSD)</h4>
-                    <!-- Contenedor para el botón de tour -->
-                    <div class="d-flex align-items-center">
-                        <!-- Botón para iniciar el paseo -->
-                        <button onclick="startTourValidateXML()" class="btn btn-primary btn-circle"
-                            type="button">?</button>
-                    </div>
-                </div>
-                <div id="switchScroll" class="d-flex justify-content-end flex-wrap mb-3">
-                    <!-- Switch para activar/desactivar el scroll vertical -->
-                    <div class="form-check form-switch me-3 mb-2 mb-md-0">
-                        <input class="form-check-input" type="checkbox" id="scrollSwitch"
-                            title="Activar Scroll Vertical">
-                        <label class="form-check-label d-none d-md-flex" for="scrollSwitch">Activar Scroll
-                            Vertical</label>
-                    </div>
-                    <!-- Campo de texto para el tamaño del scroll -->
-                    <div class="mb-2 mb-md-0">
-                        <input type="number" class="form-control" id="scrollSizeInput" list="presetScrollSizes" min="1"
-                            pattern="\d*" disabled title="Ingrese el tamaño del scroll en píxeles">
-                        <datalist id="presetScrollSizes">
-                            <option value="100">
-                            <option value="200">
-                            <option value="300">
-                            <option value="400">
-                            <option value="500">
-                            <option value="1000">
-                        </datalist>
-                    </div>
-                </div>
-
-                <!-- Textarea Datos XML para validar -->
-                <div id="xmlValitate" class="mb-3">
-                    <label for="xmlInput1" class="form-label">Datos XML para validar</label>
-                    <textarea class="form-control" id="xmlInput1" rows="10"></textarea>
-                    <div class="d-flex justify-content-end mt-2">
-                        <button id="formatXmlInput1" class="btn btn-secondary me-2">Aplicar Formato</button>
-                        <button id="clearXmlInput1" class="btn btn-warning">Limpiar XML 1</button>
-                    </div>
-                </div>
-                <!-- Textarea para Datos del esquema XML (XSD) -->
-                <div id="schemaValidate" class="mb-3">
-                    <label for="xmlInput2" class="form-label">Datos del esquema XML (XSD)</label>
-                    <textarea class="form-control" id="xmlInput2" rows="10"></textarea>
-                    <div class="d-flex justify-content-end mt-2">
-                        <button id="formatXmlInput2" class="btn btn-secondary me-2">Aplicar Formato</button>
-                        <button id="clearXmlInput2" class="btn btn-warning">Limpiar XML 2</button>
-                    </div>
-                </div>
-
-                <!-- Botón para validar XML -->
-                <div class="text-center">
-                    <button id="validateButton" class="btn btn-success">Validar</button>
-                </div>
-            </div>
+        <h1 class="mb-4">Parsear Certificados XML</h1>
+        <div class="mb-3">
+            <label for="xmlInput" class="form-label">Pega el XML aquí:</label>
+            <textarea class="form-control" id="xmlInput" rows="10"></textarea>
         </div>
+        <button id="parseBtn" class="btn btn-primary mb-4">Parsear Certificado</button>
 
-        <!-- Card para mostrar el resultado de la validación -->
-        <div id="cardResultComparer" class="card">
-            <div class="card-body">
-                <h4 class="card-title">Resultado de la validación</h4>
-                <!-- Resultado de la comparación -->
-                <pre id="validationResult" class="diff p-3 bg-light rounded"></pre>
-                <div id="messageContainer" class="diff p-3 bg-light rounded"></div>
-            </div>
-        </div>
-
+        <h3>Resultado</h3>
+        <div id="output" class="bg-white p-3 border rounded"></div>
     </div>
-
 
     <!-- Navegación fija en la parte inferior -->
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
@@ -146,24 +79,17 @@
                         <!-- Opción del menú que enlaza a 'Validar XML' -->
                         <a class="dropdown-item" href="validarXML.html">Validar XML</a>
                         <!-- Opción del menú que enlaza a 'Lector Inventario Certificados' -->
-                        <!-- <a class="dropdown-item" href="inventarioCert.html">Inventario Certificados</a> -->
+                        <a class="dropdown-item" href="inventarioCert.html">Inventario Certificados</a>
                     </div>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <!-- Incluir la biblioteca jsdiff para comparar diferencias -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js"></script>
     <!-- Incluir CodeMirror para la edición de XML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <!-- Incluir modo XML para CodeMirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
-    <!-- Incluir js-beautify para formatear XML -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
-    <!-- Incluir el JavaScript de Shepherd.js para tour en la APP -->
-    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
-
 </body>
 
 </html>

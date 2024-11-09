@@ -1,49 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+import logo from '../assets/images/Bancolombiablanco.png'
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparar Estructuras XML</title>
-    <!-- Enlace a Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Enlace a CodeMirror CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
-    <!-- Incluir el CSS de Shepherd.js para tour en la APP -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css" />
-    <!-- Enlaces a jQuery y Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-</head>
-
-<body>
-    <!-- Barra de navegación con fondo oscuro y texto en color blanco -->
-    <nav class="navbar navbar-dark bg-dark">
-        <!-- Contenedor fluido que asegura que el contenido ocupa todo el ancho disponible -->
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <!-- Logo a la izquierda -->
-            <a class="navbar-brand" href="#">
-                <img src="./assets/images/Bancolombiablanco.png" alt="Logo" class="d-inline-block align-top"
-                    style="max-width: 100px; height: auto;">
-            </a>
-            <!-- Párrafo alineado a la derecha con el margen inferior eliminado -->
-            <p class="mb-0">Version: 1.0.1<span id="app-version"></span></p>
-            <!-- El <span> con id="app-version" se usará para mostrar la versión de la aplicación -->
-        </div>
-    </nav>
-
+const TemplatePrueba = async () => {
+    // const data = await getData();
+    const view = `
     <div class="container my-5">
 
         <!-- Título de la página -->
@@ -221,53 +180,8 @@
             </div>
         </div>
     </div>
+    `;
+    return view;
+};
 
-    <footer>
-        <p>Version: <span id="app-version"></span></p>
-    </footer>
-
-    <!-- Navegación fija en la parte inferior -->
-    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-        <!-- Botón de alternancia para la barra de navegación en pantallas pequeñas -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <!-- Icono del botón de alternancia -->
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Contenedor colapsable para los elementos de la barra de navegación -->
-        <div class="collapse navbar-collapse dropup" id="navbarCollapse">
-            <!-- Lista de navegación principal -->
-            <ul class="navbar-nav mr-auto">
-                <!-- Elemento de navegación con un menú desplegable -->
-                <li class="nav-item dropup">
-                    <!-- Enlace del menú desplegable -->
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Herramientas XML</a>
-                    <!-- Contenido del menú desplegable -->
-                    <div class="dropdown-menu" aria-labelledby="dropdown10">
-                        <!-- Opción del menú que enlaza a 'Comparar Estructuras XML' -->
-                        <a class="dropdown-item" href="index.html">Comparar Estructuras XML</a>
-                        <!-- Opción del menú que enlaza a 'Validar XML' -->
-                        <a class="dropdown-item" href="validarXML.html">Validar XML</a>
-                        <!-- Opción del menú que enlaza a 'Lector Inventario Certificados' -->
-                        <!-- <a class="dropdown-item" href="inventarioCert.html">Inventario Certificados</a>                 -->
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Incluir la biblioteca jsdiff para comparar diferencias -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js"></script>
-    <!-- Incluir CodeMirror para la edición de XML -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
-    <!-- Incluir modo XML para CodeMirror -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
-    <!-- Incluir js-beautify para formatear XML -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
-    <!-- Incluir el JavaScript de Shepherd.js para tour en la APP -->
-    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
-
-</body>
-
-</html>
+export default TemplatePrueba;

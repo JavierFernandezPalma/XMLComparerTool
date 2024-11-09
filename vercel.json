@@ -2,26 +2,25 @@
     "version": 2,
     "builds": [
         {
-            "src": "public/**/*",
+            "src": "dist/**/*",
             "use": "@vercel/static"
         },
         {
-            "src": "public/server.js",
-            "use": "@vercel/node"
+            "src": "package.json",
+            "use": "@vercel/node",
+            "config": {
+              "maxLambdaSize": "50mb"
+            }
         }
     ],
     "routes": [
         {
-            "src": "/api/(.*)",
-            "dest": "public/server.js"
-        },
-        {
             "src": "/(.*)",
-            "dest": "/public/$1"
+            "dest": "/server.js"
         },
         {
             "src": "/version",
-            "dest": "public/server.js"
+            "dest": "server.js"
         }
     ]
 }

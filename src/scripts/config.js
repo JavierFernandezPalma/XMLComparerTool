@@ -54,10 +54,19 @@ function handleScrollSizeInputChange(scrollSwitch, scrollSizeInput, xmlInput1, x
 
 // Función para limpiar el resultado de la comparación
 function clearComparisonResult() {
+
     const comparisonResultElement = document.getElementById('comparisonResult');
-    comparisonResultElement.innerHTML = ''; // Limpiar contenido HTML del resultado
-    comparisonResultElement.style.backgroundColor = '';
-    comparisonResultElement.style.color = '';
+    if (comparisonResultElement) {
+        comparisonResultElement.innerHTML = ''; // Limpiar contenido HTML del resultado
+        comparisonResultElement.style.backgroundColor = '';
+        comparisonResultElement.style.color = '';
+    }
+    const validatioResultElement = document.getElementById('validationResult');
+    if (validatioResultElement) {
+        validatioResultElement.innerHTML = ''; // Limpiar contenido HTML del resultado
+        validatioResultElement.style.backgroundColor = '';
+        validatioResultElement.style.color = '';
+    }
 }
 
 // Función para escapar caracteres HTML
@@ -93,7 +102,7 @@ async function loadVersion() {
 
     // Detectar el entorno
     const hostname = window.location.hostname;
-    
+
     if (hostname === '127.0.0.1') {
         // Entorno local
         serverUrl = 'http://localhost:3000/version';
@@ -146,7 +155,7 @@ async function loadVersion() {
 function customIcon() {
     // Crear un contenedor de SVGs
     const svgContainer = document.createElement('div');
-  
+
     // Añadir SVGs al contenedor
     svgContainer.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -161,14 +170,14 @@ function customIcon() {
           </symbol>
         </svg>
       `;
-  
+
     // Ocultar el contenedor
     svgContainer.style.display = 'none';
-  
+
     // Insertar el contenedor al principio del <body>
     document.body.insertBefore(svgContainer, document.body.firstChild);
-  }
-  
+}
+
 
 // Exportar las funciones necesarias
 export { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml, loadVersion, customIcon };

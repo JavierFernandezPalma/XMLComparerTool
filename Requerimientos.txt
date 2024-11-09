@@ -42,6 +42,12 @@ Eliminar carpeta dist y cache
 //--------------Validar XML
 Instalar biblioteca 'libxmljs2'
     npm install libxmljs2
+Instalar biblioteca 'xsd-schema-validator'
+    npm install xsd-schema-validator@latest
+
+//------------Modulo stream para navegadores
+Necesario para tu configuración de Webpack
+    npm install stream-browserify timers-browserify buffer
 
 //--------------Indice de archivos Git
 Elimina los archivos del índice de Git sin borrarlos del sistema de archivos
@@ -57,6 +63,13 @@ Instalar Shepherd.js: librería para crear tours interactivos con popups en pág
 Ejecutar múltiples comandos en paralelo
     npm install concurrently --save-dev
         Ejm: "start": "concurrently \"npm run start:server\" \"npm run start:parcel\""
+
+//-------------------Herramienta criptográfica (deco Base64) node-forge y xml2js convertir XML en JavaScript
+Cuando se combinan node-forge y xml2js, puedes leer datos criptográficos (como certificados) 
+que están almacenados en XML, decodificarlos y procesarlos utilizando las herramientas 
+criptográficas que ofrece node-forge.
+
+    npm install node-forge xml2js
 
 //---------------instalar WebPack
     npm install webpack webpack-cli -D
@@ -90,7 +103,7 @@ Optimizar paquetes y dependencias
             npx webpack --profile --json > stats.json
             npx webpack-bundle-analyzer stats.json
 
-
+//--------------
 
 Datos XML:
 

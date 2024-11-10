@@ -2,7 +2,7 @@
 FROM node:20.16.0
 
 # Instala Java (OpenJDK)
-RUN apt-get update && apt-get install -y openjdk-11-jre
+RUN apt-get update && apt-get install -y openjdk-11-jdk
 
 # Directorio de trabajo
 WORKDIR /app

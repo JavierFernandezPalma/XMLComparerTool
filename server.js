@@ -75,6 +75,11 @@ app.get('/papa', (req, res) => {
     res.json({ message: 'Esta es papa' });
 });
 
+// Ruta para la aplicación (en caso de ser una SPA o similar)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  });
+
 // Ruta para la carga de archivos
 app.post('/upload', upload.single('file'), (req, res) => {
     if (!req.file) { // Comprobar si no se ha subido ningún archivo

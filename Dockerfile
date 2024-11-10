@@ -19,7 +19,7 @@ COPY . .
 # Compilar la aplicación frontend con webpack
 RUN npm run dev
 
-# Expon el puerto
+# Exponer el puerto
 EXPOSE 3000
 
 # Comando para iniciar la aplicación

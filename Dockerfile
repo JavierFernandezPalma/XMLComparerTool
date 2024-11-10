@@ -10,9 +10,6 @@ WORKDIR /app
 # Copia el archivo package.json y package-lock.json
 COPY package*.json ./
 
-# Copiar el archivo .env al contenedor (opcional si es necesario)
-COPY .env ./
-
 # Instala las dependencias de Node.js
 RUN npm install
 

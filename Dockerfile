@@ -1,5 +1,5 @@
-# Usa una imagen base de Node.js
-FROM node:16
+# Usar la imagen base de Node.js versión 20.16.0
+FROM node:20.16.0
 
 # Instala Java (OpenJDK)
 RUN apt-get update && apt-get install -y openjdk-11-jre

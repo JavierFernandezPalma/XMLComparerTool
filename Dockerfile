@@ -16,8 +16,11 @@ RUN npm install
 # Copia el resto de los archivos
 COPY . .
 
+# Compilar la aplicación frontend con webpack
+RUN npm run dev
+
 # Expon el puerto
 EXPOSE 3000
 
 # Comando para iniciar la aplicación
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start:server"]

@@ -2,6 +2,7 @@ const path = require('path'); // Importa módulo path
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // Crea archivo HTML
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // Plugin para extraer CSS
 const CopyPlugin = require('copy-webpack-plugin'); // Plugin para copiar archivos
+const Dotenv = require('dotenv-webpack'); // Carga variables de entorno
 
 module.exports = {
     mode: 'development', // o 'production'
@@ -72,6 +73,7 @@ module.exports = {
                 { from: path.resolve(__dirname, "src", "upload"), to: "upload" }
             ]
         }),
+        new Dotenv(), // Carga variables de entorno
     ],
     devServer: {
         // Aquí añades el proxy para redirigir las solicitudes a tu backend

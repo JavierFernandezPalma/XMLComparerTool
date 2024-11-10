@@ -27,7 +27,7 @@ const upload = multer({ storage: storage }); // Crear una instancia de multer co
 const allowedOrigins = [
     'https://xml-comparer-tool.vercel.app',
     'https://xml-comparer-tool-prueba.vercel.app',
-    'https://xmlcomparertool.onrender.com/',
+    'https://xmlcomparertool.onrender.com',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://127.0.0.1:3002',

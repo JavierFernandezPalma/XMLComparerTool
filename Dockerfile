@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # Compilar la aplicación frontend con webpack
-RUN npm run dev
+RUN npm run build
 
 # Exponer el puerto
 EXPOSE 3000

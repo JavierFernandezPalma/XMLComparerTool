@@ -11,7 +11,7 @@ async function handleValidateXML(event) {
     //     return;
     // }
 
-    const apiUrl = process.env.REACT_APP_API_URL || 'https://xmlcomparertool.onrender.com';
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 
     try {
         const response = await fetch(`${apiUrl}/validate`, {

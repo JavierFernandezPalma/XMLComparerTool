@@ -273,6 +273,6 @@ if (!fs.existsSync(filePath)) {
 }
 
 // Iniciar el servidor
-app.listen(PORT, () => {
-    console.log(`El servidor está corriendo en http://localhost:${PORT}`); // Imprimir un mensaje cuando el servidor esté listo
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`El servidor está corriendo en http://0.0.0.0:${PORT}`); // Imprimir un mensaje cuando el servidor esté listo
 });

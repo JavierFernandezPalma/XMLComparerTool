@@ -57,11 +57,11 @@ app.use(cors(corsOptions));
 // Middleware para servir archivos estáticos
 app.use(express.json()); // Middleware para parsear JSON
 app.use(bodyParser.text({ type: 'application/xml' })); // Middleware para XML
-app.use(express.static(path.join(__dirname, 'dist'))); // Servir archivos estáticos desde la carpeta "dist"
+app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos desde la carpeta "dist"
 
 // Ruta para servir index.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public/pages/inventarioCert.html'));
 });
 
 // Ruta que devuelve versión desde package
@@ -79,7 +79,7 @@ app.get('/papa', (req, res) => {
 
 // Ruta para la aplicación (en caso de ser una SPA o similar)
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public/pages/', 'inventarioCert.html'));
   });
 
 // Ruta para la carga de archivos
@@ -263,7 +263,7 @@ if (!fs.existsSync('dist/utils')) {
 }
 
 // Crear el archivo 'files.json' si no existe
-const filePath = path.join(__dirname, 'dist/utils', 'files.json');
+const filePath = path.join(__dirname, 'dist', 'files.json');
 if (!fs.existsSync(filePath)) {
     try {
         // Crear el archivo 'files.json' con un valor inicial si no existe

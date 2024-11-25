@@ -4,8 +4,8 @@ import { validaContenido } from "./validaContenido.js";
 // Función principal para comparar los XML
 export function compareNodosXML(xmlString1, xmlString2) {
     // Obtener los valores de los editores CodeMirror
-    const xmlInput1 = preprocessXML(xmlString1);
-    const xmlInput2 = preprocessXML(xmlString2);
+    const xmlInput1 = preprocessXML(xmlString1.replace(/\s*(<[^>]+>)\s*/g, '$1').trim());
+    const xmlInput2 = preprocessXML(xmlString2.replace(/\s*(<[^>]+>)\s*/g, '$1').trim());
 
     // Verificar si los XML son válidos antes de parsearlos
     const validation1 = isValidXML(xmlInput1);
@@ -21,8 +21,8 @@ export function compareNodosXML(xmlString1, xmlString2) {
 
     // Parsear los XML a documentos DOM usando los valores de los editores CodeMirror
     const parser = new DOMParser();
-    const xmlDoc1 = parser.parseFromString(xmlInput1, 'text/xml');
-    const xmlDoc2 = parser.parseFromString(xmlInput2, 'text/xml');
+    const xmlDoc1 = parser.parseFromString(xmlInput1, 'application/xml');
+    const xmlDoc2 = parser.parseFromString(xmlInput2, 'application/xml');
 
     // Comparar nodos y obtener el resultado en formato HTML
     const result = compareNodes(xmlDoc1.documentElement, xmlDoc2.documentElement);
@@ -72,52 +72,62 @@ function compareNodes(node1, node2) {
     let result = '';
 
     // Comparar los nombres de los nodos
-    if (node1.nodeName !== node2.nodeName) {
-        result += `<div class="mismatch"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>Los nodos &#60;${node1.nodeName}&#62; de XML1 y &#60;${node2.nodeName}&#62; de XML2 no coinciden</div>`;
+    if (node1.nodeName.trim() !== node2.nodeName.trim()) {
+        result += `<div class="error"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>Los nodos &#60;${node1.nodeName}&#62; de XML1 y &#60;${node2.nodeName}&#62; de XML2 no coinciden</div>`;
         return result; // Salir de la función si los nombres de los nodos no coinciden
+    } else {
+        result += `<div class="match"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>Los nodos &#60;${node1.nodeName}&#62; coinciden.</div>`;
     }
 
-    // Manejar las secciones CDATA
-    if (node1.nodeType === Node.CDATA_SECTION_NODE || node2.nodeType === Node.CDATA_SECTION_NODE) {
-        if (node1.nodeValue !== node2.nodeValue) {
-            result += `<div class="mismatch"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>Las secciones CDATA de ${node1.nodeName} no coinciden</div>`;
-        } else {
-            result += `<div class="match"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>Las secciones CDATA de ${node1.nodeName} coinciden</div>`;
-        }
-        return result; // Salir de la función después de manejar CDATA
-    }
+    // // Manejar las secciones CDATA
+    // if (node1.nodeType === Node.CDATA_SECTION_NODE || node2.nodeType === Node.CDATA_SECTION_NODE) {
+    //     if (node1.nodeValue !== node2.nodeValue) {
+    //         result += `<div class="mismatch"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>Las secciones CDATA de ${node1.nodeName} no coinciden</div>`;
+    //     } else {
+    //         result += `<div class="match"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>Las secciones CDATA de ${node1.nodeName} coinciden</div>`;
+    //     }
+    //     return result; // Salir de la función después de manejar CDATA
+    // }
 
-    // Comparar los nombres de los nodos
-    if (node1.nodeName !== node2.nodeName) {
-        result += `<div class="mismatch"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>Los nodos &#60;${node1.nodeName}&#62; y &#60;${node2.nodeName}&#62; no coinciden</div>`;
-        return result; // Salir de la función si los nombres de los nodos no coinciden
-    }
+    // // Verificar la sintaxis de las etiquetas de apertura y cierre
+    // const syntaxValidation1 = validateTagSyntax(node1);
+    // const syntaxValidation2 = validateTagSyntax(node2);
 
-    // Verificar la sintaxis de las etiquetas de apertura y cierre
-    const syntaxValidation1 = validateTagSyntax(node1);
-    const syntaxValidation2 = validateTagSyntax(node2);
+    // // Manejar errores de sintaxis de etiquetas
+    // if (typeof syntaxValidation1 === 'string') result += `<div class="alert alert-danger py-2 my-1 rounded ms-4 mt-0 align-items-center">${syntaxValidation1}</div>`;
+    // if (typeof syntaxValidation2 === 'string') result += `<div class="alert alert-danger py-2 my-1 rounded ms-4 mt-0 align-items-center">${syntaxValidation2}</div>`;
 
-    // Manejar errores de sintaxis de etiquetas
-    if (typeof syntaxValidation1 === 'string') result += `<div class="error">${syntaxValidation1}</div>`;
-    if (typeof syntaxValidation2 === 'string') result += `<div class="error">${syntaxValidation2}</div>`;
-
-    if (result !== '') return result; // Salir de la función si hay errores de sintaxis
-
+    // if (result !== '') return result; // Salir de la función si hay errores de sintaxis
 
     // Comparar la cantidad de hijos
     const children1 = Array.from(node1.children);
     const children2 = Array.from(node2.children);
 
-    if (children1.length !== children2.length) {
-        result += `<div class="error"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>La cantidad de hijos del nodo &#60;${node1.nodeName}&#62; del XML Base no coinciden con los hijos del nodo XML a Comparar.</div>`;
-    }
-
     // Verificar los nombres de los hijos en ambos conjuntos
     const childNames1 = children1.map(child => child.nodeName);
     const childNames2 = children2.map(child => child.nodeName);
 
+    if (children1.length !== children2.length) {
+        result += `<div class="alert alert-danger py-2 my-1 rounded ms-4 mt-0 align-items-center"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>La cantidad de hijos del nodo &#60;${node1.nodeName}&#62; del XML Base no coinciden con los hijos del nodo &#60;${node2.nodeName}&#62; del XML a Comparar.</div>`;
+        return result; // Salir de la función si los nombres de los nodos no coinciden
+    } else {
+        if (children1.length === 0 && children2.length === 0) {
+            /**
+            * Valida estructura especifica del estandar banco (TODO-Mejoras y FIXME-errores).
+            * @param {number} node1 - El primer nodo.
+            * @param {number} node2 - El segundo nodo.
+            * @returns {html} Respuesta de la validación.
+            * @example
+            * let result = validaContenido(node1, node2, result);
+            * console.log(result); // El contenido del nodo <node1.nodeName> no coincide con el de referencia.
+            **/
+            // TODO: Validar para que sea generico
+            result = validaContenido(node1, node2, result);
+        }
+    }
+
     if (!arraysEqual(childNames1, childNames2)) {
-        result += `<div class="error"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>Los nombres de los nodos hijos de &#60;${node1.nodeName}&#62; en XML Base y &#60;${node2.nodeName}&#62; en XML a Comparar no coinciden.</div>`;
+        result += `<div class="alert alert-warning py-2 my-1 rounded ms-4 mt-0 align-items-center"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>Los nombres de los nodos hijos de &#60;${node1.nodeName}&#62; en XML Base y &#60;${node2.nodeName}&#62; en XML a Comparar no coinciden.</div>`;
     }
 
     // Recorrer cada hijo de node1 y buscar un equivalente en node2
@@ -132,29 +142,13 @@ function compareNodes(node1, node2) {
             child2 = children2.find(child => child.nodeName === child1.nodeName);
             // Si no se encuentra el equivalente del hijo en node2, agregar mensaje de desacuerdo
             if (!child2) {
-                result += `<div class="error"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>No se encontró el nodo hijo &#60;${child1.nodeName}&#62; de XML Base en el nodo &#60;${node2.nodeName}&#62; del XML a comparar.</div>`;
+                result += `<div class="alert alert-danger py-2 my-1 rounded ms-4 mt-0 align-items-center"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>No se encontró el nodo hijo &#60;${child1.nodeName}&#62; de XML Base en el nodo &#60;${node2.nodeName}&#62; del XML a comparar.</div>`;
             } else {
                 // Comparar recursivamente los hijos
                 result += compareNodes(child1, child2);
             }
+
         }
-    }
-
-    // Si no se han encontrado discrepancias, agregar mensaje de coincidencia
-    if (result === '') {
-        result += `<div class="match"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>Los nodos &#60;${node1.nodeName}&#62; coinciden.</div>`;
-
-        /**
-         * Valida estructura especifica del estandar banco (TODO-Mejoras y FIXME-errores).
-         * @param {number} node1 - El primer nodo.
-         * @param {number} node2 - El segundo nodo.
-         * @returns {html} Respuesta de la validación.
-         * @example
-         * let result = validaContenido(node1, node2, result);
-         * console.log(result); // El contenido del nodo <node1.nodeName> no coincide con el de referencia.
-         */
-        // TODO: Validar para que sea generico
-        result = validaContenido(node1, node2, result);
     }
 
     // Retornar el resultado para este nivel de nodos

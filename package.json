@@ -1,10 +1,10 @@
 {
     "name": "xml-comparer-tool",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "Este proyecto es una aplicación web que permite comparar estructuras XML de manera visual. Utiliza varias tecnologías como HTML, CSS, JavaScript, Bootstrap, CodeMirror y jsdiff para proporcionar una interfaz amigable y funcional.",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "install-java": "apt-get update && apt-get install -y openjdk-11-jre",
+        "install-java": "apt-get update && apt-get install -y openjdk-17-jre",
         "start:parcel": "parcel build public/index.html --dist-dir dist --no-cache",
         "start:server": "node server.js",
         "start": "concurrently \"npm run build && npm run start:server\"",

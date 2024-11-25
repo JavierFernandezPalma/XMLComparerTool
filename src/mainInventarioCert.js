@@ -1,6 +1,6 @@
 import { procesarXML } from './parser.js';
 import { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml } from './scripts/config.js';
-import '@styles/main.css'
+// import '@styles/main.css'
 
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {

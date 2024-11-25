@@ -7,7 +7,7 @@ export function validaContenido(node1, node2, result) {
   let regExpNode1 = useRegex(contenido);
 
   if (!regExpNode1.test(contenido2)) {
-
+    
     if (
       node1.nodeName !== "Org" &&
       node1.nodeName !== "Name" &&
@@ -43,5 +43,6 @@ export function validaContenido(node1, node2, result) {
         `La descripción del nodo &#60;${node1.nodeName}&#62; debe coincidir con el estándar, no se admite modificaciones.</div>`;
     }
   }
+
   return result;
 }

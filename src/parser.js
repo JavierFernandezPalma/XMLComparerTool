@@ -1,9 +1,10 @@
-import xml2js from 'xml2js';
+// import xml2js from 'xml2js';
 
 // Función para parsear el XML y extraer la información
 export function procesarXML(xmlData, callback) {
+    // const xml2js = require('xml2js');
     const parser = new xml2js.Parser();
-    
+
     parser.parseString(xmlData, (err, result) => {
         if (err) {
             callback("Error al parsear el XML: " + err, null);
@@ -58,3 +59,23 @@ export function procesarXML(xmlData, callback) {
         callback(null, output);
     });
 }
+
+const template = document.createElement('div');
+template.innerHTML = `
+    <p>Hola Mundo 2!!</p>
+`;
+
+class myElement extends HTMLElement {
+    constructor() {
+        super();
+
+        this.p = document.createElement('p');
+    }
+    connectedCallback() {
+        this.p.textContent = "Hola mundo!!";
+        this.appendChild(this.p);
+        this.appendChild(template);
+    }
+}
+
+customElements.define('my-element', myElement);

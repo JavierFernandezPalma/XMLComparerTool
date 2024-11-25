@@ -114,7 +114,7 @@ async function loadVersion() {
         serverUrl = 'https://xml-comparer-tool.vercel.app/version';
     } else {
         // URL por defecto en caso de que no coincida con ninguno de los casos anteriores
-        serverUrl = 'https://xml-comparer-tool.vercel.app/version';
+        serverUrl = 'https://xmlcomparertool.onrender.com/version';
     }
 
     // Verifica si el servidor está disponible

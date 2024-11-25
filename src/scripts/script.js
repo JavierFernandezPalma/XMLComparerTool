@@ -40,6 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
     customIcon();
 
     // Cargar la versión cuando se carga la página
-    // window.onload = loadVersion;
+    window.onload = loadVersion;
 
 });

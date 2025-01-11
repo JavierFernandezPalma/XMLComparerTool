@@ -3,21 +3,22 @@ import { validaContenido } from "./validaContenido.js";
 
 // Función principal para comparar los XML
 export function compareNodosXML(xmlString1, xmlString2) {
-    // Obtener los valores de los editores CodeMirror
-    const xmlInput1 = preprocessXML(xmlString1.replace(/\s*(<[^>]+>)\s*/g, '$1').trim());
-    const xmlInput2 = preprocessXML(xmlString2.replace(/\s*(<[^>]+>)\s*/g, '$1').trim());
 
     // Verificar si los XML son válidos antes de parsearlos
-    const validation1 = isValidXML(xmlInput1);
+    const validation1 = isValidXML(xmlString1);
     if (!validation1.isValid) {
         displayResult(`<div class="error"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>XML 1 tiene errores de sintaxis: ${validation1.error}<br></div><div><pre>${escapeHtml(validation1.partialContent)}</pre></div>`);
         return;
     }
-    const validation2 = isValidXML(xmlInput2);
+    const validation2 = isValidXML(xmlString2);
     if (!validation2.isValid) {
         displayResult(`<div class="error"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>XML 2 tiene errores de sintaxis: ${validation2.error}<br></div><div><pre>${escapeHtml(validation2.partialContent)}</pre></div>`);
         return;
     }
+
+    // Obtener los valores de los editores CodeMirror
+    const xmlInput1 = preprocessXML(xmlString1.replace(/\s*(<[^>]+>)\s*/g, '$1').trim());
+    const xmlInput2 = preprocessXML(xmlString2.replace(/\s*(<[^>]+>)\s*/g, '$1').trim());
 
     // Parsear los XML a documentos DOM usando los valores de los editores CodeMirror
     const parser = new DOMParser();

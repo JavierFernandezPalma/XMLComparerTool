@@ -8,11 +8,12 @@
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Enlace a CodeMirror CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
     <!-- Incluir el CSS de Shepherd.js para tour en la APP -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css" />
+    <!-- Enlace a la librería DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    <!-- Enlace a la librería DataTables Buttons (para los botones de exportación) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.dataTables.min.css" />
     <!-- Enlaces a jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -26,38 +27,131 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-   <!-- Enlace a estilos personalizados -->
-   <link rel='stylesheet' type='text/css' media='screen' href='../../src/styles/main.css'>
+
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+
+
+    <!-- Incluir la librería SheetJS para exportar a Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <!-- Enlace a estilos personalizados -->
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='../../src/styles/main.css'> -->
 </head>
 
 <body class="bg-light">
-    <template></template>
-    <my-element img="../../src/assets/images/logo.png" title="Este es el título"><span slot="prueba">Hola Mundo!!</span></my-element>
-    <div></div>
     <!-- Barra de navegación con fondo oscuro y texto en color blanco -->
     <nav class="navbar navbar-dark bg-dark">
         <!-- Contenedor fluido que asegura que el contenido ocupa todo el ancho disponible -->
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <!-- Logo a la izquierda -->
             <a class="navbar-brand" href="#">
-                <!-- <img src="./assets/images/Bancolombiablanco.png" alt="Logo" class="d-inline-block align-top"
-                    style="max-width: 100px; height: auto;"> -->
+                <img src="./assets/images/Bancolombiablanco.png" alt="Logo" class="d-inline-block align-top"
+                    style="max-width: 100px; height: auto;">
             </a>
             <!-- Párrafo alineado a la derecha con el margen inferior eliminado -->
-            <p class="mb-0">Version: 1.0.1<span id="app-version"></span></p>
+            <p class="mb-0">Versión: <span id="app-version"></span></p>
             <!-- El <span> con id="app-version" se usará para mostrar la versión de la aplicación -->
         </div>
     </nav>
     <div class="container my-5">
-        <h1 class="mb-4">Parsear Certificados XML</h1>
-        <div class="mb-3">
-            <label for="xmlInput" class="form-label">Pega el XML aquí:</label>
-            <textarea class="form-control" id="xmlInput" rows="10"></textarea>
-        </div>
-        <button id="parseBtn" class="btn btn-primary mb-4">Parsear Certificado</button>
+        <!-- Título de la página -->
+        <h2 class="text-center mb-4">Parsear Certificados XML</h2>
 
-        <h3>Resultado</h3>
-        <div id="output" class="bg-white p-3 border rounded"></div>
+        <!-- Card para cargar archivos XML -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title">Cargar archivo XML de Certificados</h4>
+                    <!-- Contenedor para el botón de tour -->
+                    <div class="d-flex align-items-center">
+                        <!-- Botón para iniciar el paseo -->
+                        <button onclick="startTourComparerXML()" class="btn btn-primary btn-circle" type="button"
+                            disabled>?</button>
+                    </div>
+                </div>
+                <!-- Input para cargar archivo XML base -->
+                <div id="inputFiles">
+                    <div class="mb-3">
+                        <label for="fileInput1" class="form-label">Seleccionar archivo XML de Certificados</label>
+                        <input type="file" class="form-control" id="fileInput1" accept=".xml">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card para ingresar XML manualmente -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title mb-0">Ingresar XML de Certificados manualmente</h4>
+                    <div id="switchScroll" class="d-flex align-items-center">
+                        <!-- Switch para activar/desactivar el scroll vertical -->
+                        <div class="form-check form-switch me-3">
+                            <input class="form-check-input" type="checkbox" id="scrollSwitch"
+                                title="Activar Scroll Vertical">
+                            <label class="form-check-label d-none d-md-flex" for="scrollSwitch">Activar Scroll
+                                Vertical</label>
+                        </div>
+                        <!-- Campo de texto para el tamaño del scroll -->
+                        <div>
+                            <input type="number" class="form-control" id="scrollSizeInput" list="presetScrollSizes"
+                                min="1" pattern="\d*" disabled title="Ingrese el tamaño del scroll en píxeles">
+                            <datalist id="presetScrollSizes">
+                                <option value="100">
+                                <option value="200">
+                                <option value="300">
+                                <option value="400">
+                                <option value="500">
+                                <option value="1000">
+                            </datalist>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Textarea Datos XML para validar -->
+                <div id="xmlValitate" class="mb-3">
+                    <text-area-xml id="xmlInput" title="XML de certificados" titleformat="Aplicar Formato"
+                        titleclear="Limpiar XML" buttonformatid="formatXmlInput1" buttonclearid="clearXmlInput1"
+                        textareaid="xmlInput1">
+                    </text-area-xml>
+                </div>
+
+                <!-- Botón para comparar XML -->
+                <div class="text-center">
+                    <button id="showTableButton" class="btn btn-success">Parsear Certificado</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para exportar a Excel -->
+        <button id="exportToExcel" style="margin-top: 10px; display: none;">Exportar a Excel</button>
+
+        <!-- Tabla de resultados -->
+        <table id="xmlTable" class="display" style="width:100%; display: none;">
+            <thead>
+                <tr id="tableHeaders">
+                    <!-- Los encabezados se generarán dinámicamente -->
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Aquí se llenarán las filas dinámicamente -->
+            </tbody>
+        </table>
+
+        <!-- Card para mostrar el resultado del parceo -->
+        <div id="cardResultComparer" class="card">
+            <div class="card-body">
+                <h4 class="card-title">Resultado del parseo XML</h4>
+                <!-- Resultado de la comparación -->
+                <pre id="comparisonResult" class="diff p-3 bg-light rounded"></pre>
+                <div id="messageContainer" class="diff p-3 bg-light rounded"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Navegación fija en la parte inferior -->
@@ -92,13 +186,34 @@
     </nav>
 
     <!-- Incluir CodeMirror para la edición de XML -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
     <!-- Incluir modo XML para CodeMirror -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/xml/xml.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xml2js/0.4.23/xml2js.min.js"></script>
+    <!-- CodeMirror fullscreen JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/fullscreen.min.js"></script>
+    <!-- Cargar el addon simpleScrollbars -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/scroll/simplescrollbars.min.js"></script>
+    <!-- CodeMirror-placeholder -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/placeholder.min.js"></script>
 
     <!-- Incluir el script JavaScript personalizado -->
-    <script type="module" src="../../src/prueba.js"></script>
+    <!-- <script type="module" src="../../src/app.js"></script> -->
+    <script>
+        // Función para descargar el archivo CER con Base64 tal cual
+        function downloadCerFile(base64Data) {
+            // Crear un Blob con el contenido Base64 como texto
+            const blob = new Blob([base64Data], { type: 'application/x-x509-ca-cert' });
+
+            // Crear un enlace para descargar el archivo
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'certificado.cer'; // Nombre del archivo .cer
+            link.click();
+            URL.revokeObjectURL(url); // Liberar el objeto URL
+        }
+    </script>
 </body>
 
 </html>

@@ -1,16 +1,23 @@
-// Obtener los botones Aplicar Formato
-var formatXmlInput1 = document.getElementById('formatXmlInput1');
-var formatXmlInput2 = document.getElementById('formatXmlInput2');
+function formatXML(componentId1, componentId2) {
+    const customElement1 = document.getElementById(componentId1);
+    const customElement2 = document.getElementById(componentId2);
 
-// Agregar eventos click a los botones
-formatXmlInput1.addEventListener('click', function () {
-    formatXmlEditor(window.editor1);
-});
-
-formatXmlInput2.addEventListener('click', function () {
-    formatXmlEditor(window.editor2);
-});
-
+    // Agregar eventos click a los botones
+    if (customElement1) {
+        // Obtener boton Aplicar Formato
+        var formatXmlInput1 = customElement1.shadowRoot.getElementById('formatXmlInput1');
+        formatXmlInput1.addEventListener('click', function () {
+            formatXmlEditor(window.editor1);
+        });
+    }
+    if (customElement2) {
+        // Obtener boton Aplicar Formato
+        var formatXmlInput2 = customElement2.shadowRoot.getElementById('formatXmlInput2');
+        formatXmlInput2.addEventListener('click', function () {
+            formatXmlEditor(window.editor2);
+        });
+    }
+}
 // Función para aplicar formato al XML en un editor específico
 function formatXmlEditor(editor) {
     // Obtener el contenido del editor
@@ -75,3 +82,6 @@ function formatXml(xml) {
     // Devolver el XML formateado
     return formattedXml;
 }
+
+// Exportar las funciones necesarias
+export { formatXML };

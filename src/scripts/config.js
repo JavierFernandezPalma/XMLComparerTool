@@ -1,12 +1,24 @@
 // Función para inicializar CodeMirror
-function initializeCodeMirror(elementId) {
-    return CodeMirror.fromTextArea(document.getElementById(elementId), {
+function initializeCodeMirror(elementId, componentId) {
+    const customElement = document.getElementById(componentId);
+    return CodeMirror.fromTextArea(customElement.shadowRoot.getElementById(elementId), {
         mode: 'xml',
         theme: 'monokai', // Tema Monokai para el editor (default - eclipse - material - solarized)
         lineNumbers: true, // Habilitar números de línea
         autoCloseTags: true, // Cierre automático de etiquetas
         matchTags: { bothTags: true }, // Resaltar etiqueta coincidente
-        extraKeys: { "Ctrl-Space": "autocomplete" } // Función adicional 'Ctrl-Space' activa autocompletado
+        showCursorWhenSelecting: true, // Cursor visible al seleccionar texto
+        matchBrackets: true, // Resalta los paréntesis y corchetes coincidentes
+        placeholder: "Ingresa código aquí...",
+        readOnly: false, // Habilita la edición (No se puede hacer edici´si está activo)
+        // smartIndent: true, // Indentación automática inteligente
+        // scrollbarStyle: 'simple', // Barras de desplazamiento 'simple' o 'overlay'
+        extraKeys: { 
+            "Ctrl-Space": "autocomplete",
+            "F11": function(cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            }
+        } // Función adicional 'Ctrl-Space' activa autocompletado
     });
 }
 

@@ -10,6 +10,9 @@ import { clearComparisonResult } from './config.js';
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
 
+    const customElement1 = document.getElementById('textarea1');
+    const customElement2 = document.getElementById('textarea2');
+
     // Obtiene la URL actual
     const currentUrl = window.location.href;
 
@@ -77,19 +80,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     });
-
+    var clearXmlInput1 = customElement1.shadowRoot.getElementById('clearXmlInput1');
     if (clearXmlInput1) {
         // Eventos para limpiar el contenido de xmlInput1 y xmlInput2 y el resultado de la comparación
-        document.getElementById('clearXmlInput1').addEventListener('click', () => {
+        customElement1.shadowRoot.getElementById('clearXmlInput1').addEventListener('click', () => {
             document.getElementById('fileInput1').value = ''; // Limpiar archivo seleccionado en fileInput1
             fetchXmlFiles(xmlFileSelect); // Llama a la función para cargar opciones desde 'files.json'
         });
     } else {
         console.error('Elemento clearXmlInput1 no encontrado');
     }
-
+    var clearXmlInput2 = customElement2.shadowRoot.getElementById('clearXmlInput2');
     if (clearXmlInput2) {
-        document.getElementById('clearXmlInput2').addEventListener('click', () => {
+        customElement2.shadowRoot.getElementById('clearXmlInput2').addEventListener('click', () => {
             document.getElementById('fileInput2').value = ''; // Limpiar archivo seleccionado en fileInput2
         });
     } else {

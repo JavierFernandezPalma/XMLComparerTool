@@ -106,12 +106,6 @@ h4 {
     border-radius: 5px;
 }
 
-.CodeMirror {
-    height: auto;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-}
-
 #navbarCollapse.dropup .dropdown-menu {
     top: auto;
     bottom: 100%;

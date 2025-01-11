@@ -33,6 +33,9 @@ class myElement extends HTMLElement {
     getStyles() {
         return `
         <style>
+        :host {
+        display: inline-block;
+        }
             h2{
                 color: red;
             }

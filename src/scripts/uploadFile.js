@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Esperar a que los elementos estén en el DOM
     setTimeout(() => {
         const uploadForm = document.getElementById('uploadForm');
+        const apiUrl = process.env.APP_API_URL || 'https://xmlcomparertool.onrender.com';
+        const pathUrl = process.env.FILES_API_PATH || '/api/v1/files'
+
         if (uploadForm) {
             // Maneja el envío del formulario de subida
             document.getElementById('uploadForm').addEventListener('submit', async function (event) {
@@ -13,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 formData.append('file', fileInput.files[0]); // Añade el archivo a FormData
 
                 try {
-                    const response = await fetch('http://localhost:3000/upload', { // Envía la petición POST
+                    const response = await fetch(`${apiUrl}${pathUrl}/upload`, { // Envía la petición POST
                         method: 'POST',
                         body: formData
                     });

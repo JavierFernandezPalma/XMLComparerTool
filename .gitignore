@@ -167,3 +167,5 @@ recycle/
 webpack.config.dev.js
 server_prueba.js
 vercel.json
+mysql_data
+tools

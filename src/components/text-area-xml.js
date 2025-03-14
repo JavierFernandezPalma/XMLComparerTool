@@ -23,11 +23,12 @@ class textAreaXML extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" }); // Crea un shadow DOM abierto
+        this.scriptsLoaded = 0; // Contador para seguir cuántos scripts se han cargado
     }
 
     // Especifica los atributos observados para cambios
     static get observedAttributes() {
-        return ["title", "titleformat", "titleclear", "buttonformatid", "buttonclearid", "textareaid", "readonly"];
+        return ["title", "titleformat", "titleclear", "buttonformatid", "buttonclearid", "textareaid", "readonly", "placeholder"];
     }
 
     /**
@@ -130,6 +131,14 @@ class textAreaXML extends HTMLElement {
         }
     }
 
+    // Actualiza la opción 'placeholder' de CodeMirror
+    statusPlaceholder(placeholder) {
+        const codemirrorInstance = this.shadowRoot.querySelector('.CodeMirror');
+        if (codemirrorInstance) {
+            codemirrorInstance.CodeMirror.setOption('placeholder', placeholder); // Cambia la opción 'placeholder'
+        }
+    }
+
     /**
      * Función para cargar dinámicamente los scripts de CodeMirror.
      * 
@@ -143,18 +152,21 @@ class textAreaXML extends HTMLElement {
         const scripts = [
             'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/xml/xml.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/xml2js/0.4.23/xml2js.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/fullscreen.min.js'
+            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/fullscreen.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/scroll/simplescrollbars.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/placeholder.min.js'
         ];
 
         scripts.forEach(src => {
             const script = document.createElement('script');
-            // script.src = src;
-            // script.onload = () => {
-            //     if (src.includes('codemirror.min.js')) {
-            //         this.initializeCodeMirror(this._textareaId || 'xmlInput'); // Inicializar CodeMirror cuando se cargue el JS
-            //     }
-            // };
+            script.src = src;
+            script.onload = () => {
+                this.scriptsLoaded++; // Incrementa el contador cuando un script se carga
+                if (this.scriptsLoaded === scripts.length) {
+                    // Todos los scripts se han cargado, inicializamos CodeMirror
+                    // this.initializeCodeMirror(this._textareaId); // Inicializar CodeMirror cuando se cargue el JS
+                }
+            };
             this.shadowRoot.appendChild(script); // Añadir al shadow DOM
         });
     }
@@ -169,6 +181,15 @@ class textAreaXML extends HTMLElement {
             const selectedTheme = e.target.value;
             this.updateTheme(selectedTheme); // Cambia el tema cuando se selecciona una opción
         });
+
+    }
+
+    /**
+     * Método público para obtener la instancia de CodeMirror
+     * @returns {CodeMirror.Editor} La instancia de CodeMirror asociada al textarea
+     */
+    getCodeMirrorInstance() {
+        return this.codemirrorInstance;
     }
 
     /**
@@ -182,11 +203,22 @@ class textAreaXML extends HTMLElement {
         if (textarea) {
             return CodeMirror.fromTextArea(textarea, {
                 mode: 'xml',
-                theme: 'monokai',
-                lineNumbers: true,
-                autoCloseTags: true,
-                matchTags: { bothTags: true },
-                extraKeys: { "Ctrl-Space": "autocomplete" }
+                theme: 'monokai', // Tema Monokai para el editor (default - eclipse - material - solarized)
+                lineNumbers: true, // Habilitar números de línea
+                autoCloseTags: true, // Cierre automático de etiquetas
+                matchTags: { bothTags: true }, // Resaltar etiqueta coincidente
+                showCursorWhenSelecting: true, // Cursor visible al seleccionar texto
+                matchBrackets: true, // Resalta los paréntesis y corchetes coincidentes
+                placeholder: "Ingresa código aquí...",
+                readOnly: false, // Habilita la edición (No se puede hacer edici´si está activo)
+                // smartIndent: true, // Indentación automática inteligente
+                // scrollbarStyle: 'simple', // Barras de desplazamiento 'simple' o 'overlay'
+                extraKeys: {
+                    "Ctrl-Space": "autocomplete",
+                    "F11": function (cm) {
+                        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    }
+                } // Función adicional 'Ctrl-Space' activa autocompletado
             });
         } else {
             console.error("Textarea no encontrado dentro del shadow DOM");
@@ -207,10 +239,11 @@ class textAreaXML extends HTMLElement {
         this._buttonClearId = this.getAttribute('buttonclearid') || "clearXmlInput";
         this._textareaId = this.getAttribute('textareaid') || 'xmlInput';
         this._readonly = this.getAttribute('readonly') || false;
+        this._placeholder = this.getAttribute('placeholder') || 'Ingresa código aquí...';
 
         this.render(); // Renderiza el componente
 
-        // Carga los scripts de CodeMirror y luego inicializa el editor
+        // // Carga los scripts de CodeMirror y luego inicializa el editor
         // this.loadCodeMirrorScripts(); // Llama a la función para cargar los scripts
 
         // Observar cambios en el shadow DOM para detectar la carga de CodeMirror
@@ -219,6 +252,7 @@ class textAreaXML extends HTMLElement {
             if (codemirrorInstance) {
                 this.codemirrorInstance = codemirrorInstance.CodeMirror;
                 this.statusReadOnly(this._readonly);
+                this.statusPlaceholder(this._placeholder)
                 observer.disconnect(); // Dejar de observar una vez que se ha encontrado CodeMirror
             }
         });
@@ -226,7 +260,7 @@ class textAreaXML extends HTMLElement {
         observer.observe(this.shadowRoot, { childList: true, subtree: true });
 
         // Inicializa CodeMirror si se requiere
-        // this.initializeCodeMirror(this._textareaId || 'xmlInput'); // Opcional, si se necesita cargar dinámicamente los scripts
+        this.initializeCodeMirror(this._textareaId); // Opcional, si se necesita cargar dinámicamente los scripts
     }
 }
 

@@ -19,9 +19,13 @@ module.exports = {
     resolve: {
         extensions: ['.js'], // Extensiones a resolver
         fallback: {
-            stream: require.resolve('stream-browserify'),
-            timers: require.resolve('timers-browserify'),
-            buffer: require.resolve('buffer/'),
+            stream: require.resolve('stream-browserify'),  // Polyfill para el módulo 'stream'
+            timers: require.resolve('timers-browserify'),  // Polyfill para el módulo 'timers'
+            buffer: require.resolve('buffer/'),  // Polyfill para el módulo 'buffer'
+            path: require.resolve('path-browserify'),  // Polyfill para el módulo 'path'
+            os: require.resolve('os-browserify/browser'),  // Polyfill para el módulo 'os'
+            crypto: require.resolve('crypto-browserify'),  // Polyfill para el módulo 'crypto'
+            "vm": false  // Desactiva la inclusión de un polyfill para 'vm'
         },
         alias: { // Alias para rutas
             '@utils': path.resolve(__dirname, 'src/utils/'),
@@ -29,6 +33,7 @@ module.exports = {
             '@styles': path.resolve(__dirname, 'src/styles/'),
             '@images': path.resolve(__dirname, 'src/assets/images/'),
             '@scripts': path.resolve(__dirname, 'src/scripts/'),
+            '@dist': path.resolve(__dirname, 'dist/')
         }
     },
     module: {
@@ -73,7 +78,11 @@ module.exports = {
                 { from: path.resolve(__dirname, "src", "upload"), to: "upload" }
             ]
         }),
-        new Dotenv(), // Carga variables de entorno
+        new Dotenv({ // Carga variables de entorno
+            path: './.env', // Ruta al archivo .env
+            systemvars: true, // Cargar variables del sistema también
+            silent: true, // No mostrar advertencias si el archivo .env no existe
+        }),
     ],
     devServer: {
         // Aquí añades el proxy para redirigir las solicitudes a tu backend

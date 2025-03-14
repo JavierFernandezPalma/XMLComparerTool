@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Errores</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background-color: #f4f4f4; 
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        input {
+            width: 80%; 
+            padding: 10px; 
+            margin-bottom: 20px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .error-item {
+            width: 80%;
+            padding: 15px;
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            margin-bottom: 10px; 
+            background-color: white;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            cursor: pointer;
+            position: relative;
+        }
+        .error-item button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .error-item button.delete {
+            background-color: #f44336;
+        }
+        .details {
+            display: none;
+            text-align: left;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 10px;
+            max-width: 600px;
+        }
+        .details button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .details button.delete {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buscador de Errores</h1>
+    <input type="text" id="search" placeholder="Buscar por descripción...">
+    <div class="error-container" id="error-list"></div>
+    <div class="details" id="error-details"></div>
+
+    <script>
+        // Función para obtener la lista de errores
+        async function fetchErrores() {
+            try {
+                const response = await fetch('http://localhost:3000/api/v1/errors');
+                return await response.json();
+            } catch (error) {
+                console.error('Error al obtener los datos:', error);
+                return [];
+            }
+        }
+
+        // Función para mostrar los errores que coinciden con el filtro
+        async function mostrarErrores(filtro = "") {
+            const errores = await fetchErrores();
+            const lista = document.getElementById("error-list");
+            lista.innerHTML = "";
+            document.getElementById("error-details").style.display = "none";
+            
+            errores.filter(error => error.descripcionError.toLowerCase().includes(filtro.toLowerCase()))
+                   .forEach(error => {
+                        const div = document.createElement("div");
+                        div.classList.add("error-item");
+                        div.innerHTML = `
+                            <strong>ID:</strong> ${error.idError} <br> 
+                            <strong>Descripción:</strong> ${error.descripcionError}
+                            <button class="update" onclick="actualizarError(${error.idError})">Actualizar</button>
+                            <button class="delete" onclick="eliminarError(${error.idError})">Eliminar</button>
+                        `;
+                        // Mostrar detalles al hacer clic en el item
+                        div.onclick = () => mostrarDetalles(error.descripcionError); // Llamamos a mostrarDetalles con la descripción
+                        lista.appendChild(div);
+                    });
+        }
+
+        // Función para consultar el detalle de un error utilizando GET
+        async function mostrarDetalles(descripcionError) {
+            try {
+                // Hacemos la solicitud GET con la descripción como parámetro de consulta
+                const response = await fetch(`http://localhost:3000/api/v1/errors/findAll?descripcionError=${encodeURIComponent(descripcionError)}`);
+                
+                // Verificar si la respuesta es exitosa
+                if (response.ok) {
+                    const errores = await response.json(); // Obtenemos el listado de errores que coinciden con la descripción
+
+                    if (errores.length > 0) {
+                        const error = errores[0]; // Suponemos que la descripción es única, tomamos el primer error
+                        const detalles = document.getElementById("error-details");
+                        detalles.innerHTML = `
+                            <h2>${error.descripcionError}</h2>
+                            <p><strong>Componente:</strong> ${error.componentes.nombreComponente}</p>
+                            <p><strong>Proceso:</strong> ${error.procesos.nombreProceso}</p>
+                            <h3>Causas:</h3>
+                            <ul>
+                                ${error.causas.map(causa => `
+                                    <li>
+                                        <strong>${causa.descripcionCausa}</strong>
+                                        <ul>
+                                            ${causa.soluciones.map(solucion => `<li>${solucion.descripcionSolucion}</li>`).join('')}
+                                        </ul>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                            <button onclick="actualizarError(${error.idError})">Actualizar</button>
+                            <button class="delete" onclick="eliminarError(${error.idError})">Eliminar</button>
+                        `;
+                        detalles.style.display = "block";
+                    } else {
+                        alert("No se encontró el error con esa descripción.");
+                    }
+                } else {
+                    alert('No se pudo obtener los detalles del error');
+                }
+            } catch (error) {
+                console.error('Error al obtener detalles:', error);
+            }
+        }
+
+        // Función para actualizar un error
+        async function actualizarError(idError) {
+            const updatedData = {
+                idError: idError,
+                descripcionError: "Descripción actualizada", // Aquí podrías poner los nuevos valores
+                // Otros campos que desees actualizar
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/v1/errors', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedData),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Error actualizado correctamente');
+                    mostrarErrores(); // Refrescar la lista de errores
+                } else {
+                    alert('Error al actualizar');
+                }
+            } catch (error) {
+                console.error('Error al actualizar el error:', error);
+            }
+        }
+
+        // Función para eliminar un error
+        async function eliminarError(idError) {
+            const confirmation = confirm('¿Estás seguro de que quieres eliminar este error?');
+            if (!confirmation) return;
+
+            try {
+                const response = await fetch('http://localhost:3000/api/v1/errors', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ idError }),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Error eliminado correctamente');
+                    mostrarErrores(); // Refrescar la lista de errores
+                } else {
+                    alert('Error al eliminar');
+                }
+            } catch (error) {
+                console.error('Error al eliminar el error:', error);
+            }
+        }
+
+        // Agregar un evento para filtrar los errores mientras escribimos
+        document.getElementById("search").addEventListener("input", (e) => {
+            mostrarErrores(e.target.value);
+        });
+
+        // Mostrar la lista de errores inicial
+        mostrarErrores();
+    </script>
+</body>
+</html>

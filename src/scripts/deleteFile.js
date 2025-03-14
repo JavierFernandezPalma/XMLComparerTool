@@ -6,10 +6,12 @@ async function handleDeleteFile(event) {
 
     const deleteFileSelect = document.getElementById('deleteFileSelect');
     const fileName = deleteFileSelect.value;
+    const apiUrl = process.env.APP_API_URL || 'https://xmlcomparertool.onrender.com';
+    const pathUrl = process.env.FILES_API_PATH || '/api/v1/files'
 
     if (fileName) {
         try {
-            const response = await fetch('http://localhost:3000/delete', {
+            const response = await fetch(`${apiUrl}${pathUrl}/delete`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

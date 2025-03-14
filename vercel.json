@@ -2,22 +2,26 @@
     "version": 2,
     "builds": [
         {
-            "src": "public/**/*",
+            "src": "dist/**/*",
             "use": "@vercel/static"
         },
         {
-            "src": "public/server.js",
-            "use": "@vercel/node"
+            "src": "package.json",
+            "use": "@vercel/node",
+            "config": {
+              "maxLambdaSize": "50mb",
+              "installCommand": "apt-get update && apt-get install -y openjdk-11-jdk && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 && npm install"
+            }
         }
     ],
     "routes": [
         {
-            "src": "/api/(.*)",
-            "dest": "public/server.js"
+            "src": "/(.*)",
+            "dest": "/server.js"
         },
         {
-            "src": "/(.*)",
-            "dest": "/public/$1"
+            "src": "/version",
+            "dest": "server.js"
         }
     ]
 }

@@ -1,4 +1,5 @@
 Instalar Node.js v18.13.0 o superior.
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
 //--------------Verificar PATH proyecto
     which node
@@ -31,10 +32,23 @@ Desinstalar paquete:
     npm uninstall xmldom
 Limpiar dependencias:
     npm prune
+Eliminar carpeta dist y cache
+    rm -rf dist
+    rm -rf node_modules
+    rm package-lock.json
+
+    npm install
+    npm update
 
 //--------------Validar XML
 Instalar biblioteca 'libxmljs2'
     npm install libxmljs2
+Instalar biblioteca 'xsd-schema-validator'
+    npm install xsd-schema-validator@latest
+
+//------------Modulo stream para navegadores
+Necesario para tu configuración de Webpack
+    npm install stream-browserify timers-browserify buffer
 
 //--------------Indice de archivos Git
 Elimina los archivos del índice de Git sin borrarlos del sistema de archivos
@@ -51,8 +65,46 @@ Ejecutar múltiples comandos en paralelo
     npm install concurrently --save-dev
         Ejm: "start": "concurrently \"npm run start:server\" \"npm run start:parcel\""
 
+//-------------------Herramienta criptográfica (deco Base64) node-forge y xml2js convertir XML en JavaScript
+Cuando se combinan node-forge y xml2js, puedes leer datos criptográficos (como certificados) 
+que están almacenados en XML, decodificarlos y procesarlos utilizando las herramientas 
+criptográficas que ofrece node-forge.
 
+    npm install node-forge xml2js
 
+//---------------instalar WebPack
+    npm install webpack webpack-cli -D
+Ejecutar webpack con la configuración personalizada
+    npx --mode production --config webpack.config.js
+Intalar Babel para utilidad en todos los navegadores
+    npm install babel-loader @babel/core @babel/preset-env @babel/plugin-transform-runtime -D
+Instalar plugin para manejo de HTLM
+    npm install html-webpack-plugin -D
+Dependencias para manejo de CSS
+    npm install mini-css-extract-plugin css-loader -D
+Preprocesaror de stylus
+    npm install stylus stylus-loader -D
+Copia de archivos
+    npm install copy-webpack-plugin -D
+Mover archivos de fuentes
+    npm install url-loader file-loader -D
+Optimización de proyecto (minimizar css y JavaScript)
+    npm i css-minimizer-webpack-plugin terser-webpack-plugin -D
+Variables de entorno
+    npm i dotenv-webpack -D
+Limpiar el código para modo productivo
+    npm i clean-webpack-plugin -D
+Instalar stylus
+    npm install stylus -D
+Servidor para ver cambios en tiempo real (WebPack Dev Server)
+    npm install webpack-dev-server -D
+Optimizar paquetes y dependencias
+    npm i webpack-bundle-analyzer -D
+        Nota: ejecutar el comando
+            npx webpack --profile --json > stats.json
+            npx webpack-bundle-analyzer stats.json
+
+//--------------
 
 Datos XML:
 

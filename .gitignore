@@ -158,3 +158,12 @@ __pycache__/
 # Godot
 export_presets.cfg
 import-*
+
+# others
+recycle/
+/public/js/scripts/libraries/
+
+# Custom files
+webpack.config.dev.js
+server_prueba.js
+vercel.json

@@ -4,6 +4,7 @@ const validarXMLRoutes = require('./validateXMLRoutes');
 const registroErroresRoutes = require('./errorRoutes');
 const registroCausasRoutes = require('./causaRoutes');
 const registroSolucionesRoutes = require('./solucionRoutes');
+const registroImagenesRoutes = require('./imagenRoutes');
 const authRoutes = require('./authRoutes');
 
 function routerApi(app) {
@@ -14,6 +15,7 @@ function routerApi(app) {
     router.use('/errors', registroErroresRoutes);
     router.use('/causas', registroCausasRoutes);
     router.use('/soluciones', registroSolucionesRoutes);
+    router.use('/imagenes', registroImagenesRoutes);
     router.use('/security', authRoutes);
 }
 

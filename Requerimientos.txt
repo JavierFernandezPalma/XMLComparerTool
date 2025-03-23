@@ -141,7 +141,11 @@ Driver para mysql:
 
     //-----------------------Migraciones sequelize
     Instalar:
-        npm install sequelize-cli -D
+        npm install sequelize-cli -
+    
+    //----------------------Sequelize Core para Like
+    Instalar:
+        npm install @sequelize/core
 
 //---------------------Agregar Swagger
 Instalar:
@@ -243,10 +247,11 @@ CREATE TABLE soluciones (
 CREATE TABLE imagenes (
     id_imagen INT AUTO_INCREMENT PRIMARY KEY,
     id_error INT NOT NULL,  -- Clave foránea hacia 'errores'
-    imagen_id CHAR(36) NULL,  -- UUID único para la imagen
-    ruta_imagen VARCHAR(255) NULL,  -- Ruta de la imagen
+    imagen_id CHAR(36) NOT NULL,  -- UUID único para la imagen
+    ruta_imagen VARCHAR(255) NOT NULL,  -- Ruta de la imagen
+    descripcion_imagen VARCHAR(255) NOT NULL,  -- Descripción de la imagen
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Fecha de inserción
-    FOREIGN KEY (id_error) REFERENCES errores(id_error)  -- Relación con 'errores'
+    FOREIGN KEY (id_error) REFERENCES errores(id_error) ON DELETE CASCADE -- Relación con 'errores'
 );
 
 -- Insertar datos en la tabla 'procesos'
@@ -287,5 +292,24 @@ VALUES
 (3, 'Aumentar el tiempo de espera para la respuesta del servicio');
 
 -- Insertar un registro de imagen asociado a un error
-INSERT INTO imagenes (id_error, imagen_id, ruta_imagen)
-VALUES (1, 'd8b2ab24-c345-4e29-9a8a-e5a4c5e0f1c4', '/uploads/imagenes/d8b2ab24-c345-4e29-9a8a-e5a4c5e0f1c4.png');
+INSERT INTO imagenes (id_error, imagen_id, ruta_imagen, descripcion_imagen)
+VALUES (1, 'd8b2ab24-c345-4e29-9a8a-e5a4c5e0f1c4', './assets/images/error1.png', 'Esta es una representación del error encontrado durante el proceso de ejecución.');
+
+//---------------MySQL en Podman
+podman run -d \
+--name mysql_container \
+--restart always \
+-e MYSQL_ROOT_PASSWORD=rootpassword \
+-e MYSQL_DATABASE=my_database \
+-e MYSQL_USER=user \
+-e MYSQL_PASSWORD=userpassword -p 3306:3306 \
+-v /mnt/c/Users/jafernandez/Documentos_dos/Bancolombia/WS_Bancolombia/XMLComparerTool/mysql_data:/var/lib/mysql \
+mysql:8.0
+
+//-----------PostgreSQL en Podman
+Descargar Imagen: podman pull dpage/pgadmin4
+
+podman run -d --name pgadmin -p 8080:80 \
+  -e PGADMIN_DEFAULT_EMAIL=admin@admin.com \
+  -e PGADMIN_DEFAULT_PASSWORD=admin \
+  dpage/pgadmin4

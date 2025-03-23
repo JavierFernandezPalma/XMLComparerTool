@@ -2,6 +2,7 @@ const express = require('express');  // Framework web Express
 const RegistroCausasService = require('../services/causaService');  // Servicio para manejo de causas
 const validatorErrorHandler = require('../middlewares/validatorErrorHandler');  // Middleware para validar datos
 const { createCausa, updateCausa, deleteCausa, getCausa } = require('../schemas/causaSchema');  // Validaciones de esquema para causas
+const jwtAuth = require('../middlewares/jwtAuth'); // Importar el middleware de autenticación
 
 const router = express.Router();  // Router de Express para definir las rutas
 const service = new RegistroCausasService();  // Instancia del servicio para el manejo de causas
@@ -174,14 +175,15 @@ router.post('/',
  *       500:
  *         description: Error del servidor
  */
-router.patch('/:id',
+router.patch('/',
+    jwtAuth, // Middleware de autenticación
     // Middleware que valida el cuerpo de la solicitud según el esquema 'updateCausa'
     validatorErrorHandler(updateCausa, 'body'),
     async (req, res, next) => {
         try {
-            const { id } = req.params;  // Obtiene el ID de la causa desde los parámetros de la URL
+            // const { id } = req.params;  // Obtiene el ID de la causa desde los parámetros de la URL
             const body = req.body;  // Obtiene los datos del cuerpo de la solicitud
-            const { statusCode, result } = await service.update(id, body);  // Llama al servicio para actualizar la causa
+            const { statusCode, result } = await service.update(body);  // Llama al servicio para actualizar la causa
 
             return res.status(statusCode).json(result);  // Devuelve la respuesta con el estado correspondiente
         } catch (error) {
@@ -242,6 +244,7 @@ router.put('/:id', async (req, res, next) => {
  *         description: Error del servidor
  */
 router.delete('/:id',
+    jwtAuth, // Middleware de autenticación
     // Middleware que valida el cuerpo de la solicitud según el esquema 'deleteCausa
     validatorErrorHandler(deleteCausa, 'body'),
     async (req, res, next) => {

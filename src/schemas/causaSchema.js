@@ -18,6 +18,7 @@ const createCausa = Joi.object({
 });
 
 const updateCausa = Joi.object({
+    idCausa: id_causa.required(),
     descripcionCausa: descripcion_causa.required()
 });
 

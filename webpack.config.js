@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); // Minifica 
 const TerserPlugin = require('terser-webpack-plugin'); // Minifica JS
 const Dotenv = require('dotenv-webpack'); // Carga variables de entorno
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // Limpia la carpeta de salida
+const webpack = require('webpack'); // Importa webpack
 
 module.exports = {
     mode: 'production',
@@ -13,6 +14,7 @@ module.exports = {
         main: './src/mainIndex.js', // Archivo de entrada (que genera bundle.js)
         mainValidarXML: './src/mainValidarXML.js', // entrada adicional
         mainInventarioCert: './src/mainInventarioCert.js', // entrada adicional
+        mainLogErrores: './src/mainLogErrores.js', // entrada adicional 
     },
     output: {
         path: path.resolve(__dirname, 'dist'), // Carpeta de salida
@@ -29,7 +31,8 @@ module.exports = {
             path: require.resolve('path-browserify'),  // Polyfill para el módulo 'path'
             os: require.resolve('os-browserify/browser'),  // Polyfill para el módulo 'os'
             crypto: require.resolve('crypto-browserify'),  // Polyfill para el módulo 'crypto'
-            "vm": false  // Desactiva la inclusión de un polyfill para 'vm'
+            "vm": false,  // Desactiva la inclusión de un polyfill para 'vm'
+            "process": require.resolve("process/browser"),  // Polyfill para el módulo 'process'
         },
         alias: { // Alias para rutas
             '@utils': path.resolve(__dirname, 'src/utils/'),
@@ -95,6 +98,12 @@ module.exports = {
             filename: './inventarioCert.html', // Archivo de salida en dist
             chunks: ['mainInventarioCert']
         }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/pages/logErrores.html',
+            filename: './logErrores.html', // Archivo de salida en dist
+            chunks: ['mainLogErrores']
+        }),        
         new MiniCssExtractPlugin({ // Configuración del plugin CSS
             filename: 'assets/[name].[contenthash].css' // Nombre del archivo CSS con hash
         }),
@@ -107,6 +116,9 @@ module.exports = {
         }),
         new Dotenv(), // Carga variables de entorno
         (process.env.NODE_ENV === 'production' ? [new CleanWebpackPlugin()] : []), // Limpia la carpeta de salida antes de cada build
+        new webpack.ProvidePlugin({
+            process: 'process/browser', // Soluciona el error de 'process' no definido
+        }),       
     ],
     optimization: {
         minimize: true, // Activa la minimización

@@ -80,10 +80,10 @@ class CausasService {
      * @returns {Object} - Un objeto con el statusCode 200 y los datos actualizados de la causa.
      * @throws {Error} - Si ocurre un error al actualizar el registro en la base de datos.
      */
-    async update(id, changes) {
+    async update(changes) {
         try {
             // Busca el registro que se quiere actualizar
-            const causa = await this.findOne(id);
+            const causa = await this.findOne(changes.idCausa);
             // Realiza la actualización del egistro con los nuevos cambios
             const result = await causa.update(changes);
             return {

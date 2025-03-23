@@ -74,6 +74,12 @@ class LogError extends Model {
             onDelete: 'CASCADE', // Esto asegura que si se elimina un 'LogError', las 'causas' también se eliminen
         });
 
+        // Relación entre LogError y Imagen (un error puede tener muchas imágenes)
+        this.hasMany(models.Imagen, {
+            foreignKey: 'idError',  // Clave foránea en la tabla 'imagenes'
+            as: 'imagenes',  // Alias para la relación
+            onDelete: 'CASCADE', // Esto asegura que si se elimina un 'LogError', las 'imagenes' también se eliminen
+        });
     }
 
     static config(sequelize) {

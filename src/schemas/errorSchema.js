@@ -8,6 +8,9 @@ const descripcion_causa = Joi.string();
 const descripcion_solucion = Joi.string();
 const image = Joi.string().uri();
 
+const limit = Joi.number().integer();
+const offset = Joi.number().integer();
+
 const createErrorLog = Joi.object({
     idProceso: id_proceso.required(),
     idComponente: id_componente.required(),
@@ -29,9 +32,10 @@ const createErrorLog = Joi.object({
 });
 
 const updateErrorLog = Joi.object({
+    idError: id_error.required(),
     idProceso: id_proceso,
     idComponente: id_componente,
-    descripcionError: descripcion_error
+    descripcionError: descripcion_error.required()
 });
 
 const getErrorLog = Joi.object({
@@ -41,8 +45,13 @@ const getErrorLog = Joi.object({
     descripcionError: descripcion_error.required()
 });
 
+const queryErrorLog = Joi.object({
+    limit: limit,
+    offset: offset
+});
+
 const deleteErrorLog = Joi.object({
     idError: id_error.required()
 });
 
-module.exports = { createErrorLog, updateErrorLog, getErrorLog, deleteErrorLog }
+module.exports = { createErrorLog, updateErrorLog, getErrorLog, deleteErrorLog, queryErrorLog }

@@ -2,6 +2,7 @@ const express = require('express');  // Framework web Express
 const SolucionService = require('../services/solucionService');  // Servicio para manejar las soluciones
 const validatorErrorHandler = require('../middlewares/validatorErrorHandler');  // Middleware para validar datos
 const { createSolucion, updateSolucion, deleteSolucion, getSolucion } = require('../schemas/solucionSchema');  // Validaciones de esquema
+const jwtAuth = require('../middlewares/jwtAuth'); // Importar el middleware de autenticación
 
 const router = express.Router();  // Router de Express para definir las rutas
 const service = new SolucionService();  // Instancia del servicio para el manejo de soluciones
@@ -130,6 +131,7 @@ router.post('/',
  *         description: Error del servidor.
  */
 router.patch('/:id',
+    jwtAuth, // Middleware de autenticación
     validatorErrorHandler(updateSolucion, 'body'),
     async (req, res, next) => {
         try {
@@ -170,6 +172,7 @@ router.patch('/:id',
  *         description: Error del servidor.
  */
 router.delete('/:id',
+    jwtAuth, // Middleware de autenticación
     validatorErrorHandler(deleteSolucion, 'body'),
     async (req, res, next) => {
         try {

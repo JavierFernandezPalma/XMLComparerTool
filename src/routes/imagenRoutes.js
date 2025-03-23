@@ -1,11 +1,11 @@
 const express = require('express'); // Importar el módulo Express
-const ErroresService = require('../services/errorService'); // Servicio para manejar los logs de errores
+const ImagenService = require('../services/imagenService'); // Servicio para manejar los logs de errores
 const validatorErrorHandler = require('../middlewares/validatorErrorHandler'); // Middleware para validación de datos
-const { createErrorLog, updateErrorLog, getErrorLog, deleteErrorLog, queryErrorLog } = require('../schemas/errorSchema'); // Esquemas de validación
+const { createImagen, updateImagen, getImagen, deleteImagen } = require('../schemas/imagenSchema'); // Esquemas de validación
 const jwtAuth = require('../middlewares/jwtAuth'); // Importar el middleware de autenticación
 
 const router = express.Router(); // Crear el router de Express
-const service = new ErroresService(); // Instancia del servicio para manejar los errores
+const service = new ImagenService(); // Instancia del servicio para manejar los errores
 
 /**
  * Ruta para obtener todos los logs de error
@@ -44,7 +44,7 @@ const service = new ErroresService(); // Instancia del servicio para manejar los
  */
 router.get('/', 
     // jwtAuth, // Middleware de autenticación
-    validatorErrorHandler(queryErrorLog, 'query'), // Validar los parámetros de la solicitud
+    validatorErrorHandler(getImagen, 'query'), // Validar los parámetros de la solicitud
     async (req, res, next) => {
     try {
         // Delegar la validación al servicio
@@ -81,14 +81,14 @@ router.get('/',
  *         $ref: '#/components/responses/GetErrorLog/responses/500'
  */
 router.get('/findAll',
-    validatorErrorHandler(getErrorLog, 'query'), // Validar los parámetros de la solicitud
+    validatorErrorHandler(getImagen, 'query'), // Validar los parámetros de la solicitud
     async (req, res, next) => {
         try {
             const { descripcionError } = req.query; // Obtener el ID de los parámetros
             const body = req.body;
             const { statusCode, result } = await service.find(descripcionError); // Delegar la validación al servicio
 
-            return res.status(statusCode).json(result); // Devolver la respuesta con el resultado
+            return res.status(statusCode).json(statusCode, result); // Devolver la respuesta con el resultado
         } catch (error) {
             next(error); // Si ocurre un error, pasar al manejador de errores
         }
@@ -154,7 +154,7 @@ router.get('/findAll',
  *                   example: "Error en el servidor"
  */
 router.post('/',
-    validatorErrorHandler(createErrorLog, 'body'), // Validar el cuerpo de la solicitud
+    validatorErrorHandler(createImagen, 'body'), // Validar el cuerpo de la solicitud
     async (req, res, next) => {
         try {
             const body = req.body; // Obtener el cuerpo de la solicitud
@@ -196,8 +196,7 @@ router.post('/',
  *         description: Error del servidor
  */
 router.patch('/',
-    jwtAuth, // Middleware de autenticación
-    validatorErrorHandler(updateErrorLog, 'body'), // Validar el cuerpo de la solicitud
+    validatorErrorHandler(updateImagen, 'body'), // Validar el cuerpo de la solicitud
     async (req, res, next) => {
         try {
             const body = req.body; // Obtener los datos del cuerpo de la solicitud
@@ -233,8 +232,7 @@ router.patch('/',
  *         $ref: '#/components/responses/DeleteErrorLog/responses/500'
  */
 router.delete('/',
-    jwtAuth, // Middleware de autenticación
-    validatorErrorHandler(deleteErrorLog, 'body'), // Validar los datos para eliminar el log de error
+    validatorErrorHandler(deleteImagen, 'body'), // Validar los datos para eliminar el log de error
     async (req, res, next) => {
         try {
             const body = req.body; // Obtener el ID del log de error desde el cuerpo de la solicitud

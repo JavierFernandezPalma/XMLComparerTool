@@ -20,6 +20,7 @@ const allowedOrigins = [
     'https://xml-comparer-tool.vercel.app',
     'https://xml-comparer-tool-prueba.vercel.app',
     'https://xmlcomparertool.onrender.com',
+    'dpg-cvf0acfnoe9s73bb4nog-a.oregon-postgres.render.com',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://127.0.0.1:3002',
@@ -39,8 +40,8 @@ const corsOptions = {
             callback(new Error('No autorizado por CORS'));
         }
     },
-    methods: ['GET', 'POST', 'DELETE'], // Métodos HTTP permitidos
-    allowedHeaders: ['Content-Type'] // Encabezados permitidos en las solicitudes
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Métodos HTTP permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos en las solicitudes
 };
 
 // Habilitar CORS para permitir solicitudes desde otros dominios
@@ -73,7 +74,7 @@ swaggerSpec(app);
 // Configuración de Swagger UI
 // swaggerSpec2(app);
 
-app.use(jwtAuth);
+// app.use(jwtAuth);
 app.use(logErrors);
 app.use(ormErrorHandler);
 app.use(boomErrorHandler);

@@ -1,6 +1,6 @@
 {
     "name": "xml-comparer-tool",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Este proyecto es una aplicación web que permite comparar estructuras XML de manera visual. Utiliza varias tecnologías como HTML, CSS, JavaScript, Bootstrap, CodeMirror y jsdiff para proporcionar una interfaz amigable y funcional.",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -34,6 +34,9 @@
         "node-forge": "^1.3.1",
         "os-browserify": "^0.3.0",
         "path-browserify": "^1.0.1",
+        "pg": "^8.14.1",
+        "pg-hstore": "^2.3.4",
+        "process": "^0.11.10",
         "sequelize": "^6.37.5",
         "shepherd.js": "^13.0.3",
         "stream-browserify": "^3.0.0",

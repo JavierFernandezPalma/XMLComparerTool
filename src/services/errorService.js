@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
+const { Op } = require('sequelize');
 
 class ArchivoErroresService {
 
@@ -72,7 +73,9 @@ class ArchivoErroresService {
         try {
             const logError = await models.LogError.findAll({
                 where: {
-                    descripcionError: descripcionError,  // Filtra por la descripcionError proporcionada
+                    descripcionError: {
+                        [Op.like]: `%${descripcionError}%`  // Buscar por parte de la descripción, insensible a mayúsculas/minúsculas
+                    }
                 },
                 include: [
                     {
@@ -94,7 +97,11 @@ class ArchivoErroresService {
                                 as: 'soluciones',  // Alias de la relación
                             }
                         ]
-                    }
+                    },
+                    {
+                        model: models.Imagen,  // Relación con el modelo 'Componente'
+                        as: 'imagenes',  // Alias de la relación
+                    }                    
                 ]
             });
 
@@ -152,9 +159,15 @@ class ArchivoErroresService {
         }
     }
 
-    async findAll() {
+    async findAll(query) {
         try {
-            const logError = await models.LogError.findAll();
+            const options = {};
+            const { offset, limit } = query;
+            if (offset && limit) {
+                options.offset = parseInt(offset, 10);
+                options.limit = parseInt(limit, 10);
+            }
+            const logError = await models.LogError.findAll(options);
 
             return {
                 statusCode: 200,

@@ -8,7 +8,7 @@ const config = {
     port: 3000,
     dbUser: 'root',
     dbPassword: 'wWrwq8ebCY9R2V32TmuL0hl7S0qXbVFK',
-    dbHost: 'dpg-cvf0acfnoe9s73bb4nog-a.oregon-postgres.render.com',
+    dbHost: 'dpg-cvf0acfnoe9s73bb4nog-a',
     dbName: 'myapp_db_cfgc',
     dbPort: '5432',
     dbGestor: 'postgres'

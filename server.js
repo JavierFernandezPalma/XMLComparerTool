@@ -21,6 +21,7 @@ const allowedOrigins = [
     'https://xml-comparer-tool-prueba.vercel.app',
     'https://xmlcomparertool.onrender.com',
     'dpg-cvf0acfnoe9s73bb4nog-a.oregon-postgres.render.com',
+    'https://xmlcomparertool-pruebas.onrender.com',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://127.0.0.1:3002',

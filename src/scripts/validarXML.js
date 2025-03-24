@@ -11,10 +11,11 @@ async function handleValidateXML(event) {
     //     return;
     // }
 
-    const apiUrl = process.env.REACT_APP_API_URL || 'https://xmlcomparertool.onrender.com';
+    const apiUrl = process.env.APP_API_URL || 'https://xmlcomparertool.onrender.com';
+    const pathUrl = process.env.VALIDATE_API_PATH || '/api/v1/validateXML'
 
     try {
-        const response = await fetch(`${apiUrl}/validate`, {
+        const response = await fetch(`${apiUrl}${pathUrl}/validate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

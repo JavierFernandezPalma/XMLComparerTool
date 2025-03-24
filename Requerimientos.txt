@@ -7,6 +7,9 @@ Actualizar PATH proyecto
     export PATH=$PATH:/path/to/node/bin
     export PATH=$PATH:"/c/Program Files/nodejs"
 
+    export NVM_DIR="./tools/nvm_1.2.2"
+    export PATH=$NVM_DIR:$NVM_DIR/nodejs:$PATH
+
 Crear proyecto y posicionado en la raíz inicializar proyecto Node.js:
     npm init -y
 
@@ -46,9 +49,11 @@ Instalar biblioteca 'libxmljs2'
 Instalar biblioteca 'xsd-schema-validator'
     npm install xsd-schema-validator@latest
 
-//------------Modulo stream para navegadores
+//------------Modulo stream para navegadores y polyfills
 Necesario para tu configuración de Webpack
     npm install stream-browserify timers-browserify buffer
+Polyfills para path, os, y crypto (requerido para WebPack >= 5)
+    npm install path-browserify os-browserify crypto-browserify
 
 //--------------Indice de archivos Git
 Elimina los archivos del índice de Git sin borrarlos del sistema de archivos
@@ -92,6 +97,8 @@ Optimización de proyecto (minimizar css y JavaScript)
     npm i css-minimizer-webpack-plugin terser-webpack-plugin -D
 Variables de entorno
     npm i dotenv-webpack -D
+        Variables para PDN
+            npm i dotenv
 Limpiar el código para modo productivo
     npm i clean-webpack-plugin -D
 Instalar stylus
@@ -104,7 +111,53 @@ Optimizar paquetes y dependencias
             npx webpack --profile --json > stats.json
             npx webpack-bundle-analyzer stats.json
 
+//---------------Manejos de errores con boom
+npm i @hapi/boom -D
+
+//---------------Validación de datos con joi
+npm i joi -D
+
+//--------------Docker
+Iniciar los servicios
+    docker-compose up -d <NOMBRE-SERVICIO(OPCIONAL)>
+Mostrar los servicios actuales
+    docker-compose ps
+Detener los servicios actuales
+    docker-compose down
+Conectarse por medio de línea de comandos
+    docker-compose exec mysql bash
+Acceder a mysql
+    mysql -h nombre_servidor -u nombre_usuario -p
+        Para salir de la BD
+            \c
+            quit
+            exit
+
+//--------------Sequelize para manejo ORM recomendado para JavaScript
+Intalar:
+    npm install --save sequelize
+Driver para mysql:
+    npm install --save mysql2
+
+    //-----------------------Migraciones sequelize
+    Instalar:
+        npm install sequelize-cli -
+    
+    //----------------------Sequelize Core para Like
+    Instalar:
+        npm install @sequelize/core
+
+//---------------------Agregar Swagger
+Instalar:
+    npm install swagger-jsdoc swagger-ui-express
+
 //--------------
+
+//---------------------Autenticación con JWT (JSON Web Token)
+jsonwebtoken: Para crear y verificar JWT.
+bcryptjs: Para cifrar las contraseñas.
+Instalar:
+    npm install jsonwebtoken bcryptjs
 
 Datos XML:
 
@@ -123,3 +176,140 @@ XML schema (XSD):
 		</s:complexType>
 	</s:element>
 </s:schema>
+
+
+
+PENDIENTE:
+
+npm i @hapi/boom -D
+
+added 2 packages, and audited 725 packages in 12s
+
+104 packages are looking for funding
+  run `npm fund` for details
+
+7 vulnerabilities (1 low, 3 moderate, 1 high, 2 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+Some issues need review, and may require choosing
+a different dependency.
+
+Run `npm audit` for details.
+
+
+------------------Script
+
+-- Crear tabla 'procesos'
+CREATE TABLE procesos (
+    id_proceso INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_proceso VARCHAR(45) NOT NULL,
+    descripcion TEXT
+);
+
+-- Crear tabla 'componentes'
+CREATE TABLE componentes (
+    id_componente INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_componente VARCHAR(45) NOT NULL,
+    descripcion TEXT
+);
+
+-- Crear tabla 'errores'
+CREATE TABLE errores (
+    id_error INT AUTO_INCREMENT PRIMARY KEY,
+    id_proceso INT NOT NULL,
+    id_componente INT NOT NULL,
+    descripcion_error TEXT NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Fecha de inserción
+    fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Fecha de última modificación
+    FOREIGN KEY (id_proceso) REFERENCES procesos(id_proceso),
+    FOREIGN KEY (id_componente) REFERENCES componentes(id_componente)
+);
+
+-- Crear tabla 'causas' con eliminación en cascada al eliminar un error
+CREATE TABLE causas (
+    id_causa INT AUTO_INCREMENT PRIMARY KEY,
+    id_error INT,
+    descripcion TEXT NOT NULL,
+    FOREIGN KEY (id_error) REFERENCES errores(id_error) ON DELETE CASCADE -- Relación con la tabla 'errores' eliminación en cascada
+);
+
+-- Crear tabla 'soluciones' con eliminación en cascada al eliminar una causa
+CREATE TABLE soluciones (
+    id_solucion INT AUTO_INCREMENT PRIMARY KEY,
+    id_causa INT,
+    descripcion TEXT NOT NULL,
+    FOREIGN KEY (id_causa) REFERENCES causas(id_causa) ON DELETE CASCADE  -- Eliminación en cascada
+);
+
+-- Crear tabla 'imagenes' con relación a la tabla 'errores'
+CREATE TABLE imagenes (
+    id_imagen INT AUTO_INCREMENT PRIMARY KEY,
+    id_error INT NOT NULL,  -- Clave foránea hacia 'errores'
+    imagen_id CHAR(36) NOT NULL,  -- UUID único para la imagen
+    ruta_imagen VARCHAR(255) NOT NULL,  -- Ruta de la imagen
+    descripcion_imagen VARCHAR(255) NOT NULL,  -- Descripción de la imagen
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Fecha de inserción
+    FOREIGN KEY (id_error) REFERENCES errores(id_error) ON DELETE CASCADE -- Relación con 'errores'
+);
+
+-- Insertar datos en la tabla 'procesos'
+INSERT INTO procesos (nombre_proceso, descripcion)
+VALUES
+('Lanzamiento a Dev', 'Proceso de lanzamiento a ambiente de desarrollo'),
+('Lanzamiento a QA', 'Proceso de lanzamiento a ambiente de calidad'),
+('Lanzamiento a PDN', 'Proceso de lanzamiento a ambiente de producción');
+('Pruebas request-response', 'Pruebas de servicios web donde se envía una solicitud (request) y se recibe una respuesta (response) para validar la funcionalidad del servicio');
+
+-- Insertar datos en la tabla 'componentes'
+INSERT INTO componentes (nombre_componente, descripcion)
+VALUES
+('DevOps', 'Plataforma utilizada para la integración y entrega continua'),
+('DataPower', 'Plataforma de integración de servicios web y seguridad'),
+('WSDL', 'Definición de servicios web para comunicaciones SOAP');
+('SoapUI', 'Herramienta para pruebas de servicios web SOAP y RESTful');
+
+-- Insertar datos en la tabla 'errores'
+INSERT INTO errores (id_proceso, id_componente, descripcion_error, fecha_registro)
+VALUES
+(1, 1, 'Error de autenticación durante el despliegue', '2025-01-30 21:00:00'),
+(2, 2, 'Error de WSDL no válido', '2025-01-30 21:10:00'),
+(3, 3, 'Tiempo de espera agotado en la respuesta', '2025-01-30 21:20:00');
+
+-- Insertar datos en la tabla 'causas'
+INSERT INTO causas (id_error, descripcion)
+VALUES
+(1, 'Certificados no configurados correctamente'),
+(2, 'Archivo WSDL incorrecto o corrupto'),
+(3, 'Tiempo de espera demasiado corto para el servicio');
+
+-- Insertar datos en la tabla 'soluciones'
+INSERT INTO soluciones (id_causa, descripcion)
+VALUES
+(1, 'Verificar configuración de certificados en el servidor de destino'),
+(2, 'Asegurarse de que el archivo WSDL sea el correcto y esté accesible'),
+(3, 'Aumentar el tiempo de espera para la respuesta del servicio');
+
+-- Insertar un registro de imagen asociado a un error
+INSERT INTO imagenes (id_error, imagen_id, ruta_imagen, descripcion_imagen)
+VALUES (1, 'd8b2ab24-c345-4e29-9a8a-e5a4c5e0f1c4', './assets/images/error1.png', 'Esta es una representación del error encontrado durante el proceso de ejecución.');
+
+//---------------MySQL en Podman
+podman run -d \
+--name mysql_container \
+--restart always \
+-e MYSQL_ROOT_PASSWORD=rootpassword \
+-e MYSQL_DATABASE=my_database \
+-e MYSQL_USER=user \
+-e MYSQL_PASSWORD=userpassword -p 3306:3306 \
+-v /mnt/c/Users/jafernandez/Documentos_dos/Bancolombia/WS_Bancolombia/XMLComparerTool/mysql_data:/var/lib/mysql \
+mysql:8.0
+
+//-----------PostgreSQL en Podman
+Descargar Imagen: podman pull dpage/pgadmin4
+
+podman run -d --name pgadmin -p 8080:80 \
+  -e PGADMIN_DEFAULT_EMAIL=admin@admin.com \
+  -e PGADMIN_DEFAULT_PASSWORD=admin \
+  dpage/pgadmin4

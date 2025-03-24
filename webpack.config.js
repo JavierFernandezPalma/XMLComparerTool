@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); // Minifica 
 const TerserPlugin = require('terser-webpack-plugin'); // Minifica JS
 const Dotenv = require('dotenv-webpack'); // Carga variables de entorno
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // Limpia la carpeta de salida
+const webpack = require('webpack'); // Importa webpack
 
 module.exports = {
     mode: 'production',
@@ -13,6 +14,7 @@ module.exports = {
         main: './src/mainIndex.js', // Archivo de entrada (que genera bundle.js)
         mainValidarXML: './src/mainValidarXML.js', // entrada adicional
         mainInventarioCert: './src/mainInventarioCert.js', // entrada adicional
+        mainLogErrores: './src/mainLogErrores.js', // entrada adicional 
     },
     output: {
         path: path.resolve(__dirname, 'dist'), // Carpeta de salida
@@ -23,9 +25,14 @@ module.exports = {
     resolve: {
         extensions: ['.js'], // Extensiones a resolver
         fallback: {
-            stream: require.resolve('stream-browserify'),
-            timers: require.resolve('timers-browserify'),
-            buffer: require.resolve('buffer/'),
+            stream: require.resolve('stream-browserify'),  // Polyfill para el módulo 'stream'
+            timers: require.resolve('timers-browserify'),  // Polyfill para el módulo 'timers'
+            buffer: require.resolve('buffer/'),  // Polyfill para el módulo 'buffer'
+            path: require.resolve('path-browserify'),  // Polyfill para el módulo 'path'
+            os: require.resolve('os-browserify/browser'),  // Polyfill para el módulo 'os'
+            crypto: require.resolve('crypto-browserify'),  // Polyfill para el módulo 'crypto'
+            "vm": false,  // Desactiva la inclusión de un polyfill para 'vm'
+            "process": require.resolve("process/browser"),  // Polyfill para el módulo 'process'
         },
         alias: { // Alias para rutas
             '@utils': path.resolve(__dirname, 'src/utils/'),
@@ -33,6 +40,7 @@ module.exports = {
             '@styles': path.resolve(__dirname, 'src/styles/'),
             '@images': path.resolve(__dirname, 'src/assets/images/'),
             '@scripts': path.resolve(__dirname, 'src/scripts/'),
+            '@dist': path.resolve(__dirname, 'dist/')
         }
     },
     module: {
@@ -47,8 +55,13 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader'] // Procesadores CSS
             },
             {
-                test: /\.png/, // Archivos PNG
-                type: 'asset/resource' // Gestión de recursos
+                test: /\.png/, // Archivos PNG - /\.(png|jpe?g|gif|svg)$/i Soporta más tipos de imágenes
+                type: 'asset/resource', // Gestión de recursos
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 10 * 1024, // 10 KB (puedes ajustar esto según tus necesidades)
+                    },
+                },
             },
             {
                 test: /\.(woff|woff2)$/, // Archivos de fuentes
@@ -85,6 +98,12 @@ module.exports = {
             filename: './inventarioCert.html', // Archivo de salida en dist
             chunks: ['mainInventarioCert']
         }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/pages/logErrores.html',
+            filename: './logErrores.html', // Archivo de salida en dist
+            chunks: ['mainLogErrores']
+        }),        
         new MiniCssExtractPlugin({ // Configuración del plugin CSS
             filename: 'assets/[name].[contenthash].css' // Nombre del archivo CSS con hash
         }),
@@ -97,12 +116,31 @@ module.exports = {
         }),
         new Dotenv(), // Carga variables de entorno
         new CleanWebpackPlugin(), // Limpia la carpeta de salida antes de cada build
+        new webpack.ProvidePlugin({
+            process: 'process/browser', // Soluciona el error de 'process' no definido
+        }),       
     ],
     optimization: {
         minimize: true, // Activa la minimización
         minimizer: [
             new CssMinimizerPlugin(), // Minifica CSS
-            new TerserPlugin(), // Minifica JS
-        ]
+            new TerserPlugin(
+                {
+                    terserOptions: {
+                        ecma: 2020, // Asegúrate de estar usando una versión moderna de ECMAScript
+                        warnings: false,
+                        parse: {
+                            ecma: 2020,
+                        },
+                        compress: {
+                            drop_console: true, // Opcional: Elimina los `console.log` en producción
+                        },
+                    },
+                }
+            ), // Minifica JS
+        ],
+        splitChunks: {
+            chunks: 'all', // Activa el "splitting" de chunks para bibliotecas comunes
+        },
     }
 }

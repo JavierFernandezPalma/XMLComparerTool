@@ -1,0 +1,33 @@
+version: '3.8' # Versión del esquema de Docker Compose utilizado
+
+services: # Define los servicios del entorno
+
+  mysql: # Servicio de MySQL
+    image: mysql:8.0 # Imagen oficial de MySQL versión 8.0
+    container_name: mysql_container # Nombre del contenedor para identificación
+    restart: always # Asegura que el contenedor se reinicie automáticamente en caso de error
+    environment: # Variables de entorno para la configuración de MySQL
+      MYSQL_ROOT_PASSWORD: rootpassword # Contraseña para el usuario root de MySQL
+      MYSQL_DATABASE: my_database # Nombre de la base de datos que se creará inicialmente
+      MYSQL_USER: user # Usuario adicional que se creará
+      MYSQL_PASSWORD: userpassword # Contraseña para el usuario adicional
+    ports:
+      - "3306:3306" # Mapea el puerto 3306 del contenedor al host, necesario para conectarse a MySQL
+    volumes:
+      - ./mysql_data:/var/lib/mysql # Montaje de un volumen persistente para almacenar los datos de MySQL
+
+  phpmyadmin: # Servicio de phpMyAdmin
+    image: phpmyadmin:latest # Imagen oficial de phpMyAdmin en su última versión
+    container_name: phpmyadmin_container # Nombre del contenedor para identificación
+    restart: always # Asegura que el contenedor se reinicie automáticamente en caso de error
+    environment: # Variables de entorno para la configuración de phpMyAdmin
+      PMA_HOST: mysql # Host que phpMyAdmin usará para conectarse a MySQL (nombre del servicio MySQL)
+      PMA_PORT: 3306 # Puerto del servicio MySQL al que se conectará phpMyAdmin
+    ports:
+      - "8080:80" # Mapea el puerto 80 del contenedor al puerto 8080 del host para acceso desde el navegador
+    depends_on:
+      - mysql # Asegura que MySQL esté activo antes de iniciar phpMyAdmin
+
+volumes: # Define los volúmenes persistentes
+  mysql_data: # Volumen para almacenar los datos de la base de datos MySQL
+    driver: local # Utiliza el controlador de almacenamiento local

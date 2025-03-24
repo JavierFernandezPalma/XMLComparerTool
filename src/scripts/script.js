@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const customElement2 = document.getElementById('textarea2');
 
     // Configuración inicial de los CodeMirror para xmlInput1 y xmlInput2
-    const xmlInput1 = initializeCodeMirror("xmlInput1", "textarea1");
-    const xmlInput2 = initializeCodeMirror("xmlInput2", "textarea2");
+    const xmlInput1 = customElement1.getCodeMirrorInstance();
+    const xmlInput2 = customElement2.getCodeMirrorInstance();
 
     // Eventos para limpiar el contenido de xmlInput1 y xmlInput2 y el resultado de la comparación
     customElement1.shadowRoot.getElementById('clearXmlInput1').addEventListener('click', () => {

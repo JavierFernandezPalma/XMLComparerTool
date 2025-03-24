@@ -1,26 +1,5 @@
-// Función para inicializar CodeMirror
-function initializeCodeMirror(elementId, componentId) {
-    const customElement = document.getElementById(componentId);
-    return CodeMirror.fromTextArea(customElement.shadowRoot.getElementById(elementId), {
-        mode: 'xml',
-        theme: 'monokai', // Tema Monokai para el editor (default - eclipse - material - solarized)
-        lineNumbers: true, // Habilitar números de línea
-        autoCloseTags: true, // Cierre automático de etiquetas
-        matchTags: { bothTags: true }, // Resaltar etiqueta coincidente
-        showCursorWhenSelecting: true, // Cursor visible al seleccionar texto
-        matchBrackets: true, // Resalta los paréntesis y corchetes coincidentes
-        placeholder: "Ingresa código aquí...",
-        readOnly: false, // Habilita la edición (No se puede hacer edici´si está activo)
-        // smartIndent: true, // Indentación automática inteligente
-        // scrollbarStyle: 'simple', // Barras de desplazamiento 'simple' o 'overlay'
-        extraKeys: { 
-            "Ctrl-Space": "autocomplete",
-            "F11": function(cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-            }
-        } // Función adicional 'Ctrl-Space' activa autocompletado
-    });
-}
+// const dotenv = require('dotenv');  // Usar import en lugar de require
+// dotenv.config();  // Cargar variables de entorno
 
 // Función para establecer el tamaño del scroll
 function setScrollSize(xmlInput1, xmlInput2, size) {
@@ -190,6 +169,17 @@ function customIcon() {
     document.body.insertBefore(svgContainer, document.body.firstChild);
 }
 
+const config = {
+    env: process.env.NODE_ENV || 'dev',
+    port: process.env.PORT || 3000,
+    dbUser: process.env.DB_USER,
+    dbPassword: process.env.DB_PASSWORD,
+    dbHost: process.env.DB_HOST,
+    dbName: process.env.DB_NAME,
+    dbPort: process.env.DB_PORT,
+    dbGestor: process.env.DB_GESTOR
+}
+
 
 // Exportar las funciones necesarias
-export { initializeCodeMirror, handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml, loadVersion, customIcon };
+export { handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml, loadVersion, customIcon, config };

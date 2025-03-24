@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // Crea archivo HTML
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // Plugin para extraer CSS
 const CopyPlugin = require('copy-webpack-plugin'); // Plugin para copiar archivos
 const Dotenv = require('dotenv-webpack'); // Carga variables de entorno
+const webpack = require('webpack'); // Importa webpack
+
 
 module.exports = {
     mode: 'development', // o 'production'
@@ -10,6 +12,7 @@ module.exports = {
         main: './src/mainIndex.js', // Archivo de entrada (que genera bundle.js)
         mainValidarXML: './src/mainValidarXML.js', // entrada adicional
         mainInventarioCert: './src/mainInventarioCert.js', // entrada adicional
+        mainLogErrores: './src/mainLogErrores.js', // entrada adicional        
     },
     output: {
         filename: '[name].[contenthash].js',
@@ -19,9 +22,14 @@ module.exports = {
     resolve: {
         extensions: ['.js'], // Extensiones a resolver
         fallback: {
-            stream: require.resolve('stream-browserify'),
-            timers: require.resolve('timers-browserify'),
-            buffer: require.resolve('buffer/'),
+            stream: require.resolve('stream-browserify'),  // Polyfill para el módulo 'stream'
+            timers: require.resolve('timers-browserify'),  // Polyfill para el módulo 'timers'
+            buffer: require.resolve('buffer/'),  // Polyfill para el módulo 'buffer'
+            path: require.resolve('path-browserify'),  // Polyfill para el módulo 'path'
+            os: require.resolve('os-browserify/browser'),  // Polyfill para el módulo 'os'
+            crypto: require.resolve('crypto-browserify'),  // Polyfill para el módulo 'crypto'
+            "vm": false,  // Desactiva la inclusión de un polyfill para 'vm'
+            "process": require.resolve("process/browser"),  // Polyfill para el módulo 'process'
         },
         alias: { // Alias para rutas
             '@utils': path.resolve(__dirname, 'src/utils/'),
@@ -29,6 +37,7 @@ module.exports = {
             '@styles': path.resolve(__dirname, 'src/styles/'),
             '@images': path.resolve(__dirname, 'src/assets/images/'),
             '@scripts': path.resolve(__dirname, 'src/scripts/'),
+            '@dist': path.resolve(__dirname, 'dist/')
         }
     },
     module: {
@@ -63,6 +72,12 @@ module.exports = {
             filename: './inventarioCert.html', // Archivo de salida en dist
             chunks: ['mainInventarioCert']
         }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/pages/logErrores.html',
+            filename: './logErrores.html', // Archivo de salida en dist
+            chunks: ['mainLogErrores']
+        }),
         new MiniCssExtractPlugin({ // Configuración del plugin CSS
             filename: 'assets/[name].[contenthash].css' // Nombre del archivo CSS con hash
         }),
@@ -73,7 +88,14 @@ module.exports = {
                 { from: path.resolve(__dirname, "src", "upload"), to: "upload" }
             ]
         }),
-        new Dotenv(), // Carga variables de entorno
+        new Dotenv({ // Carga variables de entorno
+            path: './.env', // Ruta al archivo .env
+            systemvars: true, // Cargar variables del sistema también
+            silent: true, // No mostrar advertencias si el archivo .env no existe
+        }),
+        new webpack.ProvidePlugin({
+            process: 'process/browser', // Soluciona el error de 'process' no definido
+        }),
     ],
     devServer: {
         // Aquí añades el proxy para redirigir las solicitudes a tu backend

@@ -1,6 +1,6 @@
 {
     "name": "xml-comparer-tool",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Este proyecto es una aplicación web que permite comparar estructuras XML de manera visual. Utiliza varias tecnologías como HTML, CSS, JavaScript, Bootstrap, CodeMirror y jsdiff para proporcionar una interfaz amigable y funcional.",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,27 +9,42 @@
         "start:server": "node server.js",
         "start": "concurrently \"npm run build && npm run start:server\"",
         "build": "npx webpack --mode production --config webpack.config.js",
-        "dev": "npx webpack --mode development --config webpack.config.dev.js"
+        "dev": "npx webpack --mode development --config webpack.config.dev.js",
+        "migrations:generate": "npx sequelize-cli migration:generate --name",
+        "migrations:run": "npx sequelize-cli db:migrate",
+        "migrations:revert": "npx sequelize-cli db:migrate:undo",
+        "migrations:delete": "npx sequelize-cli db:migrate:undo:all"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/JavierFernandezPalma/XMLComparerTool.git"
     },
     "dependencies": {
+        "bcryptjs": "^3.0.2",
         "buffer": "^6.0.3",
         "cors": "^2.8.5",
+        "crypto-browserify": "^3.12.1",
         "diff": "^5.2.0",
+        "dotenv": "^16.4.7",
         "express": "^4.19.2",
-        "libxmljs2": "^0.35.0",
+        "jsonwebtoken": "^9.0.2",
         "multer": "^1.4.4-lts.1",
+        "mysql2": "^3.12.0",
         "node-fetch": "^3.3.2",
         "node-forge": "^1.3.1",
+        "os-browserify": "^0.3.0",
+        "path-browserify": "^1.0.1",
+        "pg": "^8.14.1",
+        "pg-hstore": "^2.3.4",
+        "process": "^0.11.10",
+        "sequelize": "^6.37.5",
         "shepherd.js": "^13.0.3",
         "stream-browserify": "^3.0.0",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1",
         "timers-browserify": "^2.0.12",
         "tv4": "^1.3.0",
         "xml2js": "^0.6.2",
-        "xmldom": "^0.6.0",
         "xmllint": "^0.1.1",
         "xsd-schema-validator": "^0.9.0"
     },
@@ -37,6 +52,7 @@
         "@babel/core": "^7.25.2",
         "@babel/plugin-transform-runtime": "^7.25.4",
         "@babel/preset-env": "^7.25.4",
+        "@hapi/boom": "^10.0.1",
         "babel-loader": "^9.2.1",
         "clean-webpack-plugin": "^4.0.0",
         "concurrently": "^8.2.2",
@@ -46,15 +62,22 @@
         "dotenv-webpack": "^8.1.0",
         "file-loader": "^6.2.0",
         "html-webpack-plugin": "^5.6.0",
+        "joi": "^17.13.3",
         "mini-css-extract-plugin": "^2.9.1",
+        "sequelize-cli": "^6.6.2",
         "terser-webpack-plugin": "^5.3.10",
         "url-loader": "^4.1.1",
-        "webpack": "^5.94.0",
+        "webpack": "^5.98.0",
         "webpack-cli": "^5.1.4"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "keywords": [
+        "JavaScript",
+        "ecmascript",
+        "webpack",
+        "NodeJS"
+    ],
+    "author": "Javier Fernández <javierfernandez17146@gmail.com>",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/JavierFernandezPalma/XMLComparerTool/issues"
     },

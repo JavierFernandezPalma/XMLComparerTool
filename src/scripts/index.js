@@ -17,12 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentUrl = window.location.href;
 
     // Define la URL base para la comparación
-    const baseUrl = "https://xml-comparer-tool-prueba.vercel.app/";
+    const baseUrl = "http://localhost:3000/index.html?configure=true";
 
     // Verifica si la URL actual comienza con la URL base
     if (currentUrl.startsWith(baseUrl)) {
 
-        alert("Estás en el entorno de prueba!");
+        alert("Estás en el modo configuración!");
 
         // contenido de index.html dinámico
         loadDeleteXMLTemplate();

@@ -83,7 +83,7 @@
         let paginaActual = 0; // Página inicial
         const registrosPorPagina = 5; // Número de registros por página
         let totalErrores = 0; // Variable para almacenar el total de errores
-        const apiLogErrorUrl = 'https://xmlcomparertool-pruebas.onrender.com' || 'http://localhost:3000';
+        const apiLogErrorUrl = 'https://xmlcomparertool.onrender.com' || 'http://localhost:3000';
 
         // Función para obtener la lista de errores
         async function fetchErrores() {
@@ -342,6 +342,8 @@
         async function mostrarModalActualizarError(event, errorId, errorDescripcion) {
             event.stopPropagation(); // Evitar que el clic propague y active otras funciones
 
+            idErrorParaActualizar = errorId; // Almacenar el ID del error en una variable global
+            
             // Obtener el shadowRoot del modal 'modalError'
             const shadowRoot = obtenerShadowRootModal('modalError');
             if (!shadowRoot) {
@@ -369,6 +371,8 @@
          */
         async function mostrarModalActualizarCausa(event, causaId, causaDescripcion, errorDescripcion) {
             event.stopPropagation(); // Evitar que el clic propague y active otras funciones
+
+            idCausaParaActualizar = causaId; // Almacenar el ID de la causa en una variable global
 
             // Obtener el shadowRoot del modal 'modalCausa'
             const shadowRoot = obtenerShadowRootModal('modalCausa');

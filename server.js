@@ -22,6 +22,7 @@ const allowedOrigins = [
     'https://xmlcomparertool.onrender.com',
     'dpg-cvf0acfnoe9s73bb4nog-a.oregon-postgres.render.com',
     'https://xmlcomparertool-pruebas.onrender.com',
+    'https://xmlcomparertool.onrender.com',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://127.0.0.1:3002',

@@ -14,6 +14,17 @@ const config = {
     dbGestor: 'postgres'
 }
 
+// const config = {
+//     env: 'dev',
+//     port: 3000,
+//     dbUser: 'root',
+//     dbPassword: 'rootpassword',
+//     dbHost: 'localhost',
+//     dbName: 'my_database',
+//     dbPort: '3306',
+//     dbGestor: 'mysql'
+// }
+
 // Codifica las credenciales y crea la URI de conexión
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);

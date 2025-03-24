@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';  // Usar import en lugar de require
-dotenv.config();  // Cargar variables de entorno
+// const dotenv = require('dotenv');  // Usar import en lugar de require
+// dotenv.config();  // Cargar variables de entorno
 
 // Función para establecer el tamaño del scroll
 function setScrollSize(xmlInput1, xmlInput2, size) {

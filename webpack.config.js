@@ -115,7 +115,7 @@ module.exports = {
             ]
         }),
         new Dotenv(), // Carga variables de entorno
-        (process.env.NODE_ENV === 'production' ? [new CleanWebpackPlugin()] : []), // Limpia la carpeta de salida antes de cada build
+        new CleanWebpackPlugin(), // Limpia la carpeta de salida antes de cada build
         new webpack.ProvidePlugin({
             process: 'process/browser', // Soluciona el error de 'process' no definido
         }),       

@@ -253,6 +253,8 @@ class textAreaXML extends HTMLElement {
                 this.codemirrorInstance = codemirrorInstance.CodeMirror;
                 this.statusReadOnly(this._readonly);
                 this.statusPlaceholder(this._placeholder)
+                // Refrescar el editor para aplicar los cambios (en este caso el placeholder y otros ajustes)
+                this.codemirrorInstance.refresh();
                 observer.disconnect(); // Dejar de observar una vez que se ha encontrado CodeMirror
             }
         });

@@ -90,6 +90,17 @@ class modalXML extends HTMLElement {
     }
 
     render() {
+        // // Limpiar cualquier modal anterior si ya existe
+        // const existingModal = this.shadowRoot.querySelector(`#${this._modalId}`);
+        // if (existingModal) {
+        //     console.log('Si existia modal, eliminando.')
+        //     // Destruir el modal existente
+        //     $(existingModal).modal('dispose');  // Destruye cualquier instancia previa del modal
+        //     existingModal.remove(); // Elimina el modal del DOM
+        // }else{
+        //     console.log('No existia modal.')
+        // }
+
         this.shadowRoot.appendChild(this.getTemplate().content.cloneNode(true));
 
         // Al cerrar el modal, se renderiza de nuevo la plantilla

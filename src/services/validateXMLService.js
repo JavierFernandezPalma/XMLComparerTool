@@ -10,7 +10,7 @@ class ValidateXMLService {
     // }
 
     async processValidationXML(req) {
-        
+
         const { xml, xsd } = req.body; // Extrae XML y XSD del cuerpo de la solicitud
 
         // Delegar la validación al servicio
@@ -56,12 +56,11 @@ class ValidateXMLService {
 
         // Escribir el esquema XSD en un archivo temporal
         try {
-            const a = this.prueba();
             fs.writeFileSync(xsdFilePath, xsdContent);
         } catch (fileWriteError) {
             console.error('Error al escribir el archivo XSD:', fileWriteError); // Error al escribir el archivo XSD
             // return { valid: false, errorType: 'SCHEMA_ERROR', message: ['Error al escribir el archivo XSD.'], details: '' };
-            throw boom.badData('Error al escribir el archivo XSD.')
+            boom.badData('Error al escribir el archivo XSD.')
         }
 
         // Validación asincrónica del XML contra el archivo XSD

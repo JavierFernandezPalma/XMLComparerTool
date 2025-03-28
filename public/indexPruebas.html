@@ -37,19 +37,29 @@
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <!-- Logo a la izquierda -->
             <a class="navbar-brand" href="#">
-                <img src="./assets/images/Bancolombiablanco.png" alt="Logo" width="20%" height="20%" class="d-inline-block align-top">
+                <img src="./assets/images/Bancolombiablanco.png" alt="Logo" width="20%" height="20%"
+                    class="d-inline-block align-top">
             </a>
             <!-- Párrafo alineado a la derecha con el margen inferior eliminado -->
             <p class="mb-0">Version: 1.0.1<span></span></p>
             <!-- El <span> con id="app-version" se usará para mostrar la versión de la aplicación -->
         </div>
     </nav>
-
-    <div id="main"></div>
-
-    <footer>
-        <p>Version: <span id="app-version"></span></p>
-    </footer>
+    <div class="container my-5">
+        <div
+            class="d-flex flex-column flex-sm-row justify-content-between align-items-center p-3 mb-3 border rounded bg-white shadow-sm">
+            <div class="col-12 col-sm-10 error-info mb-3 mb-sm-0">
+                <strong>ID:</strong> 1 <br>
+                <strong>Descripción:</strong> 500 - XXX: cvc-particle 3.1: in element {XXX}Body of type {XXX}Body, found
+                &lt;XXX&gt; (in namespace XXX), but next item should be {XXX}Fault
+            </div>
+            <div class="col-12 col-sm-2 d-flex justify-content-center justify-content-sm-end">
+                <button class="btn btn-warning btn-sm me-2"
+                    onclick="mostrarModalActualizarError(event, 1, '500 - XXX: cvc-particle 3.1: in element {XXX}Body of type {XXX}Body, found <XXX> (in namespace XXX), but next item should be {XXX}Fault')">Actualizar</button>
+                <button class="btn btn-danger btn-sm" onclick="eliminarError(event, 1)">Eliminar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Navegación fija en la parte inferior -->
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">

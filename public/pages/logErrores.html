@@ -43,7 +43,7 @@
     <div class="container my-5">
 
         <!-- Título de la página -->
-        <h2 class="text-center mb-4">Registro de Errores</h2>
+        <h2 class="text-center mb-4">Log de Errores</h2>
 
         <!-- Campo de búsqueda y botón -->
         <div class="d-flex mb-4">
@@ -83,7 +83,7 @@
         let paginaActual = 0; // Página inicial
         const registrosPorPagina = 5; // Número de registros por página
         let totalErrores = 0; // Variable para almacenar el total de errores
-        const apiLogErrorUrl = 'https://xmlcomparertool.onrender.com' || 'http://localhost:3000';
+        const apiLogErrorUrl = 'https://xmlcomparertool.onrender.com';
 
         // Función para obtener la lista de errores
         async function fetchErrores() {
@@ -116,13 +116,13 @@
             errores.filter(error => error.descripcionError.toLowerCase().includes(filtro.toLowerCase()))
                 .forEach(error => {
                     const div = document.createElement("div");
-                    div.classList.add("d-flex", "justify-content-between", "align-items-center", "p-3", "mb-3", "border", "rounded", "bg-white", "shadow-sm");
+                    div.classList.add("d-flex", "flex-column", "flex-sm-row", "justify-content-between", "align-items-center", "p-3", "mb-3", "border", "rounded", "bg-white", "shadow-sm");
                     div.innerHTML = `
-                        <div class="col-10 error-info">
-                            <strong>ID:</strong> ${error.idError} <br> 
+                        <div class="col-12 col-sm-10 error-info mb-3 mb-sm-0">
+                            <strong>ID:</strong> ${error.idError} <br>
                             <strong>Descripción:</strong> ${error.descripcionError}
                         </div>
-                        <div class="col-2 d-flex justify-content-end">                          
+                        <div class="col-12 col-sm-2 d-flex justify-content-center justify-content-sm-end">                          
                             <button class="btn btn-warning btn-sm me-2" onclick="mostrarModalActualizarError(event, ${error.idError}, '${error.descripcionError}')">Actualizar</button>
                             <button class="btn btn-danger btn-sm" onclick="eliminarError(event, ${error.idError})">Eliminar</button>
                         </div>

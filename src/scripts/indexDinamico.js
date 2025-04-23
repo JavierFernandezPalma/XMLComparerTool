@@ -1,21 +1,21 @@
 // Función genérica para insertar contenido de un template en un contenedor
 function insertTemplateContent(templateId, containerId, buttonText) {
   if (!document.createElement("template").content) {
-      console.warn("El elemento template no es compatible con este navegador.");
-      return;
+    console.warn("El elemento template no es compatible con este navegador.");
+    return;
   }
 
   const template = document.querySelector(`#${templateId}`);
   const container = document.querySelector(`#${containerId}`);
 
   if (!template || !container) {
-      console.error("Template o contenedor no encontrado.");
-      return;
+    console.error("Template o contenedor no encontrado.");
+    return;
   }
 
   const button = template.content.querySelector("button");
   if (button) {
-      button.textContent = buttonText;
+    button.textContent = buttonText;
   }
 
   const clone = document.importNode(template.content, true);
@@ -31,3 +31,16 @@ export function loadDeleteXMLTemplate() {
 export function loadUploadXMLTemplate() {
   insertTemplateContent("templateSubirArchivosXML", "containerSubirArchivosXML", "Subir Archivos (plantillas) XML");
 }
+
+export function mostrarAccordionDummy() {
+  insertTemplateContent("templateDummy", "containerDummy", "VerificarEstadoWebService");
+}
+
+export function mostrarAccordionConsultaNumero() {
+  insertTemplateContent("templateConsultaFacturaPorNumero", "containerConsultaFacturaPorNumero", "ConsultaFacturaPorNumero");
+}
+
+export function mostrarAccordionPago() {
+  insertTemplateContent("templateRegistrarPagoIFX", "containerRegistrarPagoIFX", "RegistrarPagoIFX");
+}
+

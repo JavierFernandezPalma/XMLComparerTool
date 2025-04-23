@@ -91,7 +91,7 @@ module.exports = {
         new Dotenv({ // Carga variables de entorno
             path: './.env', // Ruta al archivo .env
             systemvars: true, // Cargar variables del sistema también
-            silent: false, // No mostrar advertencias si el archivo .env no existe
+            silent: true, // No mostrar advertencias si el archivo .env no existe
         }),
         new webpack.ProvidePlugin({
             process: 'process/browser', // Soluciona el error de 'process' no definido

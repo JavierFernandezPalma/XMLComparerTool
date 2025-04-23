@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparar Estructuras XML</title>
     <!-- Enlace a Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <!-- Enlace a CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
     <!-- Incluir el CSS de Shepherd.js para tour en la APP -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css" />
+    <!-- Enlace a la librería DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    <!-- Enlace a la librería DataTables Buttons (para los botones de exportación) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.dataTables.min.css" />
     <!-- Enlaces a jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -23,11 +27,39 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+
+    <!-- Incluir DataTables Column Reorder CSS y JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.4/css/colReorder.dataTables.css">
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/colreorder/2.0.4/js/dataTables.colReorder.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/colreorder/2.0.4/js/colReorder.dataTables.js"></script>
+
+    <!-- Incluir la librería SheetJS para exportar a Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <!-- Enlace a estilos personalizados -->
-    <!-- <link rel='stylesheet' type='text/css' media='screen' href='css/styles.css'> -->
+    <link rel='stylesheet' type='text/css' media='screen' href='../src/styles/main.css'>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/3.0.0/css/select.dataTables.css">
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/select/3.0.0/js/dataTables.select.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/select/3.0.0/js/select.dataTables.js"></script>
+    <style>
+        #table1_wrapper,
+        #table2_wrapper {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,58 +69,833 @@
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <!-- Logo a la izquierda -->
             <a class="navbar-brand" href="#">
-                <img src="./assets/images/Bancolombiablanco.png" alt="Logo" width="20%" height="20%"
-                    class="d-inline-block align-top">
+                <img src="../dist/assets/images/Bancolombiablanco.png" alt="Logo" class="d-inline-block align-top"
+                    style="max-width: 100px; height: auto;">
             </a>
             <!-- Párrafo alineado a la derecha con el margen inferior eliminado -->
-            <p class="mb-0">Version: 1.0.1<span></span></p>
+            <p class="mb-0">Versión: <span id="app-version"></span></p>
             <!-- El <span> con id="app-version" se usará para mostrar la versión de la aplicación -->
         </div>
     </nav>
-    <div class="container my-5">
-        <div
-            class="d-flex flex-column flex-sm-row justify-content-between align-items-center p-3 mb-3 border rounded bg-white shadow-sm">
-            <div class="col-12 col-sm-10 error-info mb-3 mb-sm-0">
-                <strong>ID:</strong> 1 <br>
-                <strong>Descripción:</strong> 500 - XXX: cvc-particle 3.1: in element {XXX}Body of type {XXX}Body, found
-                &lt;XXX&gt; (in namespace XXX), but next item should be {XXX}Fault
-            </div>
-            <div class="col-12 col-sm-2 d-flex justify-content-center justify-content-sm-end">
-                <button class="btn btn-warning btn-sm me-2"
-                    onclick="mostrarModalActualizarError(event, 1, '500 - XXX: cvc-particle 3.1: in element {XXX}Body of type {XXX}Body, found <XXX> (in namespace XXX), but next item should be {XXX}Fault')">Actualizar</button>
-                <button class="btn btn-danger btn-sm" onclick="eliminarError(event, 1)">Eliminar</button>
+    <div class="container mt-5">
+        <!-- Título de la página -->
+        <h2 class="text-center mb-4">Mapeo de Mensajes SOAP</h2>
+        <!-- Card para mostrar información del requerimiento -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title">Requerimiento</h4>
+                    <div class="d-flex align-items-center">
+                        <button onclick="startTourComparerXML()" class="btn btn-primary btn-circle"
+                            type="button">?</button>
+                    </div>
+                </div>
+
+                <form id="formRequerimiento" class="needs-validation" novalidate>
+                    <div class="accordion" id="accordionRequerimiento">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingRequerimiento">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseRequerimiento" aria-expanded="true"
+                                    aria-controls="collapseRequerimiento">
+                                    Descripción del Requerimiento
+                                </button>
+                            </h2>
+                            <div id="collapseRequerimiento" class="accordion-collapse collapse show"
+                                aria-labelledby="headingRequerimiento">
+                                <div class="accordion-body">
+
+                                    <!-- Contacto Técnico -->
+                                    <div class="row mb-3">
+                                        <label>Contacto Técnico:</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control mb-2" placeholder="Nombres" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="email" class="form-control mb-2"
+                                                placeholder="Correo electrónico" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="tel" class="form-control mb-2"
+                                                placeholder="Teléfono 1 fijo y/o celular" pattern="^\d{7,15}$"
+                                                title="Ingresa un teléfono válido (solo números, entre 7 y 15 dígitos)"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="tel" class="form-control mb-2"
+                                                placeholder="Teléfono 2 fijo y/o celular" pattern="^\d{7,15}$"
+                                                title="Ingresa un teléfono válido (solo números, entre 7 y 15 dígitos)">
+                                        </div>
+                                    </div>
+
+                                    <!-- Contacto Comercial Banco y Analista encargado -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label>Nombre Contacto Comercial Banco:</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Nombre Analista Banco:</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tipo de Web Service y Fecha vencimiento certificado -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="listaTipoWebService" class="form-label">Tipo de Web
+                                                Service:</label>
+                                            <select id="listaTipoWebService" class="form-select" required>
+                                                <option value="" disabled selected>Selecciona una opción</option>
+                                                <option value="una-via">RTR SOAP una vía</option>
+                                                <option value="dos-vias">RIN SOAP dos vías</option>
+                                                <option value="una-via-rest">RTR REST una vía</option>
+                                                <option value="dos-vias-rest">RIN REST dos vías</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="fechaVencimientoCertificado">Certificado fecha
+                                                vencimiento:</label>
+                                            <input type="date" id="fechaVencimientoCertificado" class="form-control"
+                                                required>
+                                            <span id="fechaError" style="color: red; display: none;">La fecha de
+                                                vencimiento debe ser mayor a la fecha actual.</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Checks -->
+                                    <div class="mb-3">
+                                        <label>Características:</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="WSDL" id="wsdlCheck">
+                                            <label class="form-check-label" for="wsdlCheck">WSDL</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="OAS" id="oasCheck">
+                                            <label class="form-check-label" for="oasCheck">OpenAPI Specification</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="Firma"
+                                                id="firmaCheck">
+                                            <label class="form-check-label" for="firmaCheck">Firma</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="Cifrado"
+                                                id="cifradoCheck">
+                                            <label class="form-check-label" for="cifradoCheck">Cifrado</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="authBasicCheck"
+                                                onchange="toggleAuthSelect()">
+                                            <label class="form-check-label" for="authBasicCheck">Autenticación
+                                                básica</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Autenticación básica (condicional) -->
+                                    <div class="mb-3" id="authBasicSelect" style="display: none;">
+                                        <label>Autenticación básica:</label>
+                                        <select class="form-select">
+                                            <option>Seleccione</option>
+                                            <option>header soap</option>
+                                            <option>http soap</option>
+                                            <option>body</option>
+                                            <option>N/A</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Usuario y contraseña WS -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label>Usuario del WS cliente:</label>
+                                            <input type="text" class="form-control" maxlength="10" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Contraseña del WS cliente:</label>
+                                            <input type="password" class="form-control" maxlength="10" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- URL y tipo de conectividad -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label>URL del servicio (endpoint):</label>
+                                            <input type="url" class="form-control"
+                                                placeholder="https://ejemplo.com/servicio" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Tipo de conectividad:</label>
+                                            <select class="form-select" id="tipoConectividad"
+                                                onchange="toggleVPNFields()" required>
+                                                <option value="">Seleccione</option>
+                                                <option>Internet</option>
+                                                <option>VPN</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- IP y puerto -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label>IP Cliente:</label>
+                                            <input type="text" class="form-control" placeholder="Ej: 192.168.0.1"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Puerto:</label>
+                                            <input type="number" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- VPN campos -->
+                                    <div class="mb-3" id="vpnFields" style="display: none;">
+                                        <label>VPN (IP válida):</label>
+                                        <input type="text" class="form-control mb-2" placeholder="Ej: 10.0.0.1">
+                                        <label>Service (TCP, UDP y puerto) o Protocolo:</label>
+                                        <input type="text" class="form-control" placeholder="Ej: TCP 443">
+                                    </div>
+
+                                    <!-- Tabla editable -->
+                                    <div class="mb-3">
+                                        <div
+                                            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-2">
+                                            <span class="fw-bold">Tabla de Facturas:</span>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <!-- Botón: Cargar set de datos -->
+                                                <button type="button"
+                                                    class="btn btn-secondary btn-sm d-flex align-items-center gap-1"
+                                                    onclick="abrirModalCarga()">
+                                                    <i class="bi bi-upload"></i> Cargar set de datos
+                                                </button>
+
+                                                <!-- Botón: Añadir fila -->
+                                                <button type="button"
+                                                    class="btn btn-success btn-sm d-flex align-items-center gap-1"
+                                                    onclick="agregarFila()">
+                                                    <i class="bi bi-plus-circle"></i> Añadir fila
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Tabla responsive -->
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-sm align-middle text-nowrap"
+                                                id="tablaFacturacion">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Factura</th>
+                                                        <th>NIT</th>
+                                                        <th>Número de Negocio</th>
+                                                        <th>Factura Código de Barras (Espectro completo)</th>
+                                                        <th>Valor</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Filas dinámicas se agregan aquí -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botón de envío -->
+                                    <div class="text-end mt-3">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
+
+        <!-- Card para cargar archivos XML -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title">Cargar Archivos SOAP</h4>
+                    <!-- Contenedor para el botón de tour -->
+                    <div class="d-flex align-items-center">
+                    </div>
+                </div>
+                <!-- Input para cargar archivo XML base -->
+                <div id="inputFiles">
+                    <div class="mb-3">
+                        <label for="fileInput1" class="form-label">Seleccionar SOAP Banco</label>
+                        <input type="file" class="form-control" id="fileInput1" accept=".xml">
+                    </div>
+                    <!-- Input para cargar archivo XML a comparar -->
+                    <div class="mb-3">
+                        <label for="fileInput2" class="form-label">Seleccionar SOAP Cliente</label>
+                        <input type="file" class="form-control" id="fileInput2" accept=".xml">
+                    </div>
+                </div>
+                <!-- Select para seleccionar archivo XML desde una lista -->
+                <div class="mb-3">
+                    <label for="xmlFileSelect" class="form-label">Seleccionar SOAP Banco desde lista</label>
+                    <select class="form-select" id="xmlFileSelect">
+                        <option value="">Seleccionar archivo</option>
+                    </select>
+                </div>
+                <!-- 
+                    Radios: tipo mapeo.  
+                    Lista Método: ops por WS.  
+                    Lista Método se activa según Lista Tipo Web Service.  
+                    Al elegir, se muestra selección.
+                -->
+                <div id="radioButtons" class="row g-3 align-items-center">
+
+                    <!-- Radios -->
+                    <div class="col-12 col-md-6">
+                        <label class="form-label d-block mb-1">Tipo Mapeo:</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                                checked>
+                            <label class="form-check-label" for="flexRadioDefault1">Mapeo Request</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">Mapeo Response</label>
+                        </div>
+                    </div>
+
+                    <!-- Lista desplegable -->
+                    <div class="col-12 col-md-6">
+                        <label for="metodoWebService" class="form-label">Método:</label>
+                        <select id="metodoWebService" class="form-select" disabled>
+                            <option value="">Primero selecciona tipo WS</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Accordion para secciones de eliminar y subir archivos XML -->
+                <div class="accordion accordion-flush mt-4" id="accordionFlushExample">
+                    <!-- Template para eliminar archivos XML -->
+                    <template id="templateEliminarArchivosXML">
+
+                        <!-- Sección de eliminar archivos XML -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                    <!-- El texto del botón será modificado dinámicamente por el script -->
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <form id="deleteForm" class="d-flex">
+                                        <select class="form-select me-2" id="deleteFileSelect" required></select>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </template>
+
+                    <!-- Contenedor donde se insertará el template de eliminar archivos XML -->
+                    <div id="containerEliminarArchivosXML"></div>
+
+                    <!-- Template para subir archivos XML -->
+                    <template id="templateSubirArchivosXML">
+                        <!-- Sección de subir archivos XML -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                    <!-- El texto del botón será modificado dinámicamente por el script -->
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <form id="uploadForm" enctype="multipart/form-data" class="d-flex">
+                                        <input type="file" class="form-control me-2" id="fileInput" name="file"
+                                            accept=".xml" required>
+                                        <button type="submit" class="btn btn-primary">Subir</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Contenedor donde se insertará el template de subir archivos XML -->
+                    <div id="containerSubirArchivosXML"></div>
+                </div>
+                <!-- Fin del Accordion -->
+            </div>
+        </div>
+
+        <!-- Card para ingresar XML manualmente -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title mb-0">Ingresar XML Manual</h4>
+                    <div id="switchScroll" class="d-flex align-items-center">
+                        <!-- Switch para activar/desactivar el scroll vertical -->
+                        <div class="form-check form-switch me-3">
+                            <input class="form-check-input" type="checkbox" id="scrollSwitch"
+                                title="Activar Scroll Vertical">
+                            <label class="form-check-label d-none d-md-flex" for="scrollSwitch">Activar Scroll
+                                Vertical</label>
+                        </div>
+                        <!-- Campo de texto para el tamaño del scroll -->
+                        <div>
+                            <input type="number" class="form-control" id="scrollSizeInput" name="scrollSizeInput"
+                                list="presetScrollSizes" min="1" pattern="\d*" disabled
+                                title="Ingrese el tamaño del scroll en píxeles" autocomplete="current-scrollSizeInput">
+                            <datalist id="presetScrollSizes">
+                                <option value="100">
+                                <option value="200">
+                                <option value="300">
+                                <option value="400">
+                                <option value="500">
+                                <option value="1000">
+                            </datalist>
+                        </div>
+                    </div>
+                </div>
+                <!-- Textareas para comparar estructuras XML -->
+                <div id="textAreasComparar" class="row">
+                    <!-- Textarea para XML base -->
+                    <div class="col-md-6 mb-3">
+                        <text-area-xml id="textarea1" title="XML Banco" titleformat="Aplicar Formato"
+                            titleclear="Limpiar" buttonformatid="formatXmlInput1" buttonclearid="clearXmlInput1"
+                            textareaid="xmlInput1">
+                        </text-area-xml>
+                    </div>
+                    <!-- Textarea para XML a comparar -->
+                    <div class="col-md-6 mb-3">
+                        <text-area-xml id="textarea2" title="XML Cliente" titleformat="Aplicar Formato"
+                            titleclear="Limpiar" buttonformatid="formatXmlInput2" buttonclearid="clearXmlInput2"
+                            textareaid="xmlInput2" placeholder="Ingresa código aquí...">
+                        </text-area-xml>
+                    </div>
+                </div>
+
+                <!-- Botón para comparar XML -->
+                <div class="text-center">
+                    <button id="cargarMapeos" class="btn btn-success">Cargar</button>
+                    <button id="guardarDatos" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- Template para mostrar tabla Dummy -->
+        <template id="templateDummy">
+            <div class="accordion" id="accordionDummy">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingDummy">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseDummy" aria-expanded="true" aria-controls="collapseDummy">
+                            Dummy
+                        </button>
+                    </h2>
+                    <div id="collapseDummy" class="accordion-collapse collapse show" aria-labelledby="headingDummy">
+                        <div class="accordion-body">
+                            <!-- Botón para exportar a Excel -->
+                            <button id="exportToExcel" style="margin-top: 10px; display: none;">Exportar a
+                                Excel</button>
+
+                            <!-- Tabla de resultados -->
+                            <table id="xmlTable" class="display" style="width:100%; display: none;">
+                                <thead>
+                                    <tr id="tableHeaders">
+                                        <!-- Los encabezados se generarán dinámicamente -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Aquí se llenarán las filas dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- Contenedor donde se insertará el template la tabla Dummy -->
+        <div id="containerDummy"></div>
+
+        <!-- Template para mostrar tabla ConsultaFacturaPorNumero -->
+        <template id="templateConsultaFacturaPorNumero">
+            <div class="accordion" id="accordionFacturaNumero">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFacturaNumero">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFacturaNumero" aria-expanded="true"
+                            aria-controls="collapseFacturaNumero">
+                            ConsultaFacturaPorNumero
+                        </button>
+                    </h2>
+                    <div id="collapseFacturaNumero" class="accordion-collapse collapse show"
+                        aria-labelledby="headingFacturaNumero">
+                        <div class="accordion-body">
+                            <table id="xmlTable2" class="display" style="width:100%; display: none;">
+                                <thead>
+                                    <tr id="tableHeaders">
+                                        <!-- Los encabezados se generarán dinámicamente -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Aquí se llenarán las filas dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- Contenedor donde se insertará el template la tabla ConsultaFacturaPorNumero -->
+        <div id="containerConsultaFacturaPorNumero"></div>
+
+        <!-- Template para mostrar tabla RegistrarPagoIFX -->
+        <template id="templateRegistrarPagoIFX">
+            <div class="accordion" id="accordionPagoIFX">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPagoIFX">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapsePagoIFX" aria-expanded="true" aria-controls="collapsePagoIFX">
+                            RegistrarPagoIFX
+                        </button>
+                    </h2>
+                    <div id="collapsePagoIFX" class="accordion-collapse collapse show" aria-labelledby="headingPagoIFX">
+                        <div class="accordion-body">
+                            <table id="xmlTable3" class="display" style="width:100%; display: none;">
+                                <thead>
+                                    <tr id="tableHeaders">
+                                        <!-- Los encabezados se generarán dinámicamente -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Aquí se llenarán las filas dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- Contenedor donde se insertará el template la tabla RegistrarPagoIFX -->
+        <div id="containerRegistrarPagoIFX"></div>
+        <br>
+        <!-- Card para mostrar el resultado del parceo -->
+        <div id="cardResultComparer" class="card">
+            <div class="card-body">
+                <h4 class="card-title">Resultado del parseo XML</h4>
+                <!-- Resultado de la comparación -->
+                <pre id="comparisonResult" class="diff p-3 bg-light rounded"></pre>
+                <div id="messageContainer" class="diff p-3 bg-light rounded"></div>
+            </div>
+        </div>
+
+        <!-- Modal para cargar datos -->
+        <div class="modal fade" id="modalCargaDatos" tabindex="-1" aria-labelledby="modalCargaDatosLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="formCargaDatos">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalCargaDatosLabel">Cargar Facturas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="textareaDatos" class="form-label">Pega los datos (separados por
+                                coma):</label>
+                            <textarea id="textareaDatos" class="form-control" rows="10" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Cargar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Navegación fija en la parte inferior -->
-    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-        <!-- Botón de alternancia para la barra de navegación en pantallas pequeñas -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <!-- Icono del botón de alternancia -->
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Contenedor colapsable para los elementos de la barra de navegación -->
-        <div class="collapse navbar-collapse dropup" id="navbarCollapse">
-            <!-- Lista de navegación principal -->
-            <ul class="navbar-nav mr-auto">
-                <!-- Elemento de navegación con un menú desplegable -->
-                <li class="nav-item dropup">
-                    <!-- Enlace del menú desplegable -->
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Herramientas XML</a>
-                    <!-- Contenido del menú desplegable -->
-                    <div class="dropdown-menu" aria-labelledby="dropdown10">
-                        <!-- Opción del menú que enlaza a 'Comparar Estructuras XML' -->
-                        <a class="dropdown-item" href="index.html">Comparar Estructuras XML</a>
-                        <!-- Opción del menú que enlaza a 'Validar XML' -->
-                        <a class="dropdown-item" href="pages/validarXML.html">Validar XML</a>
+    <script>
+        function abrirModalCarga() {
+            const modal = new bootstrap.Modal(document.getElementById('modalCargaDatos'));
+            modal.show();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('formCargaDatos');
+            const tabla = document.querySelector('#tablaFacturacion tbody');
+            const textarea = document.getElementById('textareaDatos');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const lineas = textarea.value.trim().split('\n');
+
+                lineas.forEach(linea => {
+                    const columnas = linea.split(',').map(col => col.trim());
+
+                    if (columnas.length >= 5) {
+                        const factura = columnas[0];
+                        const nit = columnas[1];
+                        const negocio = columnas[2];
+                        const codBarras = columnas[3];
+                        const valor = columnas[4];
+
+                        const fila = document.createElement('tr');
+                        fila.innerHTML = `
+            <td>${factura}</td>
+            <td>${nit}</td>
+            <td>${negocio}</td>
+            <td>${codBarras}</td>
+            <td>${parseFloat(valor).toLocaleString('es-CO', { minimumFractionDigits: 3 })}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" onclick="eliminarFila(this)">✕</button>
+            </td>
+          `;
+                        tabla.appendChild(fila);
+                    }
+                });
+
+                textarea.value = '';
+                const modal = bootstrap.Modal.getInstance(document.getElementById('modalCargaDatos'));
+                modal.hide();
+            });
+        });
+
+        function eliminarFila(boton) {
+            boton.closest('tr').remove();
+        }
+
+        function agregarFila() {
+            const tabla = document.getElementById("tablaFacturacion").getElementsByTagName('tbody')[0];
+            const nuevaFila = tabla.insertRow();
+
+            // Crear celdas con inputs
+            for (let i = 0; i < 5; i++) {
+                const celda = nuevaFila.insertCell(i);
+                const input = document.createElement("input");
+                input.type = i === 4 ? "number" : "text";
+                input.className = "form-control";
+                celda.appendChild(input);
+            }
+
+            // Agregar botón para eliminar fila
+            const celdaAcciones = nuevaFila.insertCell(5);
+            const botonEliminar = document.createElement("button");
+            botonEliminar.className = "btn btn-danger btn-sm";
+            botonEliminar.textContent = "✕";
+            botonEliminar.onclick = function () {
+                tabla.deleteRow(nuevaFila.rowIndex - 1);
+            };
+            celdaAcciones.appendChild(botonEliminar);
+        }
+
+        function toggleAuthSelect() {
+            const authCheck = document.getElementById('authBasicCheck');
+            const authSelect = document.getElementById('authBasicSelect');
+            authSelect.style.display = authCheck.checked ? 'block' : 'none';
+        }
+
+
+        function toggleVPNFields() {
+            const tipo = document.getElementById('tipoConectividad').value;
+            const vpnFields = document.getElementById('vpnFields');
+            vpnFields.style.display = tipo === 'VPN' ? 'block' : 'none';
+        }
+
+        function obtenerValorElementoHTML(celda) {
+            const select = celda.querySelector('select');
+            const input = celda.querySelector('input');
+            const span = celda.querySelector('span');
+            const textarea = celda.querySelector('textarea');
+
+            if (select) return select.options[select.selectedIndex]?.text?.trim() || '';
+            if (input) return input.value?.trim() || '';
+            if (span) return span.textContent?.trim() || '';
+            if (textarea) return textarea.value?.trim() || '';
+            return celda.textContent?.trim() || '';
+        }
+
+        function formatearDatosDesdeTablaActiva(tableId) {
+            const tableElement = document.getElementById(tableId);
+            if (!tableElement || !tableElement.querySelector('tbody tr')) return [];
+
+            const headers = Array.from(tableElement.querySelectorAll('thead th'))
+                .map(th => th.textContent.trim());
+
+            const filasFormateadas = [];
+
+            $(`#${tableId} tbody tr`).each(function () {
+                const fila = {};
+                $(this).find('td').each(function (index) {
+                    const key = headers[index] || `Columna ${index + 1}`;
+                    const valor = obtenerValorElementoHTML(this);
+                    fila[key] = valor;
+                });
+                filasFormateadas.push(fila);
+            });
+
+            return filasFormateadas;
+        }
+
+        $('#guardarDatos').click(function () {
+            const tablaIds = ['xmlTable', 'xmlTable2', 'xmlTable3'];
+            const resultado = {};
+
+            tablaIds.forEach(id => {
+                const filas = formatearDatosDesdeTablaActiva(id);
+                if (filas.length > 0) {
+                    resultado[id] = filas;
+                }
+            });
+
+            const tipoWS = document.getElementById('listaTipoWebService').value;
+            let htmlOutput = `
+                <div class="accordion" id="accordionTablas">
+            `;
+
+            let indexAccordion = 0;
+
+            for (const [tablaId, registros] of Object.entries(resultado)) {
+                let titulo = '';
+                // Asignar título según el ID de la tabla
+                switch (tablaId) {
+                    case 'xmlTable':
+                        titulo = 'VerificarEstadoWebService';
+                        break;
+                    case 'xmlTable2':
+                        titulo = 'ConsultaFacturaPorNumero';
+                        break;
+                    case 'xmlTable3':
+                        titulo = 'RegistrarPagoIFX';
+                        break;
+                    default:
+                        titulo = tablaId;
+                }
+
+                const collapseId = `collapse${indexAccordion}`;
+                const headingId = `heading${indexAccordion}`;
+
+                htmlOutput += `
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="${headingId}">
+                            <button class="accordion-button ${indexAccordion > 0 ? 'collapsed' : ''}" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="${indexAccordion === 0}" aria-controls="${collapseId}">
+                                ${titulo}
+                            </button>
+                        </h2>
+                        <div id="${collapseId}" class="accordion-collapse collapse ${indexAccordion === 0 ? 'show' : ''}" aria-labelledby="${headingId}" data-bs-parent="#accordionTablas">
+                            <div class="accordion-body">
+                `;
+
+                registros.forEach((registro, regIndex) => {
+                    const contenido = Object.entries(registro)
+                        .map(([clave, valor]) => `<strong>${clave}:</strong> ${valor}`)
+                        .join('<br>');
+
+                    htmlOutput += `
+                        <div class="card mb-3 registro" style="background-color: white;">
+                            <div class="card-body">
+                                <p class="card-text">${contenido}</p>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input check1" type="checkbox">
+                                    <label class="form-check-label">Fondo Verde</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input check2" type="checkbox">
+                                    <label class="form-check-label">Fondo Naranja</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input check3" type="checkbox">
+                                    <label class="form-check-label">Fondo Amarillo</label>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                htmlOutput += `
+                            </div>
+                        </div>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                `;
+
+                indexAccordion++;
+            }
+
+            htmlOutput += `</div>`; // cierre de accordion
+
+            const outputWindow = window.open('', 'HTML Output', 'width=1000,height=800');
+
+            outputWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Resultado HTML</title>
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+                    </head>
+                    <body class="bg-light p-4">
+                        <div class="container">
+                            <h1 class="mb-4">Mapeos ${tipoWS}</h1>
+                            ${htmlOutput}
+                            <button id="guardarButton" class="btn btn-primary mt-4">Guardar HTML</button>
+                        </div>
+                    </body>
+                </html>
+            `);
+
+            // Bootstrap JS
+            const bootstrapScript = outputWindow.document.createElement('script');
+            bootstrapScript.src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js";
+            bootstrapScript.integrity = "sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq";
+            bootstrapScript.crossOrigin = "anonymous";
+            outputWindow.document.head.appendChild(bootstrapScript);
+
+            // Script para guardar HTML
+            const scriptGuardar = outputWindow.document.createElement('script');
+            scriptGuardar.textContent = `
+                document.getElementById('guardarButton').addEventListener('click', function() {
+                    const htmlContent = document.documentElement.outerHTML;
+                    const blob = new Blob([htmlContent], { type: 'text/html' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'resultado_tablas.html';
+                    link.click();
+                });
+            `;
+            outputWindow.document.body.appendChild(scriptGuardar);
+
+            // Script para cambiar fondo por check
+            const scriptColor = outputWindow.document.createElement('script');
+            scriptColor.textContent = `
+                function cambiarColor(div) {
+                    const check1 = div.querySelector('.check1');
+                    const check2 = div.querySelector('.check2');
+                    const check3 = div.querySelector('.check3');
+                    div.style.backgroundColor = 'white';
+                    if (check1.checked) div.style.backgroundColor = 'green';
+                    if (check2.checked) div.style.backgroundColor = 'orange';
+                    if (check3.checked) div.style.backgroundColor = 'yellow';
+                }
+    
+                document.querySelectorAll('.registro').forEach(function(div) {
+                    div.querySelectorAll('input[type="checkbox"]').forEach(function(input) {
+                        input.addEventListener('change', function() {
+                            cambiarColor(div);
+                        });
+                    });
+                });
+            `;
+            outputWindow.document.body.appendChild(scriptColor);
+
+            outputWindow.document.close(); // Finalizar escritura
+        });
+    </script>
+
+
 
     <!-- Incluir la biblioteca jsdiff para comparar diferencias -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js"></script>
@@ -100,9 +907,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
     <!-- Incluir el JavaScript de Shepherd.js para tour en la APP -->
     <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
+    <!-- CodeMirror fullscreen JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/display/fullscreen.min.js"></script>
+    <!-- CodeMirror-placeholder -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/placeholder.min.js"></script>
 
-    <!-- Incluir el script JavaScript personalizado -->
-    <!-- <script type="module" src="js/mainIndex.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+
+    <script type="module" src="../src/mainMapeosSoap.js"></script>
 
 </body>
 

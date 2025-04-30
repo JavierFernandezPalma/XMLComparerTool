@@ -86,7 +86,35 @@ document.addEventListener("DOMContentLoaded", function () {
     // });
 
     listaTipoWebService.addEventListener('change', function () {
+        // Primero, validar la fecha
+        if (!validarFecha()) {
+            return; // Si la fecha no es válida, no ejecutamos el resto
+        }
+        const seleccion = listaTipoWebService.value;
+        metodoWebService.innerHTML = ''; // Limpiar opciones anteriores
 
+        if (opcionesLista2[seleccion]) {
+            metodoWebService.disabled = false;
+
+            // Agregar opción por defecto
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            placeholder.textContent = 'Selecciona una operación';
+            metodoWebService.appendChild(placeholder);
+
+            // Agregar nuevas opciones
+            opcionesLista2[seleccion].forEach(op => {
+                const option = document.createElement('option');
+                option.value = op;
+                option.textContent = op;
+                metodoWebService.appendChild(option);
+            });
+        } else {
+            metodoWebService.disabled = true;
+            metodoWebService.innerHTML = '<option>Primero selecciona tipo WS</option>';
+        }
 
     });
 

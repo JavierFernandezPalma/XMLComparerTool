@@ -1,4 +1,5 @@
 const express = require('express'); // Importar el módulo Express
+require('dotenv').config(); // Carga las variables de entorno desde .env
 const cors = require('cors'); // Importar el módulo CORS para habilitar solicitudes desde otros dominios
 const path = require('path'); // Importar el módulo Path para trabajar con rutas de archivos y directorios
 const packageJson = require('./package.json'); // Importa el contenido del archivo package.json para acceder a metadatos del proyecto, como la versión.

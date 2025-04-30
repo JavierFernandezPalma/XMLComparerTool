@@ -109,20 +109,21 @@
                                     <div class="row mb-3">
                                         <label>Contacto Técnico:</label>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control mb-2" placeholder="Nombres" required>
+                                            <input type="text" class="form-control mb-2" id="nombreTecnico"
+                                                placeholder="Nombres" required>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="email" class="form-control mb-2"
+                                            <input type="email" class="form-control mb-2" id="correoTecnico"
                                                 placeholder="Correo electrónico" required>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="tel" class="form-control mb-2"
+                                            <input type="tel" class="form-control mb-2" id="telefonoUno"
                                                 placeholder="Teléfono 1 fijo y/o celular" pattern="^\d{7,15}$"
                                                 title="Ingresa un teléfono válido (solo números, entre 7 y 15 dígitos)"
                                                 required>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="tel" class="form-control mb-2"
+                                            <input type="tel" class="form-control mb-2" id="telefonoDos"
                                                 placeholder="Teléfono 2 fijo y/o celular" pattern="^\d{7,15}$"
                                                 title="Ingresa un teléfono válido (solo números, entre 7 y 15 dígitos)">
                                         </div>
@@ -132,11 +133,11 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label>Nombre Contacto Comercial Banco:</label>
-                                            <input type="text" class="form-control" required>
+                                            <input type="text" id="nombreComercial" class="form-control" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label>Nombre Analista Banco:</label>
-                                            <input type="text" class="form-control" required>
+                                            <input type="text" id="nombreAnalista" class="form-control" required>
                                         </div>
                                     </div>
 
@@ -208,11 +209,13 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label>Usuario del WS cliente:</label>
-                                            <input type="text" class="form-control" maxlength="10" required>
+                                            <input type="text" id="usuarioCiente" class="form-control" maxlength="10"
+                                                required>
                                         </div>
                                         <div class="col-md-6">
                                             <label>Contraseña del WS cliente:</label>
-                                            <input type="password" class="form-control" maxlength="10" required>
+                                            <input type="text" id="passwordCiente" class="form-control"
+                                                maxlength="10" required>
                                         </div>
                                     </div>
 
@@ -220,7 +223,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label>URL del servicio (endpoint):</label>
-                                            <input type="url" class="form-control"
+                                            <input type="url" class="form-control" id="urlServicio"
                                                 placeholder="https://ejemplo.com/servicio" required>
                                         </div>
                                         <div class="col-md-6">
@@ -238,21 +241,23 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label>IP Cliente:</label>
-                                            <input type="text" class="form-control" placeholder="Ej: 192.168.0.1"
-                                                required>
+                                            <input type="text" class="form-control" id="ipCliente"
+                                                placeholder="Ej: 192.168.0.1" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label>Puerto:</label>
-                                            <input type="number" class="form-control" required>
+                                            <input type="number" class="form-control" id="puertoCliente" required>
                                         </div>
                                     </div>
 
                                     <!-- VPN campos -->
                                     <div class="mb-3" id="vpnFields" style="display: none;">
                                         <label>VPN (IP válida):</label>
-                                        <input type="text" class="form-control mb-2" placeholder="Ej: 10.0.0.1">
+                                        <input type="text" class="form-control mb-2" id="vpnCliente"
+                                            placeholder="Ej: 10.0.0.1">
                                         <label>Service (TCP, UDP y puerto) o Protocolo:</label>
-                                        <input type="text" class="form-control" placeholder="Ej: TCP 443">
+                                        <input type="text" class="form-control" id="proxyBanco"
+                                            placeholder="Ej: TCP 443">
                                     </div>
 
                                     <!-- Tabla editable -->
@@ -617,7 +622,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -648,15 +652,15 @@
 
                         const fila = document.createElement('tr');
                         fila.innerHTML = `
-            <td>${factura}</td>
-            <td>${nit}</td>
-            <td>${negocio}</td>
-            <td>${codBarras}</td>
-            <td>${parseFloat(valor).toLocaleString('es-CO', { minimumFractionDigits: 3 })}</td>
-            <td>
-              <button class="btn btn-danger btn-sm" onclick="eliminarFila(this)">✕</button>
-            </td>
-          `;
+                            <td>${factura}</td>
+                            <td>${nit}</td>
+                            <td>${negocio}</td>
+                            <td>${codBarras}</td>
+                            <td>${parseFloat(valor).toLocaleString('es-CO', { minimumFractionDigits: 3 })}</td>
+                            <td>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarFila(this)">✕</button>
+                            </td>
+                        `;
                         tabla.appendChild(fila);
                     }
                 });
@@ -744,7 +748,11 @@
         }
 
         $('#guardarDatos').click(function () {
+            const formOriginal = document.getElementById('formRequerimiento');
+            const formClonado = formOriginal.cloneNode(true).outerHTML;
+            const tipoWS = document.getElementById('listaTipoWebService').value;
             const tablaIds = ['xmlTable', 'xmlTable2', 'xmlTable3'];
+
             const resultado = {};
 
             tablaIds.forEach(id => {
@@ -754,7 +762,6 @@
                 }
             });
 
-            const tipoWS = document.getElementById('listaTipoWebService').value;
             let htmlOutput = `
                 <div class="accordion" id="accordionTablas">
             `;
@@ -802,16 +809,16 @@
                             <div class="card-body">
                                 <p class="card-text">${contenido}</p>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input check1" type="checkbox">
-                                    <label class="form-check-label">Fondo Verde</label>
+                                    <input class="form-check-input color-radio" type="radio" name="color${tablaId}${regIndex}" value="lightgreen">
+                                    <label class="form-check-label">✔ Todo Ok (completo)</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input check2" type="checkbox">
-                                    <label class="form-check-label">Fondo Naranja</label>
+                                    <input class="form-check-input color-radio" type="radio" name="color${tablaId}${regIndex}" value="orange">
+                                    <label class="form-check-label">⚠ Requiere Pruebas</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input check3" type="checkbox">
-                                    <label class="form-check-label">Fondo Amarillo</label>
+                                    <input class="form-check-input color-radio" type="radio" name="color${tablaId}${regIndex}" value="#e74c3c">
+                                    <label class="form-check-label">✖ Consultar con Analista</label>
                                 </div>
                             </div>
                         </div>
@@ -829,6 +836,7 @@
 
             htmlOutput += `</div>`; // cierre de accordion
 
+            // Abrimos una nueva ventana y escribimos el HTML
             const outputWindow = window.open('', 'HTML Output', 'width=1000,height=800');
 
             outputWindow.document.write(`
@@ -840,12 +848,29 @@
                     <body class="bg-light p-4">
                         <div class="container">
                             <h1 class="mb-4">Mapeos ${tipoWS}</h1>
+                            ${formClonado}
+                            <br>
                             ${htmlOutput}
                             <button id="guardarButton" class="btn btn-primary mt-4">Guardar HTML</button>
                         </div>
                     </body>
                 </html>
             `);
+
+
+            // // Esperar a que la ventana cargue y luego insertar los datos
+            // outputWindow.document.addEventListener('DOMContentLoaded', function () {
+            //     const datosFormularioDiv = outputWindow.document.getElementById('datosFormulario');
+            //     datosFormularioDiv.innerHTML = formularioHTML;
+            // });
+
+            // Obtener el formulario clonado en la nueva ventana
+            const formClonadoEnVentana = outputWindow.document.querySelector('#formRequerimiento');
+
+            if (formClonadoEnVentana) {
+                copiarValoresPorId(formOriginal, formClonadoEnVentana);
+                deshabilitarCampos(formClonadoEnVentana);
+            }
 
             // Bootstrap JS
             const bootstrapScript = outputWindow.document.createElement('script');
@@ -858,6 +883,15 @@
             const scriptGuardar = outputWindow.document.createElement('script');
             scriptGuardar.textContent = `
                 document.getElementById('guardarButton').addEventListener('click', function() {
+                    // Marcar el atributo 'checked' en el input seleccionado
+                    document.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                        if (radio.checked) {
+                            radio.setAttribute('checked', 'checked');
+                        } else {
+                            radio.removeAttribute('checked'); // Asegura que los no seleccionados no lo tengan
+                        }
+                    });
+
                     const htmlContent = document.documentElement.outerHTML;
                     const blob = new Blob([htmlContent], { type: 'text/html' });
                     const link = document.createElement('a');
@@ -866,33 +900,113 @@
                     link.click();
                 });
             `;
+
             outputWindow.document.body.appendChild(scriptGuardar);
 
             // Script para cambiar fondo por check
             const scriptColor = outputWindow.document.createElement('script');
             scriptColor.textContent = `
                 function cambiarColor(div) {
-                    const check1 = div.querySelector('.check1');
-                    const check2 = div.querySelector('.check2');
-                    const check3 = div.querySelector('.check3');
-                    div.style.backgroundColor = 'white';
-                    if (check1.checked) div.style.backgroundColor = 'green';
-                    if (check2.checked) div.style.backgroundColor = 'orange';
-                    if (check3.checked) div.style.backgroundColor = 'yellow';
+                    const selectedRadio = div.querySelector('input[type="radio"]:checked');
+                    if (selectedRadio) {
+                        div.style.backgroundColor = selectedRadio.value;
+                    } else {
+                        div.style.backgroundColor = 'white';
+                    }
                 }
-    
+
                 document.querySelectorAll('.registro').forEach(function(div) {
-                    div.querySelectorAll('input[type="checkbox"]').forEach(function(input) {
+                    div.querySelectorAll('input[type="radio"]').forEach(function(input) {
                         input.addEventListener('change', function() {
                             cambiarColor(div);
                         });
                     });
+
+                    // Aplicar color si ya viene uno seleccionado
+                    cambiarColor(div);
                 });
             `;
+
             outputWindow.document.body.appendChild(scriptColor);
 
-            outputWindow.document.close(); // Finalizar escritura
+            outputWindow.document.close(); // Finalizar escritura del documento
         });
+
+        function generarHTML(tipoWS, formHTML, contenido) {
+            return `
+                <html>
+                <head>
+                    <title>Resultado HTML</title>
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+                </head>
+                <body class="bg-light p-4">
+                    <div class="container">
+                    <h1 class="mb-4">Mapeos ${tipoWS}</h1>
+                    ${formHTML}
+                    <div class="accordion" id="accordionTablas">
+                        ${contenido.join('')}
+                    </div>
+                    <button id="guardarButton" class="btn btn-primary mt-4">Guardar HTML</button>
+                    </div>
+                </body>
+                </html>
+            `;
+        }
+
+        function copiarValoresPorId(formOriginal, formClonado) {
+            const elementosOriginales = formOriginal.querySelectorAll('[id]');
+
+            elementosOriginales.forEach(elementoOriginal => {
+                const idOriginal = elementoOriginal.id;
+                const elementoClonado = formClonado.querySelector(`#${idOriginal}`);
+
+                if (elementoClonado) {
+                    // Copiar inputs dentro de la tabla, si existen
+                    const inputsOriginales = elementoOriginal.querySelectorAll('input, select, textarea');
+                    const inputsClonados = elementoClonado.querySelectorAll('input, select, textarea');
+
+                    if (inputsOriginales.length && inputsOriginales.length === inputsClonados.length) {
+                        inputsOriginales.forEach((inputOriginal, index) => {
+                            const inputClonado = inputsClonados[index];
+                            if (inputClonado) {
+                                if (inputOriginal.type === 'checkbox' || inputOriginal.type === 'radio') {
+                                    inputClonado.checked = inputOriginal.checked;
+                                } else {
+                                    inputClonado.value = inputOriginal.value;
+                                }
+                            }
+                        });
+                    } else {
+                        // Si no hay inputs anidados, se trata como campo individual
+                        if (elementoOriginal.type === 'checkbox') {
+                            elementoClonado.checked = elementoOriginal.checked;
+                        } else if (elementoOriginal.type === 'radio') {
+                            const radiosOriginal = formOriginal.querySelectorAll(`input[type="radio"][name="${elementoOriginal.name}"]`);
+                            const radiosClonados = formClonado.querySelectorAll(`input[type="radio"][name="${elementoOriginal.name}"]`);
+                            radiosOriginal.forEach((radioOriginal, index) => {
+                                if (radioOriginal.checked && radiosClonados[index]) {
+                                    radiosClonados[index].checked = true;
+                                }
+                            });
+                        } else if (['SELECT', 'INPUT', 'TEXTAREA'].includes(elementoOriginal.tagName)) {
+                            elementoClonado.value = elementoOriginal.value;
+                        } else if (['TD', 'SPAN'].includes(elementoOriginal.tagName)) {
+                            elementoClonado.textContent = elementoOriginal.textContent;
+                        }
+                    }
+                }
+            });
+        }
+
+
+        function deshabilitarCampos(formClonado) {
+            const elements = formClonado.querySelectorAll('input, select, button');
+            elements.forEach(el => {
+                if (el.type !== 'button' && el.type !== 'submit') {
+                    el.disabled = true;
+                }
+            });
+        }
     </script>
 
 

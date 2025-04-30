@@ -94,7 +94,7 @@ module.exports = {
             silent: true, // No mostrar advertencias si el archivo .env no existe
         }),
         new webpack.ProvidePlugin({
-            process: 'process/browser', // Soluciona el error de 'process' no definido
+            process: 'process/browser',  // Para usar process.env en frontend
         }),
     ],
     devServer: {

@@ -114,10 +114,14 @@ module.exports = {
                 { from: path.resolve(__dirname, "src", "upload"), to: "upload" }
             ]
         }),
-        new Dotenv(), // Carga variables de entorno
+        new Dotenv({ // Carga variables de entorno
+            path: './.env', // Ruta al archivo .env
+            systemvars: true, // Cargar variables del sistema también
+            silent: true, // No mostrar advertencias si el archivo .env no existe
+        }),
         new CleanWebpackPlugin(), // Limpia la carpeta de salida antes de cada build
         new webpack.ProvidePlugin({
-            process: 'process/browser', // Soluciona el error de 'process' no definido
+            process: 'process/browser', // Para usar process.env en frontend
         }),
     ],
     optimization: {

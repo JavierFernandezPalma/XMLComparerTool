@@ -5,34 +5,34 @@
 			<tem:RegistrarPagoResult><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 			<IFX>
 			<SignonRs>
-				<ClientDt>0000-00-00T00:00:00</ClientDt>
+				<ClientDt>2030-10-23T12:10:50</ClientDt>
 				<CustLangPref>es-CO</CustLangPref>
 				<ClientApp>
 					<Org>Bancolombia</Org>
 					<Name>RINSV</Name>
 					<Version>1.0</Version>
 				</ClientApp>
-				<ServerDt>0000-00-00T00:00:00</ServerDt>
+				<ServerDt>2030-10-23T12:10:50</ServerDt>
 				<Language>es-CO</Language>
 			</SignonRs>
 			<PaySvcRs>
-				<RqUID>00000000-0000-0000-0000-000000000000</RqUID>
-				<SPName>0000</SPName>
+				<RqUID>00000000-0000-0000-0000-917000000001</RqUID>
+				<SPName>2001</SPName>
 				<PmtAddRs>
 					<Status>
 						<StatusCode>0</StatusCode>
 						<Severity>Info</Severity>
 						<StatusDesc>Exitoso</StatusDesc>
 					</Status>
-					<RqUID>00000000-0000-0000-0000-000000000000</RqUID>
-					<AsyncRqUID>00000000-0000-0000-0000-000000000000</AsyncRqUID>
+					<RqUID>00000000-0000-0000-0000-917000000001</RqUID>
+					<AsyncRqUID>00000000-0000-0000-0000-917000000001</AsyncRqUID>
 					<PmtInfo>
 						<RemitInfo>
 							<CustPayeeId/>
-							<BillId>00000000-0000-0000-0000-000000000000</BillId>
+							<BillId>00000000-0000-0000-0300-890000000006</BillId>
 							<BillRefInfo></BillRefInfo>
 							<CurAmt>
-								<Amt>0.00</Amt>
+								<Amt>560.00</Amt>
 							</CurAmt>
 						</RemitInfo>
 						<DepAcctIdFrom>
@@ -40,17 +40,17 @@
 							<AcctType>Default</AcctType>
 							<BankInfo/>
 						</DepAcctIdFrom>
-						<PrcDt>0000-00-00</PrcDt>
+						<PrcDt>2030-10-23</PrcDt>
 					</PmtInfo>
 					<PmtRec>
 						<PmtId>0</PmtId>
 						<PmtInfo>
 							<RemitInfo>
 								<CustPayeeId/>
-								<BillId>00000000-0000-0000-0000-000000000000</BillId>
+								<BillId>00000000-0000-0000-0300-890000000006</BillId>
 								<BillRefInfo></BillRefInfo>
 								<CurAmt>
-									<Amt>0.00</Amt>
+									<Amt>560.00</Amt>
 								</CurAmt>
 							</RemitInfo>
 							<DepAcctIdFrom>
@@ -58,7 +58,7 @@
 								<AcctType>Default</AcctType>
 								<BankInfo/>
 							</DepAcctIdFrom>
-							<DueDt>0000-00-00</DueDt>
+							<DueDt>2030-10-23</DueDt>
 						</PmtInfo>
 						<PmtStatus>
 							<PmtStatusCode>Processed</PmtStatusCode>

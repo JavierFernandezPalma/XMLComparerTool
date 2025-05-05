@@ -214,8 +214,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label>Contraseña del WS cliente:</label>
-                                            <input type="text" id="passwordCiente" class="form-control"
-                                                maxlength="10" required>
+                                            <input type="text" id="passwordCiente" class="form-control" maxlength="10"
+                                                required>
                                         </div>
                                     </div>
 
@@ -622,6 +622,36 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal para formatear datos -->
+        <div class="modal fade" id="modalFormatoDatos" tabindex="-1" aria-labelledby="modalFormatoDatosLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="formFormatoDatos">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalFormatoDatosLabel">Formatear Datos</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="textareaDatos" class="form-label">Pega los datos (separados por
+                                coma):</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Solución -->
+        <modal-xml title="Actualizar Solución" titleLabel1="ID de la solición" inputid1="idSolucion"
+            titletextarea1="Descripción de la causa" idtextarea1="descripcionCausaSolucion"
+            titletextarea2="Descripción de la solución" idtextarea2="descripcionSolucion" modalid="modalSolucion"
+            numtextareas="2" numimputs="1" namefunction="actualizarSolucion()"></modal-xml>
+
     </div>
 
     <script>
@@ -1031,6 +1061,7 @@
         crossorigin="anonymous"></script>
 
     <script type="module" src="../src/mainMapeosSoap.js"></script>
+    <script src="../src/components/modal-xml.js"></script>
 
 </body>
 

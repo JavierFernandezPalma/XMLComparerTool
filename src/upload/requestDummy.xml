@@ -1,0 +1,20 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:VerificarEstadoWebService>
+         <tem:infoDummy><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+		<IFX>
+		<SignonRq>
+		<ClientDt>2030-10-23T01:10:45</ClientDt>
+		<CustLangPref>es-CO</CustLangPref>
+		<ClientApp>
+		<Org>Bancolombia</Org>
+		<Name>RIN</Name>
+		<Version>1.0</Version>
+		</ClientApp>
+		</SignonRq>
+		</IFX>
+		]]></tem:infoDummy>
+      </tem:VerificarEstadoWebService>
+   </soapenv:Body>
+</soapenv:Envelope>

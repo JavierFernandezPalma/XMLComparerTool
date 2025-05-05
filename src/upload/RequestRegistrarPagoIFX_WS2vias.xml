@@ -7,7 +7,7 @@
 				<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 				<IFX>
 					<SignonRq>
-						<ClientDt>0000-00-00T00:00:00</ClientDt>
+						<ClientDt>2030-10-23T12:10:50</ClientDt>
 						<CustLangPref>es-CO</CustLangPref>
 						<ClientApp>
 							<Org>Bancolombia</Org>
@@ -16,7 +16,7 @@
 						</ClientApp>
 					</SignonRq>
 					<PaySvcRq>
-						<RqUID>00000000-0000-0000-0000-000000000000</RqUID>
+						<RqUID>00000000-0000-0000-0000-700000000001</RqUID>
 						<MsgRqHdr>
 							<NetworkTrnInfo>
 								<NetworkOwner>SAI</NetworkOwner>
@@ -30,20 +30,20 @@
 								<POSLocation>917</POSLocation>
 							</PointOfServiceData>
 						</MsgRqHdr>
-						<SPName>0000</SPName>
+						<SPName>2001</SPName>
 						<PmtAddRq>
-							<RqUID>00000000-0000-0000-0000-000000000000</RqUID>
+							<RqUID>00000000-0000-0000-0000-700000000001</RqUID>
 							<PmtInfo>
 								<CurAmt>
-									<Amt>0.00</Amt>
+									<Amt>100.00</Amt>
 									<CurCode>E</CurCode>
 								</CurAmt>
 								<RemitInfo>
 									<CustPayeeId>0</CustPayeeId>
-									<BillId>00000000-0000-0000-0000-000000000000</BillId>
+									<BillId>00000000-0000-0000-0200-003000004050</BillId>
 									<PmtId>00000000000810</PmtId>
 									<CurAmt>
-										<Amt>0.00</Amt>
+										<Amt>100.00</Amt>
 									</CurAmt>
 								</RemitInfo>
 								<DepAcctIdFrom>
@@ -51,7 +51,7 @@
 									<AcctType>Default</AcctType>
 									<BankInfo/>
 								</DepAcctIdFrom>
-								<PrcDt>0000-00-00</PrcDt>
+								<PrcDt>2030-10-23</PrcDt>
 							</PmtInfo>
 						</PmtAddRq>
 					</PaySvcRq>

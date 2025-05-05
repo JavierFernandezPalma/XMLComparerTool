@@ -323,7 +323,22 @@ window.actualizarAccionSeleccionada = function (selectElement, rowIndex, tablaCo
             break;
 
         case 'Formatear':
-            // Sin cambios
+            // Obtener el shadowRoot del modal 'modalCausa'
+            const shadowRoot = obtenerShadowRootModal('modalSolucion');
+            if (!shadowRoot) {
+                console.error('No se encontró el modal con el id "modalSolucion".');
+                return; // Si no se encuentra el modal, se termina la ejecución
+            }
+
+            // Asignar valores a los inputs del modal
+            asignarValoresAInputs(shadowRoot, {
+                idSolucion: 23,       // Asignar el ID de la causa
+                descripcionSolucion: "Prueba", // Asignar la descripción del error
+                descripcionCausaSolucion: "Prueba 2" // Asignar la descripción de la causa
+            }, ['idSolucion', 'descripcionCausaSolucion']); // Deshabilitar los inputs de 'idError' y 'descripcionError'
+
+            // Mostrar el modal
+            mostrarModal(shadowRoot, 'modalSolucion');
             break;
 
         case 'Asignar valor por defecto':
@@ -352,6 +367,54 @@ window.actualizarAccionSeleccionada = function (selectElement, rowIndex, tablaCo
         default:
             // Sin cambios
             break;
+    }
+}
+
+/**
+ * Función para obtener el componente <modal-xml> y su shadowRoot basado en el id del modal.
+ * 
+ * @param {string} modalId - El id del modal a buscar dentro de los elementos <modal-xml>.
+ * @returns {ShadowRoot|null} - El shadowRoot del modal encontrado o null si no se encuentra.
+ */
+function obtenerShadowRootModal(modalId) {
+    const modalXML = Array.from(document.querySelectorAll('modal-xml'))
+        .find(modal => modal.shadowRoot && modal.shadowRoot.getElementById(modalId));
+
+    return modalXML ? modalXML.shadowRoot : null;
+}
+
+/**
+ * Función para asignar valores a los inputs dentro del shadowRoot de un modal.
+ * 
+ * @param {ShadowRoot} shadowRoot - El shadowRoot donde se encuentran los inputs.
+ * @param {Object} valores - Objeto que contiene los valores para asignar a los campos de input.
+ * @param {Array<string>} inputsDeshabilitados - Lista de los ids de los inputs que deben ser deshabilitados.
+ */
+function asignarValoresAInputs(shadowRoot, valores, inputsDeshabilitados = []) {
+    Object.keys(valores).forEach(id => {
+        const input = shadowRoot.getElementById(id);
+        if (input) {
+            input.value = valores[id];
+            if (inputsDeshabilitados.includes(id)) {
+                input.disabled = true; // Deshabilitar los inputs necesarios
+            }
+        }
+    });
+}
+
+/**
+ * Función para inicializar y mostrar un modal utilizando Bootstrap.
+ * 
+ * @param {ShadowRoot} shadowRoot - El shadowRoot donde se encuentra el modal.
+ * @param {string} modalId - El id del modal a inicializar y mostrar.
+ */
+function mostrarModal(shadowRoot, modalId) {
+    const modalElement = shadowRoot.querySelector(`#${modalId}`);
+    if (modalElement) {
+        const modalInstance = new bootstrap.Modal(modalElement, {
+            keyboard: false // Deshabilitar el cierre con la tecla Escape
+        });
+        modalInstance.show(); // Mostrar el modal
     }
 }
 

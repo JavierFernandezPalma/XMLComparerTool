@@ -1,0 +1,21 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+<soapenv:Header/>
+<soapenv:Body>
+	<tem:VerificarEstadoWebServiceResponse>
+		<tem:VerificarEstadoWebServiceResult><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+			<IFX>
+				<SignonRs>
+					<ClientDt>2030-10-23T01:10:45</ClientDt>
+					<CustLangPref>es-CO</CustLangPref>
+					<ClientApp>
+						<Org>NombredelCliente</Org>
+						<Name>RIN</Name>
+						<Version>1.0</Version>
+					</ClientApp>
+					<ServerDt>2030-10-23T01:10:45</ServerDt>
+					<Language>es-CO</Language>
+				</SignonRs>
+			</IFX>]]></tem:VerificarEstadoWebServiceResult>
+	</tem:VerificarEstadoWebServiceResponse>
+</soapenv:Body>
+</soapenv:Envelope>

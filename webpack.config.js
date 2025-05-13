@@ -14,7 +14,8 @@ module.exports = {
         main: './src/mainIndex.js', // Archivo de entrada (que genera bundle.js)
         mainValidarXML: './src/mainValidarXML.js', // entrada adicional
         mainInventarioCert: './src/mainInventarioCert.js', // entrada adicional
-        mainLogErrores: './src/mainLogErrores.js', // entrada adicional 
+        mainLogErrores: './src/mainLogErrores.js', // entrada adicional
+        mapeosMensajes: './src/mainMapeosMensajes.js', // entrada adicional  
     },
     output: {
         path: path.resolve(__dirname, 'dist'), // Carpeta de salida
@@ -40,6 +41,7 @@ module.exports = {
             '@styles': path.resolve(__dirname, 'src/styles/'),
             '@images': path.resolve(__dirname, 'src/assets/images/'),
             '@scripts': path.resolve(__dirname, 'src/scripts/'),
+            '@components': path.resolve(__dirname, 'src/components/'),
             '@dist': path.resolve(__dirname, 'dist/')
         }
     },
@@ -103,6 +105,12 @@ module.exports = {
             template: './public/pages/logErrores.html',
             filename: './logErrores.html', // Archivo de salida en dist
             chunks: ['mainLogErrores']
+        }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/pages/mapeosMensajes.html',
+            filename: './mapeosMensajes.html', // Archivo de salida en dist
+            chunks: ['mapeosMensajes']
         }),
         new MiniCssExtractPlugin({ // Configuración del plugin CSS
             filename: 'assets/[name].[contenthash].css' // Nombre del archivo CSS con hash

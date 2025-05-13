@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Requerimiento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-light p-4">
+    <div class="container">
+        <form id="formRequerimiento" class="needs-validation" novalidate>
+            <div class="accordion" id="accordionRequerimiento">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingRequerimiento">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseRequerimiento" aria-expanded="true"
+                            aria-controls="collapseRequerimiento">
+                            Descripción del Requerimiento
+                        </button>
+                    </h2>
+                    <div id="collapseRequerimiento" class="accordion-collapse collapse show"
+                        aria-labelledby="headingRequerimiento">
+                        <div class="accordion-body">
+
+                            <div class="row mb-3">
+                                <label for="nombreTecnico">Contacto Técnico:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control mb-2" id="nombreTecnico" placeholder="Nombres" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control mb-2" id="correoTecnico"
+                                        placeholder="Correo electrónico" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="listaTipoWebService" class="form-label">Tipo de Web Service:</label>
+                                    <select id="listaTipoWebService" class="form-select" required>
+                                        <option value="" disabled selected>Selecciona una opción</option>
+                                        <option value="una-via">RTR SOAP una vía</option>
+                                        <option value="dos-vias">RIN SOAP dos vías</option>
+                                        <option value="una-via-rest">RTR REST una vía</option>
+                                        <option value="dos-vias-rest">RIN REST dos vías</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="fechaVencimientoCertificado">Certificado fecha vencimiento:</label>
+                                    <input type="date" id="fechaVencimientoCertificado" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Características:</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" value="WSDL" id="wsdlCheck">
+                                    <label class="form-check-label" for="wsdlCheck">WSDL</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" value="OAS" id="oasCheck">
+                                    <label class="form-check-label" for="oasCheck">OpenAPI Specification</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-2">
+                                    <span class="fw-bold">Tabla de Facturas:</span>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-sm align-middle text-nowrap" id="tablaFacturacion">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Factura</th>
+                                                <th>NIT</th>
+                                                <th>Número de Negocio</th>
+                                                <th>Factura Código de Barras (Espectro completo)</th>
+                                                <th>Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr id="filaFacturaOriginal">
+                                                <td id="factura_0">001</td>
+                                                <td id="nit_0">123456789</td>
+                                                <td id="negocio_0">000123</td>
+                                                <td id="codigoBarras_0">1234567890ABC</td>
+                                                <td id="valor_0">5000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="text-end mt-3">
+                                <button type="button" class="btn btn-secondary" onclick="clonarFormulario()">Clonar Formulario</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function clonarFormulario() {
+            const formOriginal = document.getElementById('formRequerimiento');
+            const formClonado = formOriginal.cloneNode(true);
+            const formularioHTML = formClonado.outerHTML;
+
+            abrirVentana(formularioHTML, formOriginal);
+        }
+
+        function abrirVentana(htmlContent, formOriginal) {
+            const outputWindow = window.open('', 'HTML Output', 'width=1000,height=800');
+            outputWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Formulario Clonado</title>
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+                    </head>
+                    <body class="bg-light p-4">
+                        <div class="container">
+                            <h1 class="mb-4">Formulario Clonado</h1>
+                            ${htmlContent}
+                        </div>
+                    </body>
+                </html>
+            `);
+
+            // Obtener el formulario clonado en la nueva ventana
+            const formClonadoEnVentana = outputWindow.document.querySelector('form');
+
+            if (formClonadoEnVentana) {
+                copiarValoresPorId(formOriginal, formClonadoEnVentana);
+                deshabilitarCampos(formClonadoEnVentana);
+            }
+
+            outputWindow.document.close();
+        }
+
+        function copiarValoresPorId(formOriginal, formClonado) {
+            const elementosOriginales = formOriginal.querySelectorAll('[id]');
+
+            elementosOriginales.forEach(elementoOriginal => {
+                const idOriginal = elementoOriginal.id;
+                const elementoClonado = formClonado.querySelector(`#${idOriginal}`);
+
+                if (elementoClonado) {
+                    if (elementoOriginal.type === 'checkbox') {
+                        elementoClonado.checked = elementoOriginal.checked;
+                    } else if (elementoOriginal.type === 'radio') {
+                        const radiosOriginal = formOriginal.querySelectorAll(`input[type="radio"][name="${elementoOriginal.name}"]`);
+                        const radiosClonados = formClonado.querySelectorAll(`input[type="radio"][name="${elementoOriginal.name}"]`);
+                        radiosOriginal.forEach((radioOriginal, index) => {
+                            if (radioOriginal.checked && radiosClonados[index]) {
+                                radiosClonados[index].checked = true;
+                            }
+                        });
+                    } else if (elementoOriginal.tagName === 'SELECT' || elementoOriginal.tagName === 'INPUT' || elementoOriginal.tagName === 'TEXTAREA') {
+                        elementoClonado.value = elementoOriginal.value;
+                    } else if (elementoOriginal.tagName === 'TD' || elementoOriginal.tagName === 'SPAN') {
+                        elementoClonado.textContent = elementoOriginal.textContent;
+                    }
+                }
+            });
+        }
+
+        function deshabilitarCampos(formClonado) {
+            const elements = formClonado.querySelectorAll('input, select, button');
+            elements.forEach(el => {
+                if (el.type !== 'button' && el.type !== 'submit') {
+                    el.disabled = true;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

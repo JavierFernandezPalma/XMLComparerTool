@@ -12,7 +12,8 @@ module.exports = {
         main: './src/mainIndex.js', // Archivo de entrada (que genera bundle.js)
         mainValidarXML: './src/mainValidarXML.js', // entrada adicional
         mainInventarioCert: './src/mainInventarioCert.js', // entrada adicional
-        mainLogErrores: './src/mainLogErrores.js', // entrada adicional        
+        mainLogErrores: './src/mainLogErrores.js', // entrada adicional
+        mapeosMensajes: './src/mainMapeosMensajes.js', // entrada adicional         
     },
     output: {
         filename: '[name].[contenthash].js',
@@ -37,6 +38,7 @@ module.exports = {
             '@styles': path.resolve(__dirname, 'src/styles/'),
             '@images': path.resolve(__dirname, 'src/assets/images/'),
             '@scripts': path.resolve(__dirname, 'src/scripts/'),
+            '@components': path.resolve(__dirname, 'src/components/'),
             '@dist': path.resolve(__dirname, 'dist/')
         }
     },
@@ -78,6 +80,12 @@ module.exports = {
             filename: './logErrores.html', // Archivo de salida en dist
             chunks: ['mainLogErrores']
         }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/pages/mapeosMensajes.html',
+            filename: './mapeosMensajes.html', // Archivo de salida en dist
+            chunks: ['mapeosMensajes']
+        }),
         new MiniCssExtractPlugin({ // Configuración del plugin CSS
             filename: 'assets/[name].[contenthash].css' // Nombre del archivo CSS con hash
         }),
@@ -91,10 +99,10 @@ module.exports = {
         new Dotenv({ // Carga variables de entorno
             path: './.env', // Ruta al archivo .env
             systemvars: true, // Cargar variables del sistema también
-            silent: false, // No mostrar advertencias si el archivo .env no existe
+            silent: true, // No mostrar advertencias si el archivo .env no existe
         }),
         new webpack.ProvidePlugin({
-            process: 'process/browser', // Soluciona el error de 'process' no definido
+            process: 'process/browser',  // Para usar process.env en frontend
         }),
     ],
     devServer: {

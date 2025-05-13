@@ -5,7 +5,7 @@ function fetchXmlFiles(xmlFileSelect) {
         console.error('Elemento xmlFileSelect no encontrado');
         return;
     } else {
-        fetch('utils/files.json')
+        fetch('/utils/files.json')
             .then(response => response.json())
             .then(data => {
                 xmlFileSelect.innerHTML = ''; // Limpiar opciones existentes en el select
@@ -13,7 +13,7 @@ function fetchXmlFiles(xmlFileSelect) {
                 // Recorrer los archivos XML y agregar opciones al select
                 data.xmlFiles.forEach((file, index) => {
                     const option = document.createElement('option');
-                    option.value = index === 0 ? '' : `upload/${file}`; // Opción vacía para "Seleccionar archivo XML"
+                    option.value = index === 0 ? '' : `/upload/${file}`; // Opción vacía para "Seleccionar archivo XML"
                     option.textContent = file;
                     xmlFileSelect.appendChild(option);
                 });

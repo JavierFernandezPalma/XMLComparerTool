@@ -5,7 +5,7 @@
 			<tem:infoPago>
 			<![CDATA[<?xml version="1.0" encoding="UTF-8"?><IFX>
 	<SignonRq>
-		<ClientDt>0000-00-00T00:00:00</ClientDt>
+		<ClientDt>2030-10-23T14:20:06</ClientDt>
 		<CustLangPref>es-CO</CustLangPref>
 		<ClientApp>
 			<Org>Bancolombia</Org>
@@ -14,10 +14,10 @@
 		</ClientApp>
 	</SignonRq>
 	<PaySvcRq>
-		<RqUID>00000000-0000-0000-0000-000000000000</RqUID>
+		<RqUID>00000000-0000-0000-0000-917000404500</RqUID>
 		<MsgRqHdr>
 			<NetworkTrnInfo>
-				<NetworkOwner>CBR</NetworkOwner>
+				<NetworkOwner>02</NetworkOwner>
 				<BankId>0007</BankId>
 			</NetworkTrnInfo>
 			<PointOfServiceData>
@@ -30,19 +30,19 @@
 		</MsgRqHdr>
 		<SPName>0000</SPName>
 		<PmtAddRq>
-			<RqUID>00000000-0000-0000-0000-000000000000</RqUID>
+			<RqUID>00000000-0000-0000-0000-917000404500</RqUID>
 			<PmtInfo>
 				<CurAmt>
-					<Amt>0.00</Amt>
+					<Amt>100.00</Amt>
 					<CurCode>E</CurCode>
 				</CurAmt>
 				<RemitInfo>
 					<CustPayeeId>0</CustPayeeId>
-					<BillId>00000000-0000-0000-0000-000000000000</BillId>
+					<BillId>00000000-0000-0000-0500-124000404500</BillId>
 					<BillRefInfo></BillRefInfo>
 					<PmtId>Identificador del Grupo</PmtId>
 					<CurAmt>
-						<Amt>0.00</Amt>
+						<Amt>100.00</Amt>
 					</CurAmt>
 				</RemitInfo>
 				<DepAcctIdFrom>
@@ -50,7 +50,7 @@
 					<AcctType>Default</AcctType>
 					<BankInfo/>
 				</DepAcctIdFrom>
-				<PrcDt>0000-00-00</PrcDt>
+				<PrcDt>2030-10-23</PrcDt>
 			</PmtInfo>
 		</PmtAddRq>
 	</PaySvcRq>

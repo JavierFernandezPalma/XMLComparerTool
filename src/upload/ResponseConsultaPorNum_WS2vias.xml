@@ -6,27 +6,27 @@
 				<![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 				<IFX>
 					<SignonRs>
-						<ClientDt>0000-00-00T00:00:00</ClientDt>
+						<ClientDt>2030-11-43T04:50:32</ClientDt>
 						<CustLangPref>es-CO</CustLangPref>
 						<ClientApp>
 							<Org>XXXX</Org>
 							<Name>RIN</Name>
 							<Version>1.0</Version>
 						</ClientApp>
-						<ServerDt>0000-00-00T00:00:00</ServerDt>
+						<ServerDt>2030-11-43T04:50:32</ServerDt>
 						<Language>es-CO</Language>
 					</SignonRs>
 					<PresSvcRs>
-						<RqUID>00000000-0000-0000-0000-000000000000</RqUID>
+						<RqUID>00000000-0000-0000-0000-670000500012</RqUID>
 						<BillInqRs>
 							<Status>
 								<StatusCode>0</StatusCode>
 								<Severity>Info</Severity>
 								<StatusDesc>Exitoso</StatusDesc>
 							</Status>
-							<RqUID>00000000-0000-0000-0000-000000000000</RqUID>
+							<RqUID>00000000-0000-0000-0000-670000500012</RqUID>
 							<BillRec>
-								<BillId>00000000-0000-0000-0000-000000000000</BillId>
+								<BillId>00000000-0000-0000-0501-005000000351</BillId>
 								<BillInfo>
 									<BillType>Bill</BillType>
 									<PresAcctId>
@@ -56,11 +56,11 @@
 										<BillSummAmtCode>TotalAmtDue</BillSummAmtCode>
 										<ShortDesc>Valor totalde la factura</ShortDesc>
 										<CurAmt>
-											<Amt>0.00</Amt>
+											<Amt>4500.00</Amt>
 										</CurAmt>
 										<BillSummAmtType>Payable</BillSummAmtType>
 									</BillSummAmt>
-									<BillDt>0000-00-00</BillDt>
+									<BillDt>2030-10-23</BillDt>
 								</BillInfo>
 							</BillRec>
 						</BillInqRs>

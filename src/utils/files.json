@@ -2,10 +2,16 @@
   "xmlFiles": [
     "Select template",
     "RequestConsultaPorNum_WS2vias.xml",
+    "RequestConsultarFacturaPorNIT_WS2vias.xml",
+    "RequestConsultarFacturasPorNegocio_WS2vias.xml",
+    "requestDummy.xml",
     "RequestRegistrarPagoIFX_WS1via.xml",
     "RequestRegistrarPagoIFX_WS2vias.xml",
     "ResponseConsultaPorNum_WS2vias.xml",
     "ResponseConsultaPorNumShort_WS2vias.xml",
+    "ResponseConsultarFacturaPorNIT_WS2vias.xml",
+    "ResponseConsultarFacturasPorNegocio_WS2vias.xml",
+    "responseDummy.xml",
     "ResponseRegistrarPagoIFX_WS1via.xml",
     "ResponseRegistrarPagoIFX_WS2vias.xml"
   ]

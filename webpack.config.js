@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // Plugin para 
 const CopyPlugin = require('copy-webpack-plugin'); // Copia archivos
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); // Minifica CSS
 const TerserPlugin = require('terser-webpack-plugin'); // Minifica JS
-const Dotenv = require('dotenv-webpack'); // Carga variables de entorno
+const Dotenv = require('dotenv'); // Carga variables de entorno
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // Limpia la carpeta de salida
 const webpack = require('webpack'); // Importa webpack
 
@@ -103,7 +103,7 @@ module.exports = {
             template: './public/pages/logErrores.html',
             filename: './logErrores.html', // Archivo de salida en dist
             chunks: ['mainLogErrores']
-        }),        
+        }),
         new MiniCssExtractPlugin({ // Configuración del plugin CSS
             filename: 'assets/[name].[contenthash].css' // Nombre del archivo CSS con hash
         }),
@@ -114,11 +114,15 @@ module.exports = {
                 { from: path.resolve(__dirname, "src", "upload"), to: "upload" }
             ]
         }),
-        new Dotenv(), // Carga variables de entorno
+        new Dotenv({ // Carga variables de entorno
+            path: './.env', // Ruta al archivo .env
+            systemvars: true, // Cargar variables del sistema también
+            silent: true, // No mostrar advertencias si el archivo .env no existe
+        }),
         new CleanWebpackPlugin(), // Limpia la carpeta de salida antes de cada build
         new webpack.ProvidePlugin({
-            process: 'process/browser', // Soluciona el error de 'process' no definido
-        }),       
+            process: 'process/browser', // Para usar process.env en frontend
+        }),
     ],
     optimization: {
         minimize: true, // Activa la minimización

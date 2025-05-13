@@ -169,17 +169,17 @@ function customIcon() {
     document.body.insertBefore(svgContainer, document.body.firstChild);
 }
 
-const config = {
-    env: process.env.NODE_ENV || 'dev',
-    port: process.env.PORT || 3000,
-    dbUser: process.env.DB_USER,
-    dbPassword: process.env.DB_PASSWORD,
-    dbHost: process.env.DB_HOST,
-    dbName: process.env.DB_NAME,
-    dbPort: process.env.DB_PORT,
-    dbGestor: process.env.DB_GESTOR
-}
+// const config = {
+//     env: import.meta.env.VITE_NODE_ENV || 'dev',
+//     port: import.meta.env.VITE_PORT || 3000,
+//     dbUser: import.meta.env.VITE_DB_USER,
+//     dbPassword: import.meta.env.VITE_DB_PASSWORD,
+//     dbHost: import.meta.env.VITE_DB_HOST,
+//     dbName: import.meta.env.VITE_DB_NAME,
+//     dbPort: import.meta.env.VITE_DB_PORT,
+//     dbGestor: import.meta.env.VITE_DB_GESTOR
+// }
 
 
 // Exportar las funciones necesarias
-export { handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml, loadVersion, customIcon, config };
+export { handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult, escapeHtml, loadVersion, customIcon};

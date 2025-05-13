@@ -57,29 +57,35 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('fileInput1').addEventListener('change', (event) => handleFileSelect(event, 1, window.editor1));
     document.getElementById('fileInput2').addEventListener('change', (event) => handleFileSelect(event, 2, window.editor2));
 
-    // Evento para comparar XML al hacer clic en el botón 'Comparar'
-    document.getElementById('compareButton').addEventListener('click', () => {
-        const xmlString1 = window.editor1.getValue(); // Obtener el contenido de xmlInput1
-        const xmlString2 = window.editor2.getValue(); // Obtener el contenido de xmlInput2
+    // Verificar si el botón con id 'compareButton' existe en el DOM
+    const compareButton = document.getElementById('compareButton');
+    if (compareButton) {
+        // Evento para comparar XML al hacer clic en el botón 'Comparar'
+        compareButton.addEventListener('click', () => {
+            const xmlString1 = window.editor1.getValue(); // Obtener el contenido de xmlInput1
+            const xmlString2 = window.editor2.getValue(); // Obtener el contenido de xmlInput2
 
-        const radio1Checked = document.getElementById('flexRadioDefault1').checked;
-        const radio2Checked = document.getElementById('flexRadioDefault2').checked;
+            const radio1Checked = document.getElementById('flexRadioDefault1').checked;
+            const radio2Checked = document.getElementById('flexRadioDefault2').checked;
 
-        const messageContainer = document.getElementById('messageContainer');
+            const messageContainer = document.getElementById('messageContainer');
 
-        if (radio1Checked) {
-            clearComparisonResult(); // Limpiar resultado de comparación
-            compareDifXML(xmlString1, xmlString2); // Llamar a la función para comparar fiferencias XML
-            messageContainer.innerHTML = '<p>Se seleccionó Diferencias XML.</p>';
-        } else if (radio2Checked) {
-            clearComparisonResult(); // Limpiar resultado de comparación
-            compareNodosXML(xmlString1, xmlString2); // Llamar a la función para comparar fiferencias nodos XML
-            messageContainer.innerHTML = '<p>Se seleccionó Diferencias nodos XML.</p>';
-        } else {
-            messageContainer.innerHTML = '<p>Por favor selecciona una opción.</p>';
-        }
+            if (radio1Checked) {
+                clearComparisonResult(); // Limpiar resultado de comparación
+                compareDifXML(xmlString1, xmlString2); // Llamar a la función para comparar diferencias XML
+                messageContainer.innerHTML = '<p>Se seleccionó Diferencias XML.</p>';
+            } else if (radio2Checked) {
+                clearComparisonResult(); // Limpiar resultado de comparación
+                compareNodosXML(xmlString1, xmlString2); // Llamar a la función para comparar diferencias nodos XML
+                messageContainer.innerHTML = '<p>Se seleccionó Diferencias nodos XML.</p>';
+            } else {
+                messageContainer.innerHTML = '<p>Por favor selecciona una opción.</p>';
+            }
+        });
+    } else {
+        console.log('El botón "Comparar" no existe en el DOM.');
+    }
 
-    });
     var clearXmlInput1 = customElement1.shadowRoot.getElementById('clearXmlInput1');
     if (clearXmlInput1) {
         // Eventos para limpiar el contenido de xmlInput1 y xmlInput2 y el resultado de la comparación

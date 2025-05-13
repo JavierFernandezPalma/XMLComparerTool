@@ -1,6 +1,6 @@
 import { validateNodes } from '../scripts/validaNodos.js';
-import { handleScrollSwitchChange, handleScrollSizeInputChange, clearComparisonResult } from '../scripts/config.js';
-import { mostrarAccordionDummy, mostrarAccordionConsultaNumero, mostrarAccordionPago } from './indexDinamico.js';
+import { clearComparisonResult } from '../scripts/config.js';
+import { mostrarAccordionDummyoRequest, mostrarAccordionConsultaNumeroRequest, mostrarAccordionPagoRequest, mostrarAccordionDummyResponse, mostrarAccordionConsultaNumeroResponse, mostrarAccordionPagoResponse } from './indexDinamico.js';
 
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
@@ -26,17 +26,21 @@ document.addEventListener("DOMContentLoaded", function () {
         const fechaSeleccionada = new Date(fechaVencimientoCertificado.value);
         const fechaActual = new Date();
 
+        // Crear nueva fecha sumando un mes
+        const fechaMasUnMes = new Date(fechaActual);
+        fechaMasUnMes.setMonth(fechaActual.getMonth() + 1);
+
         // Establecemos el valor de la fecha actual sin la hora
-        fechaActual.setHours(0, 0, 0, 0);
+        fechaMasUnMes.setHours(0, 0, 0, 0);
 
         // Verificamos si la fecha es inválida (NaN)
         if (isNaN(fechaSeleccionada)) {
-            console.log('Fecha inválida', isNaN(fechaSeleccionada)); // Mensaje de error en consola
+            // console.log('Fecha inválida', isNaN(fechaSeleccionada)); // Mensaje de error en consola
             return false; // Retornamos false si la fecha es inválida
         }
 
         // Si la fecha seleccionada es menor o igual a la fecha actual, mostramos el mensaje de error
-        if (fechaSeleccionada <= fechaActual) {
+        if (fechaSeleccionada <= fechaMasUnMes) {
             fechaError.style.display = 'inline';  // Mostrar el mensaje de error
             fechaVencimientoCertificado.value = '';  // Borrar el valor del campo de fecha
             return false; // Retornamos false si la fecha no es válida
@@ -82,41 +86,41 @@ document.addEventListener("DOMContentLoaded", function () {
     // formRequerimiento.addEventListener('focusout', function (event) {
     //     console.log('Cambio en el formulario:', event.target.id); // Mensaje de depuración
     //     // Si se modifica cualquier campo dentro del formulario, se valida el estado de 'metodoWebService'
-    //     actualizarEstadoMetodoWebService();
+    //     // actualizarEstadoMetodoWebService();
     // });
 
-    listaTipoWebService.addEventListener('change', function () {
-        // Primero, validar la fecha
-        if (!validarFecha()) {
-            return; // Si la fecha no es válida, no ejecutamos el resto
-        }
-        const seleccion = listaTipoWebService.value;
-        metodoWebService.innerHTML = ''; // Limpiar opciones anteriores
+    // listaTipoWebService.addEventListener('change', function () {
+    //     // Primero, validar la fecha
+    //     if (!validarFecha()) {
+    //         return; // Si la fecha no es válida, no ejecutamos el resto
+    //     }
+    //     const seleccion = listaTipoWebService.value;
+    //     metodoWebService.innerHTML = ''; // Limpiar opciones anteriores
 
-        if (opcionesLista2[seleccion]) {
-            metodoWebService.disabled = false;
+    //     if (opcionesLista2[seleccion]) {
+    //         metodoWebService.disabled = false;
 
-            // Agregar opción por defecto
-            const placeholder = document.createElement('option');
-            placeholder.value = '';
-            placeholder.disabled = true;
-            placeholder.selected = true;
-            placeholder.textContent = 'Selecciona una operación';
-            metodoWebService.appendChild(placeholder);
+    //         // Agregar opción por defecto
+    //         const placeholder = document.createElement('option');
+    //         placeholder.value = '';
+    //         placeholder.disabled = true;
+    //         placeholder.selected = true;
+    //         placeholder.textContent = 'Selecciona una operación';
+    //         metodoWebService.appendChild(placeholder);
 
-            // Agregar nuevas opciones
-            opcionesLista2[seleccion].forEach(op => {
-                const option = document.createElement('option');
-                option.value = op;
-                option.textContent = op;
-                metodoWebService.appendChild(option);
-            });
-        } else {
-            metodoWebService.disabled = true;
-            metodoWebService.innerHTML = '<option>Primero selecciona tipo WS</option>';
-        }
+    //         // Agregar nuevas opciones
+    //         opcionesLista2[seleccion].forEach(op => {
+    //             const option = document.createElement('option');
+    //             option.value = op;
+    //             option.textContent = op;
+    //             metodoWebService.appendChild(option);
+    //         });
+    //     } else {
+    //         metodoWebService.disabled = true;
+    //         metodoWebService.innerHTML = '<option>Primero selecciona tipo WS</option>';
+    //     }
 
-    });
+    // });
 
     // Validamos la fecha cada vez que cambia la fecha de vencimiento
     fechaVencimientoCertificado.addEventListener('change', function () {
@@ -125,18 +129,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Función para validar todo el formulario y mostrar el alert si está correctamente diligenciado
     formRequerimiento.addEventListener('submit', function (event) {
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+        // Función para crear y mostrar alertas
+        const appendAlert = (message, type, duration = 4000) => {
+            // Eliminar alertas existentes
+            alertPlaceholder.innerHTML = '';
+
+            const wrapper = document.createElement('div');
+            wrapper.className = `alert alert-${type} alert-dismissible fade show`;
+            wrapper.role = 'alert';
+            wrapper.innerHTML = `
+                <div>${message}</div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+
+            alertPlaceholder.appendChild(wrapper);
+
+            // Cerrar automáticamente después de `duration` ms
+            setTimeout(() => {
+                const alert = bootstrap.Alert.getOrCreateInstance(wrapper);
+                alert.close();
+            }, duration);
+        };
 
         if (!formRequerimiento.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
             formRequerimiento.classList.add("was-validated");
-            alert("Por favor completa correctamente los campos obligatorios.");
+            appendAlert('Por favor completa correctamente los campos obligatorios.', 'danger');
         } else {
             event.preventDefault();
-            // event.stopPropagation();
+            appendAlert('Formulario diligenciado correctamente.', 'success');
             actualizarEstadoMetodoWebService();
         }
     });
+
 });
 
 let xmlTable, xmlTable2, xmlTable3; // Variables globales para las tablas
@@ -152,21 +180,43 @@ document.getElementById('cargarMapeos').addEventListener('click', () => {
     const tipoWS = document.getElementById('listaTipoWebService').value;
     const metodoWS = document.getElementById('metodoWebService').value;
 
+    const radios = document.querySelectorAll('input[name="tipoMapeo"]');
+    // Buscar el radio actualmente seleccionado para colocar el tipo de mapeo en el nombre del Modal
+    const tipoMapeo = Array.from(radios).find(radio => radio.checked);
+
     const metodoConfig = {
         VerificarEstadoWebService: {
-            accordionFn: mostrarAccordionDummy,
-            tableId: 'xmlTable',
-            tablaLabel: 'Tabla 1'
+            accordionFn: tipoMapeo.value === 'Request'
+                ? mostrarAccordionDummyoRequest
+                : mostrarAccordionDummyResponse,
+            tableId: tipoMapeo.value === 'Request'
+                ? 'xmlTable'
+                : 'xmlTable6',
+            tablaLabel: tipoMapeo.value === 'Request'
+                ? 'Tabla 1'
+                : 'Tabla 6'
         },
         ConsultaFacturaPorNumero: {
-            accordionFn: mostrarAccordionConsultaNumero,
-            tableId: 'xmlTable2',
-            tablaLabel: 'Tabla 2'
+            accordionFn: tipoMapeo.value === 'Request'
+                ? mostrarAccordionConsultaNumeroRequest
+                : mostrarAccordionConsultaNumeroResponse,
+            tableId: tipoMapeo.value === 'Request'
+                ? 'xmlTable2'
+                : 'xmlTable7',
+            tablaLabel: tipoMapeo.value === 'Request'
+                ? 'Tabla 2'
+                : 'Tabla 7'
         },
         RegistrarPagoIFX: {
-            accordionFn: mostrarAccordionPago,
-            tableId: 'xmlTable3',
-            tablaLabel: 'Tabla 3'
+            accordionFn: tipoMapeo.value === 'Request'
+                ? mostrarAccordionPagoRequest
+                : mostrarAccordionPagoResponse,
+            tableId: tipoMapeo.value === 'Request'
+                ? 'xmlTable3'
+                : 'xmlTable8',
+            tablaLabel: tipoMapeo.value === 'Request'
+                ? 'Tabla 3'
+                : 'Tabla 8'
         }
     };
 
@@ -198,7 +248,6 @@ document.getElementById('cargarMapeos').addEventListener('click', () => {
     // Crear o actualizar tbody
     let tbody = document.querySelector(`#${config.tableId} #tableBody`);
     if (!tbody) {
-        console.log('Creando tbody');
         // Crear el tbody si no existe
         tbody = document.createElement('tbody');
         tbody.id = config.tableId + '-body';;
@@ -314,7 +363,7 @@ window.actualizarAccionSeleccionada = function (selectElement, rowIndex, tablaCo
 
     switch (selectElement.value) {
         case 'No aplica':
-            // Sin cambios
+            activeTable.cell(rowIndex, cellIndex).data('No aplica');
             break;
 
         case 'Homologar':
@@ -323,22 +372,31 @@ window.actualizarAccionSeleccionada = function (selectElement, rowIndex, tablaCo
             break;
 
         case 'Formatear':
-            // Obtener el shadowRoot del modal 'modalCausa'
-            const shadowRoot = obtenerShadowRootModal('modalSolucion');
-            if (!shadowRoot) {
-                console.error('No se encontró el modal con el id "modalSolucion".');
-                return; // Si no se encuentra el modal, se termina la ejecución
-            }
+            // // Obtener el shadowRoot del modal 'modalCausa'
+            // const shadowRoot = obtenerShadowRootModal('modalSolucion');
+            // if (!shadowRoot) {
+            //     console.error('No se encontró el modal con el id "modalSolucion".');
+            //     return; // Si no se encuentra el modal, se termina la ejecución
+            // }
 
-            // Asignar valores a los inputs del modal
-            asignarValoresAInputs(shadowRoot, {
-                idSolucion: 23,       // Asignar el ID de la causa
-                descripcionSolucion: "Prueba", // Asignar la descripción del error
-                descripcionCausaSolucion: "Prueba 2" // Asignar la descripción de la causa
-            }, ['idSolucion', 'descripcionCausaSolucion']); // Deshabilitar los inputs de 'idError' y 'descripcionError'
+            // // Asignar valores a los inputs del modal
+            // asignarValoresAInputs(shadowRoot, {
+            //     idSolucion: 23,       // Asignar el ID de la causa
+            //     descripcionSolucion: "Prueba", // Asignar la descripción del error
+            //     descripcionCausaSolucion: "Prueba 2" // Asignar la descripción de la causa
+            // }, ['idSolucion', 'descripcionCausaSolucion']); // Deshabilitar los inputs de 'idError' y 'descripcionError'
 
-            // Mostrar el modal
-            mostrarModal(shadowRoot, 'modalSolucion');
+            // // Mostrar el modal
+            // mostrarModal(shadowRoot, 'modalSolucion');
+
+            const modalElement = document.getElementById('modalFormatoDatos');
+            const modal = new bootstrap.Modal(modalElement);
+            modalElement.querySelector('#contenidoNodo').value = contentNode;
+            // Guardar datos en atributos data-*
+            modalElement.dataset.rowIndex = rowIndex;
+            modalElement.dataset.cellIndex = cellIndex;
+            modalElement.dataset.tableId = tableId;
+            modal.show();
             break;
 
         case 'Asignar valor por defecto':
@@ -417,6 +475,217 @@ function mostrarModal(shadowRoot, modalId) {
         modalInstance.show(); // Mostrar el modal
     }
 }
+
+document.querySelector('#formato').addEventListener('change', function () {
+    const opcionSeleccionada = this.value;
+
+    const modalElement = document.getElementById('modalFormatoDatos');
+    const valor = modalElement.querySelector('#contenidoNodo').value;
+    const grupoFormatoFecha = document.getElementById('grupoFormatoFecha');
+    const grupoExtraer = document.getElementById('grupoExtraer');
+
+    // Oculta por defecto el grupo de formato fecha
+    grupoFormatoFecha.classList.add('d-none');
+    // Oculta por defecto el grupo extraer
+    grupoExtraer.classList.add('d-none');
+
+    // Actualizar el input "resultadoEsperado" según la opción
+    const resultadoInput = document.querySelector('#resultadoEsperado');
+    if (opcionSeleccionada === 'quitar-guiones-cerosIzquierda') {
+        resultadoInput.value = valor.replace(/-/g, '').replace(/^0+/, '');
+    } else if (opcionSeleccionada === 'quitar-decimales') {
+        resultadoInput.value = valor.replace(/\.\d+$/, '');
+    } else if (opcionSeleccionada === 'agregar-decimal') {
+        if (isNaN(valor) || valor.trim() === "") {
+            resultadoInput.value = '';
+            alert("El valor ingresado no es un número válido.");
+        } else {
+            resultadoInput.value = Number(valor).toFixed(2);
+        }
+    } else if (opcionSeleccionada === 'formato-fecha') {
+        grupoFormatoFecha.classList.remove('d-none');
+    } else if (opcionSeleccionada === 'extraer') {
+        grupoExtraer.classList.remove('d-none');
+    } else {
+        resultadoInput.value = '';
+    }
+});
+
+
+/**
+ * Maneja el evento de clic en el botón "Aplicar" dentro del modal.
+ * - Valida los datos ingresados.
+ * - Actualiza la celda seleccionada de una tabla con el resultado formateado.
+ * - Limpia los campos del formulario y los atributos data-* del modal.
+ * - Cierra el modal de forma accesible.
+ */
+document.querySelector('#btnAplicarFormato').addEventListener('click', e => {
+    e.preventDefault(); // Evita el envío del formulario si está dentro de uno
+
+    const grupoExtraer = document.getElementById('grupoExtraer');
+    // Oculta por defecto el grupo extraer
+    grupoExtraer.classList.add('d-none');
+
+    const grupoFormatoFecha = document.getElementById('grupoFormatoFecha');
+    // Oculta por defecto el grupo de formato fecha
+    grupoFormatoFecha.classList.add('d-none');
+
+    // Obtener referencia al modal
+    const modalEl = document.getElementById('modalFormatoDatos');
+
+    // Extraer índices de fila, columna y ID de tabla desde atributos data-*
+    const { rowIndex, cellIndex, tableId } = modalEl.dataset;
+
+    // Obtener el valor seleccionado del formato y el resultado calculado
+    const formato = document.querySelector('#formato').value;
+    const resultado = document.querySelector('#resultadoEsperado').value;
+
+    // Validar que el resultado no esté vacío
+    if (!resultado) return alert('El campo "Resultado esperado" está vacío.');
+
+    // Verificar que la tabla esté disponible en el contexto global
+    const table = window[tableId];
+    if (!table) return;
+
+    // Actualizar la celda especificada con el texto formateado
+    table.cell(rowIndex, cellIndex).data(`${formato}: ${resultado}`);
+
+    // Reiniciar el formulario del modal (campos normales)
+    modalEl.querySelector('form').reset();
+
+    // Limpiar manualmente los campos deshabilitados (no los afecta .reset())
+    ['contenidoNodo', 'resultadoEsperado'].forEach(id => {
+        const input = modalEl.querySelector(`#${id}`);
+        if (input) input.value = '';
+    });
+
+    // Eliminar atributos data-* para limpiar el estado del modal
+    ['rowIndex', 'cellIndex', 'tableId'].forEach(key => delete modalEl.dataset[key]);
+
+    // Restablecer el select "formato" a su opción por defecto
+    const modalElement = document.getElementById('modalFormatoDatos');
+    const formatoSelect = modalElement.querySelector('#formato');
+    formatoSelect.selectedIndex = 0;
+});
+
+/**
+ * Función que reinicia todos los elementos del modal cuando se hace clic en el botón "Cancelar".
+ * 1. Reinicia los campos del formulario.
+ * 2. Limpia manualmente los campos deshabilitados.
+ * 3. Elimina atributos `data-*` utilizados para almacenar datos temporales.
+ * 4. Elimina el foco del botón activo, mejorando la accesibilidad.
+ * 5. Cierra el modal correctamente.
+ */
+document.getElementById('btnCancelarFormato').addEventListener('click', () => {
+    const grupoExtraer = document.getElementById('grupoExtraer');
+    // Oculta por defecto el grupo extraer
+    grupoExtraer.classList.add('d-none');
+
+    const grupoFormatoFecha = document.getElementById('grupoFormatoFecha');
+    // Oculta por defecto el grupo de formato fecha
+    grupoFormatoFecha.classList.add('d-none');
+
+    const modalElement = document.getElementById('modalFormatoDatos');
+
+    // Reiniciar formulario (los campos del formulario dentro del modal)
+    modalElement.querySelector('form').reset();
+
+    // Limpiar manualmente campos deshabilitados (no los afecta .reset())
+    modalElement.querySelector('#contenidoNodo').value = '';
+    modalElement.querySelector('#resultadoEsperado').value = '';
+
+    // Restablecer el select "formato" a su opción por defecto
+    const formatoSelect = modalElement.querySelector('#formato');
+    formatoSelect.selectedIndex = 0;
+
+    // Limpiar atributos data-*
+    ['rowIndex', 'cellIndex', 'tableId'].forEach(key => delete modalElement.dataset[key]);
+
+});
+
+document.getElementById('formatoFecha').addEventListener('change', function () {
+    const opcionSeleccionada = this.value;
+    const modalElement = document.getElementById('modalFormatoDatos');
+    const valor = modalElement.querySelector('#contenidoNodo').value;
+    // Actualizar el input "resultadoEsperado" según la opción
+    const resultadoInput = document.querySelector('#resultadoEsperado');
+
+
+    resultadoInput.value = opcionSeleccionada + ': ' + formatearFecha(valor, opcionSeleccionada);
+});
+
+
+function formatearFecha(isoDate, formato) {
+    // Extrae partes de la fecha usando expresión regular
+    const match = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})$/);
+
+    if (!match) {
+        alert("El contenido del nodo no es una fecha válida, se espera YYYY-MM-DDTHH:mm:ss");
+        return "";
+    }
+
+    // Desestructura las partes extraídas
+    const [_, year, month, day, hour, minute, second] = match;
+
+    // Reemplaza los tokens del formato por los valores correspondientes
+    return formato
+        .replace(/YYYY/, year)
+        .replace(/MM/, month)
+        .replace(/DD/, day)
+        .replace(/HH/, hour)
+        .replace(/mm/, minute)
+        .replace(/ss/, second);
+}
+
+// Referencias a elementos clave del DOM
+const modalElement = document.getElementById('modalFormatoDatos');
+const resultadoInput = document.querySelector('#resultadoEsperado');
+const [extraerInicioInput, extraerFinInput] = [
+    document.getElementById('extraerInicio'),
+    document.getElementById('extraerFin')
+];
+
+/**
+ * Escapa caracteres especiales para uso seguro en expresiones regulares.
+ * @param {string} str - Texto a escapar.
+ * @returns {string} - Texto escapado.
+ */
+const escapeRegExp = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/**
+ * Extrae el texto entre dos delimitadores.
+ * @param {string} texto - Texto fuente.
+ * @param {string} inicio - Delimitador inicial.
+ * @param {string} fin - Delimitador final (opcional).
+ * @returns {string|null} - Texto extraído o null si no hay coincidencia.
+ */
+const extraerEntre = (texto, inicio, fin) => {
+    const pattern = fin
+        ? `${escapeRegExp(inicio)}(.*?)${escapeRegExp(fin)}`
+        : `${escapeRegExp(inicio)}(.*)`;
+    const match = texto.match(new RegExp(pattern));
+    return match?.[1] ?? null;
+};
+
+/**
+ * Evento ejecutado al perder el foco (blur) en campos de extracción.
+ * Extrae el contenido entre los valores proporcionados y lo muestra.
+ */
+const actualizarResultadoExtraido = () => {
+    const texto = modalElement.querySelector('#contenidoNodo').value;
+    const inicio = extraerInicioInput.value.trim();
+    const fin = extraerFinInput.value.trim();
+
+    if (inicio || fin) {
+        const resultado = extraerEntre(texto, inicio, fin);
+        resultadoInput.value = `${inicio} ${fin}: ${resultado ?? null}`;
+    }
+};
+
+// Asignar evento blur a ambos campos
+[extraerInicioInput, extraerFinInput].forEach(input =>
+    input.addEventListener('blur', actualizarResultadoExtraido)
+);
 
 
 // Función para mostrar en consola la celda seleccionada

@@ -32,15 +32,27 @@ export function loadUploadXMLTemplate() {
   insertTemplateContent("templateSubirArchivosXML", "containerSubirArchivosXML", "Subir Archivos (plantillas) XML");
 }
 
-export function mostrarAccordionDummy() {
-  insertTemplateContent("templateDummy", "containerDummy", "VerificarEstadoWebService");
+export function mostrarAccordionDummyoRequest() {
+  insertTemplateContent("templateDummyRequest", "containerDummyRequest", "VerificarEstadoWebService - Request");
 }
 
-export function mostrarAccordionConsultaNumero() {
-  insertTemplateContent("templateConsultaFacturaPorNumero", "containerConsultaFacturaPorNumero", "ConsultaFacturaPorNumero");
+export function mostrarAccordionConsultaNumeroRequest() {
+  insertTemplateContent("templateConsultaFacturaPorNumeroRequest", "containerConsultaFacturaPorNumeroRequest", "ConsultaFacturaPorNumero - Request");
 }
 
-export function mostrarAccordionPago() {
-  insertTemplateContent("templateRegistrarPagoIFX", "containerRegistrarPagoIFX", "RegistrarPagoIFX");
+export function mostrarAccordionPagoRequest() {
+  insertTemplateContent("templateRegistrarPagoIFXRequest", "containerRegistrarPagoIFXRequest", "RegistrarPagoIFX - Request");
+}
+
+export function mostrarAccordionDummyResponse() {
+  insertTemplateContent("templateDummyResponse", "containerDummyResponse", "VerificarEstadoWebService - Response");
+}
+
+export function mostrarAccordionConsultaNumeroResponse() {
+  insertTemplateContent("templateConsultaFacturaPorNumeroResponse", "containerConsultaFacturaPorNumeroResponse", "ConsultaFacturaPorNumero - Response");
+}
+
+export function mostrarAccordionPagoResponse() {
+  insertTemplateContent("templateRegistrarPagoIFXResponse", "containerRegistrarPagoIFXResponse", "RegistrarPagoIFX - Response");
 }
 

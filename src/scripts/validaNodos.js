@@ -21,7 +21,7 @@ export function validateNodes(xmlString1, xmlString2) {
    const xml2 = preprocess(xmlString2);
 
 
-   const [xmlDoc1, xmlDoc2] = document.getElementById('flexRadioDefault1').checked
+   const [xmlDoc1, xmlDoc2] = document.getElementById('flexRadioRequest').checked
       ? [parser.parseFromString(xml2, 'application/xml'), parser.parseFromString(xml1, 'application/xml')]
       : [parser.parseFromString(xml1, 'application/xml'), parser.parseFromString(xml2, 'application/xml')];
 
@@ -29,18 +29,22 @@ export function validateNodes(xmlString1, xmlString2) {
    const nodesInfo1 = extraerNodesHijos([...xmlDoc1.documentElement.children], xmlDoc1.documentElement.localName);
    const nodesInfo2 = extraerNodesHijos([...xmlDoc2.documentElement.children], xmlDoc2.documentElement.localName);
 
+   const radios = document.querySelectorAll('input[name="tipoMapeo"]');
+   // Buscar el radio actualmente seleccionado para colocar el tipo de mapeo en el nombre del Modal
+   const seleccionado = Array.from(radios).find(radio => radio.checked);
+
    // Crear los encabezados y las filas dinámicamente
    const metodoWebService = document.getElementById('metodoWebService');
    let tablaContext = '';
    // Determinar el contexto de la tabla según el método del web service
-   switch (metodoWebService.value) {
-      case 'VerificarEstadoWebService':
+   switch (metodoWebService.value + seleccionado.value) {
+      case 'VerificarEstadoWebServiceRequest':
          tablaContext = 'xmlTable';
          break;
-      case 'ConsultaFacturaPorNumero':
+      case 'ConsultaFacturaPorNumeroRequest':
          tablaContext = 'xmlTable2';
          break;
-      case 'RegistrarPagoIFX':
+      case 'RegistrarPagoIFXRequest':
          tablaContext = 'xmlTable3';
          break;
       case 'ConsultaFacturaPorNumeroIFX':
@@ -48,6 +52,15 @@ export function validateNodes(xmlString1, xmlString2) {
          break;
       case 'ConsultaFacturaPorNumeroIFX2':
          tablaContext = 'xmlTable5';
+         break;
+      case 'VerificarEstadoWebServiceResponse':
+         tablaContext = 'xmlTable6';
+         break;
+      case 'ConsultaFacturaPorNumeroResponse':
+         tablaContext = 'xmlTable7';
+         break;
+      case 'RegistrarPagoIFXResponse':
+         tablaContext = 'xmlTable8';
          break;
       default:
          tablaContext = 'xmlTable';
@@ -162,7 +175,7 @@ function extraerNodesHijos(nodes, currentPath = '') {
 function crearFilasYColumnas(nodesChildren, nodesChildren2, tablaContext = 'xmlTable') {
    let headers = [];
 
-   if (document.getElementById('flexRadioDefault1').checked) {
+   if (document.getElementById('flexRadioRequest').checked) {
       headers = [
          'Url Nodo Cliente',
          'Nodo Cliente',
@@ -173,7 +186,7 @@ function crearFilasYColumnas(nodesChildren, nodesChildren2, tablaContext = 'xmlT
          'Contenido Nodo Cliente',
          'Contenido Nodo Banco'
       ];
-   } else if (document.getElementById('flexRadioDefault2').checked) {
+   } else if (document.getElementById('flexRadioResponse').checked) {
       headers = [
          'Url Nodo Banco',
          'Nodo Banco',

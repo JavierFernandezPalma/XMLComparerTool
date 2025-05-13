@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // Plugin para 
 const CopyPlugin = require('copy-webpack-plugin'); // Copia archivos
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); // Minifica CSS
 const TerserPlugin = require('terser-webpack-plugin'); // Minifica JS
-const Dotenv = require('dotenv'); // Carga variables de entorno
+const Dotenv = require('dotenv-webpack'); // Carga variables de entorno
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // Limpia la carpeta de salida
 const webpack = require('webpack'); // Importa webpack
 

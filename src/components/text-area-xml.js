@@ -28,7 +28,7 @@ class textAreaXML extends HTMLElement {
 
     // Especifica los atributos observados para cambios
     static get observedAttributes() {
-        return ["title", "titleformat", "titleclear", "buttonformatid", "buttonclearid", "textareaid", "readonly", "placeholder"];
+        return ["title", "titleformat", "titleclear", "buttonformatid", "buttonclearid", "textareaid", "readonly", "placeholder", "showmode"];
     }
 
     /**
@@ -51,8 +51,8 @@ class textAreaXML extends HTMLElement {
             <div class="d-flex align-items-center">
                 <label for="${this._textareaId || 'xmlInput'}" class="form-label">${this._title}</label>
                 <div class="ms-auto d-flex align-items-center">                
-                    <!-- Lista desplegable -->
-                    <label for="themeSelector" class="form-label me-2">Seleccionar Tema</label>
+                    <!-- Lista de Selección de Tema -->
+                    <label for="themeSelector" class="form-label me-2">Tema</label>
                     <select id="themeSelector" class="form-select form-select-sm w-auto">
                         <option value="monokai">monokai</option>
                         <option value="default">default</option>
@@ -61,6 +61,14 @@ class textAreaXML extends HTMLElement {
                         <option value="night">night</option>
                         <option value="rubyblue">rubyblue</option>
                     </select>
+                    <!-- Lista de Selección de Mode (XML a JSON) -->
+                    <div class="${this._showmode === 'true' ? 'd-flex' : 'd-none'} align-items-center">
+                        <label for="modeSelectorLabel" class="form-label ms-3 me-2">Modo</label>
+                        <select id="modeSelectorSelect" class="form-select form-select-sm w-auto">
+                            <option value="xml">XML</option>
+                            <option value="application/json">JSON</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <textarea class="form-control" id="${this._textareaId || 'xmlInput'}" placeholder="Ingresa código aquí" rows="10"></textarea>
@@ -123,11 +131,21 @@ class textAreaXML extends HTMLElement {
         }
     }
 
-    // Actualiza la opción 'readonly' de CodeMirror
+    // Actualiza el modo de CodeMirror
+    updateMode(mode) {
+        this._mode = mode;
+        const codemirrorInstance = this.shadowRoot.querySelector('.CodeMirror');
+        if (codemirrorInstance) {
+            codemirrorInstance.CodeMirror.setOption('mode', mode); // Cambia el modo de CodeMirror
+        }
+    }
+
+    // Establece el modo de solo lectura en CodeMirror
     statusReadOnly(readonly) {
         const codemirrorInstance = this.shadowRoot.querySelector('.CodeMirror');
         if (codemirrorInstance) {
-            codemirrorInstance.CodeMirror.setOption('readOnly', readonly); // Cambia la opción 'readonly'
+            const readOnlyFlag = readonly === 'true' ? true : false;
+            codemirrorInstance.CodeMirror.setOption('readOnly', readOnlyFlag); // Cambia la opción 'readonly'
         }
     }
 
@@ -182,6 +200,13 @@ class textAreaXML extends HTMLElement {
             this.updateTheme(selectedTheme); // Cambia el tema cuando se selecciona una opción
         });
 
+        // Agregar el evento para cambiar el modo
+        const modeSelector = this.shadowRoot.querySelector('#modeSelectorSelect');
+        modeSelector.addEventListener('change', (e) => {
+            const selectedMode = e.target.value;
+            this.updateMode(selectedMode); // Cambia el modo cuando se selecciona una opción
+        });
+
     }
 
     /**
@@ -210,7 +235,7 @@ class textAreaXML extends HTMLElement {
                 showCursorWhenSelecting: true, // Cursor visible al seleccionar texto
                 matchBrackets: true, // Resalta los paréntesis y corchetes coincidentes
                 placeholder: "Ingresa código aquí...",
-                readOnly: false, // Habilita la edición (No se puede hacer edici´si está activo)
+                readOnly: false, // Habilita la edición (No se puede hacer edición si está activo)
                 // smartIndent: true, // Indentación automática inteligente
                 // scrollbarStyle: 'simple', // Barras de desplazamiento 'simple' o 'overlay'
                 extraKeys: {
@@ -238,8 +263,9 @@ class textAreaXML extends HTMLElement {
         this._buttonFormatId = this.getAttribute('buttonformatid') || "formatXmlInput";
         this._buttonClearId = this.getAttribute('buttonclearid') || "clearXmlInput";
         this._textareaId = this.getAttribute('textareaid') || 'xmlInput';
-        this._readonly = this.getAttribute('readonly') || false;
+        this._readonly = this.getAttribute('readonly') || 'false';
         this._placeholder = this.getAttribute('placeholder') || 'Ingresa código aquí...';
+        this._showmode = this.getAttribute('showmode') || 'false';
 
         this.render(); // Renderiza el componente
 
@@ -252,7 +278,7 @@ class textAreaXML extends HTMLElement {
             if (codemirrorInstance) {
                 this.codemirrorInstance = codemirrorInstance.CodeMirror;
                 this.statusReadOnly(this._readonly);
-                this.statusPlaceholder(this._placeholder)
+                this.statusPlaceholder(this._placeholder);
                 // Refrescar el editor para aplicar los cambios (en este caso el placeholder y otros ajustes)
                 this.codemirrorInstance.refresh();
                 observer.disconnect(); // Dejar de observar una vez que se ha encontrado CodeMirror

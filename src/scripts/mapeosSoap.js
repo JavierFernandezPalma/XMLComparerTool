@@ -4,6 +4,50 @@ import { mostrarAccordionDummyoRequest, mostrarAccordionConsultaNumeroRequest, m
 
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
+
+    // Evento que responde al cambio de selección del tipo de WebService
+    document.getElementById('listaTipoWebService').addEventListener('change', ({ target: { value } }) => {
+
+        /**
+         * Muestra u oculta un elemento HTML según una condición.
+         * @param {string} id - ID del elemento HTML a modificar.
+         * @param {boolean} show - Si es true, muestra el elemento; si es false, lo oculta.
+         */
+
+
+        const display = (id, show) => {
+            document.getElementById(id).style.display = show ? 'inline-block' : 'none';
+        };
+
+
+        /**
+         * Cambia el modo del componente textarea2 (modo CodeMirror + <select>)
+         * @param {string} modo - Modo a aplicar (ej: 'xml', 'application/json')
+         */
+        const cambiarModoEditor = (modo) => {
+            const textarea = document.getElementById('textarea2');
+            if (!textarea?.shadowRoot) return;
+
+            const modeSelect = textarea.shadowRoot.querySelector('#modeSelectorSelect');
+            const cmInstance = textarea.shadowRoot.querySelector('.CodeMirror');
+
+            if (modeSelect) modeSelect.value = modo;
+            if (cmInstance?.CodeMirror) {
+                cmInstance.CodeMirror.setOption('mode', modo);
+            }
+        };
+
+        const esRest = value?.includes('rest');
+        const nuevoModo = esRest ? 'application/json' : 'xml';
+
+        // Aplicar cambios
+        cambiarModoEditor(nuevoModo);
+        // Mostrar 'divOasCheck' solo si el valor seleccionado contiene "rest"
+        display('divOasCheck', value.includes('rest'));
+        // Mostrar 'divWsdlCheck' si hay valor y no es "rest"
+        display('divWsdlCheck', value && !value.includes('rest'));
+    });
+
     const listaTipoWebService = document.getElementById('listaTipoWebService');
     const metodoWebService = document.getElementById('metodoWebService');
     const fechaVencimientoCertificado = document.getElementById('fechaVencimientoCertificado');
@@ -12,46 +56,102 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const opcionesLista2 = {
         "una-via": ["VerificarEstadoWebService", "RegistrarPagoIFX"],
+        "una-via-rest": ["VerificarEstadoWebService", "RegistrarPagoIFX"],
         "dos-vias": [
             "VerificarEstadoWebService",
             "ConsultaFacturaPorNumero",
             "ConsultarFacturasPorNit",
             "ConsultarFacturasPoNegocio",
             "RegistrarPagoIFX"
+        ],
+        "dos-vias-rest": [
+            "VerificarEstadoWebService",
+            "ConsultaFacturaPorNumero",
+            "RegistrarPagoIFX"
         ]
     };
 
-    // Función para validar la fecha
+    /**
+     * Valida que la fecha seleccionada sea al menos un mes mayor a la fecha actual.
+     * Muestra u oculta un mensaje de error y limpia el campo si la fecha es inválida o demasiado próxima.
+     * @returns {boolean} true si la fecha es válida; false en caso contrario.
+     */
     function validarFecha() {
         const fechaSeleccionada = new Date(fechaVencimientoCertificado.value);
-        const fechaActual = new Date();
+        if (isNaN(fechaSeleccionada)) return false; // Fecha no válida
 
-        // Crear nueva fecha sumando un mes
-        const fechaMasUnMes = new Date(fechaActual);
-        fechaMasUnMes.setMonth(fechaActual.getMonth() + 1);
+        // Crear fecha límite (actual + 1 mes), sin hora
+        const fechaLimite = new Date();
+        fechaLimite.setMonth(fechaLimite.getMonth() + 1);
+        // Normalizamos la hora a las 00:00:00 para evitar conflictos con fechas parcialmente iguales
+        fechaLimite.setHours(0, 0, 0, 0);
 
-        // Establecemos el valor de la fecha actual sin la hora
-        fechaMasUnMes.setHours(0, 0, 0, 0);
+        // Determina si la fecha ingresada no cumple con la condición mínima
+        const esInvalida = fechaSeleccionada <= fechaLimite;
+        // Mostrar u ocultar mensaje de error y limpiar el campo si es necesario
+        fechaError.style.display = esInvalida ? 'inline' : 'none';
+        if (esInvalida) fechaVencimientoCertificado.value = '';
 
-        // Verificamos si la fecha es inválida (NaN)
-        if (isNaN(fechaSeleccionada)) {
-            // console.log('Fecha inválida', isNaN(fechaSeleccionada)); // Mensaje de error en consola
-            return false; // Retornamos false si la fecha es inválida
-        }
+        // Retornar true si la fecha es válida, false si no lo es
+        return !esInvalida;
+    }
 
-        // Si la fecha seleccionada es menor o igual a la fecha actual, mostramos el mensaje de error
-        if (fechaSeleccionada <= fechaMasUnMes) {
-            fechaError.style.display = 'inline';  // Mostrar el mensaje de error
-            fechaVencimientoCertificado.value = '';  // Borrar el valor del campo de fecha
-            return false; // Retornamos false si la fecha no es válida
+    /**
+     * Habilita o deshabilita el select 'metodoWebService' según el tipo seleccionado en 'listaTipoWebService'
+     * y valida la fecha con `validarFecha()`.
+     *
+     * - Si la fecha es inválida, detiene la ejecución.
+     * - Si hay métodos disponibles, habilita el select y carga las opciones.
+     * - Si no hay, lo deshabilita y muestra un mensaje.
+     *
+     * Requiere en el DOM:
+     * - Selects con ID `listaTipoWebService` y `metodoWebService`.
+     * - Objeto `opcionesLista2` con los métodos por tipo de servicio.
+     *
+     * @returns {void}
+     */
+
+    function actualizarEstadoMetodoWebService() {
+        if (!validarFecha()) return; // Detener si la fecha no es válida
+
+        const seleccion = listaTipoWebService.value;
+        const opciones = opcionesLista2[seleccion];
+
+        metodoWebService.innerHTML = ''; // Limpiar contenido anterior
+
+        if (opciones) {
+            metodoWebService.disabled = false;
+
+            // Opción por defecto como placeholder
+            metodoWebService.appendChild(Object.assign(document.createElement('option'), {
+                value: '',
+                disabled: true,
+                selected: true,
+                textContent: 'Selecciona una operación'
+            }));
+
+            // Insertar opciones disponibles
+            opciones.forEach(op => {
+                metodoWebService.appendChild(Object.assign(document.createElement('option'), {
+                    value: op,
+                    textContent: op
+                }));
+            });
+
         } else {
-            fechaError.style.display = 'none';  // Ocultar el mensaje de error
-            return true; // Retornamos true si es válida
+            metodoWebService.disabled = true;
+            metodoWebService.innerHTML = '<option>Primero selecciona tipo WS</option>';
         }
     }
 
-    // Función para habilitar/deshabilitar el campo 'metodoWebService'
-    function actualizarEstadoMetodoWebService() {
+    // // Evento global para escuchar cambios en cualquier campo de entrada dentro del formulario
+    // formRequerimiento.addEventListener('focusout', function (event) {
+    //     console.log('Cambio en el formulario:', event.target.id); // Mensaje de depuración
+    //     // Si se modifica cualquier campo dentro del formulario, se valida el estado de 'metodoWebService'
+    //     // actualizarEstadoMetodoWebService();
+    // });
+
+    listaTipoWebService.addEventListener('change', function () {
         // Primero, validar la fecha
         if (!validarFecha()) {
             return; // Si la fecha no es válida, no ejecutamos el resto
@@ -81,46 +181,8 @@ document.addEventListener("DOMContentLoaded", function () {
             metodoWebService.disabled = true;
             metodoWebService.innerHTML = '<option>Primero selecciona tipo WS</option>';
         }
-    }
-    // // Evento global para escuchar cambios en cualquier campo de entrada dentro del formulario
-    // formRequerimiento.addEventListener('focusout', function (event) {
-    //     console.log('Cambio en el formulario:', event.target.id); // Mensaje de depuración
-    //     // Si se modifica cualquier campo dentro del formulario, se valida el estado de 'metodoWebService'
-    //     // actualizarEstadoMetodoWebService();
-    // });
 
-    // listaTipoWebService.addEventListener('change', function () {
-    //     // Primero, validar la fecha
-    //     if (!validarFecha()) {
-    //         return; // Si la fecha no es válida, no ejecutamos el resto
-    //     }
-    //     const seleccion = listaTipoWebService.value;
-    //     metodoWebService.innerHTML = ''; // Limpiar opciones anteriores
-
-    //     if (opcionesLista2[seleccion]) {
-    //         metodoWebService.disabled = false;
-
-    //         // Agregar opción por defecto
-    //         const placeholder = document.createElement('option');
-    //         placeholder.value = '';
-    //         placeholder.disabled = true;
-    //         placeholder.selected = true;
-    //         placeholder.textContent = 'Selecciona una operación';
-    //         metodoWebService.appendChild(placeholder);
-
-    //         // Agregar nuevas opciones
-    //         opcionesLista2[seleccion].forEach(op => {
-    //             const option = document.createElement('option');
-    //             option.value = op;
-    //             option.textContent = op;
-    //             metodoWebService.appendChild(option);
-    //         });
-    //     } else {
-    //         metodoWebService.disabled = true;
-    //         metodoWebService.innerHTML = '<option>Primero selecciona tipo WS</option>';
-    //     }
-
-    // });
+    });
 
     // Validamos la fecha cada vez que cambia la fecha de vencimiento
     fechaVencimientoCertificado.addEventListener('change', function () {
@@ -157,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             event.stopPropagation();
             formRequerimiento.classList.add("was-validated");
-            appendAlert('Por favor completa correctamente los campos obligatorios.', 'danger');
+            appendAlert('Por favor complete correctamente los campos obligatorios.', 'danger');
         } else {
             event.preventDefault();
             appendAlert('Formulario diligenciado correctamente.', 'success');
@@ -243,7 +305,10 @@ document.getElementById('cargarMapeos').addEventListener('click', () => {
     const { headers, rows } = validateNodes(xmlData1, xmlData2);
     if (!tipoWS || !metodoWS) return;
 
-    const columnDefs = headers.map(title => ({ title }));
+    const columnDefs = headers.map(title => ({
+        title,
+        className: 'text-center align-middle'
+    }));
 
     // Crear o actualizar tbody
     let tbody = document.querySelector(`#${config.tableId} #tableBody`);
@@ -258,11 +323,14 @@ document.getElementById('cargarMapeos').addEventListener('click', () => {
     tbody.innerHTML = rows.map((row, rowIndex) =>
         `<tr>${row.map((cell, cellIndex) => {
             const id = `cell-${rowIndex}-${cellIndex}`;
-            const clase = cell.includes('<select') ? 'columna-select'
-                : cell.includes('<input') ? 'columna-text'
-                    : cell.includes('<span') ? 'columna-span'
+            // Convertir a string solo si no lo es
+            const cellStr = typeof cell === 'string' ? cell : String(cell);
+            // Clasifica según el contenido de la celda
+            const clase = cellStr.includes('<select') ? 'columna-select'
+                : cellStr.includes('<input') ? 'columna-text'
+                    : cellStr.includes('<span') ? 'columna-span'
                         : '';
-            return `<td ${clase ? `class="${clase}"` : ''} id="${id}">${cell}</td>`;
+            return `<td ${clase ? `class="${clase}"` : ''} id="${id}">${cellStr}</td>`;
         }).join('')}</tr>`
     ).join('');
 
@@ -272,7 +340,7 @@ document.getElementById('cargarMapeos').addEventListener('click', () => {
         destroy: true,
         columns: columnDefs,
         select: { style: 'os', items: 'cell' },
-        autoWidth: false,
+        autoWidth: true,
         paging: true,
         processing: true,
         scrollX: true,
@@ -287,7 +355,7 @@ document.getElementById('cargarMapeos').addEventListener('click', () => {
     configurarEventosTabla(datatable, config.tablaLabel);
 
     $('#container').css('display', 'block');
-    datatable.columns.adjust().draw();
+    // datatable.columns.adjust().draw();
 
 });
 
@@ -306,33 +374,45 @@ document.getElementById('cargarMapeos').addEventListener('click', () => {
  */
 window.actualizarUrlSeleccionado = function (selectElement, rowIndex, tablaContext = 'xmlTable') {
 
-    const selectedUrl = selectElement.value;
-    const selectedText = selectElement.options[selectElement.selectedIndex].getAttribute('data-text');
+    const selected = selectElement.value;
+    var selectedText = selectElement.options[selectElement.selectedIndex].getAttribute('data-text');
+    const radios = document.querySelectorAll('input[name="tipoMapeo"]');
+    // Buscar el radio actualmente seleccionado para colocar el tipo de mapeo en el nombre del Modal
+    const tipoMapeo = Array.from(radios).find(radio => radio.checked);
 
     const tableId = selectElement.closest('table')?.id;
     const activeTable = window[tableId];
     if (!activeTable) return;
 
-    // Busca celdas col. 5 (URL) y col. 7 (contenido nodo)
-    // y asigna valores a tabla activa
-    const outputCol = 5, sourceCol = 7;
+    // Índices de columnas: 5 = URL, 6 = nodo alterno, 7 = nodo principal
+    // para asignar valores a tabla activa
+    const outputCol = 5, colNodoAlterno = 6, sourceCol = 7;
+
     const cellUrl = document.querySelector(`#${tableId} #cell-${rowIndex}-${outputCol}`);
     const cellNodeContent = document.querySelector(`#${tableId} #cell-${rowIndex}-${sourceCol}`);
-
+    const celdaNodoAlterno = document.querySelector(`#${tableId} #cell-${rowIndex}-${colNodoAlterno}`);
+    const contenidoNodoAlterno = celdaNodoAlterno?.textContent.trim();
 
     if (cellUrl && cellNodeContent) {
         const columnUrlIndex = cellUrl.cellIndex;
         const columnNodeContentIndex = cellNodeContent.cellIndex;
 
         // Setea URL y contenido nodo en tabla
-        activeTable.cell(rowIndex, columnUrlIndex).data(selectedUrl);
+        activeTable.cell(rowIndex, columnUrlIndex).data(selected);
+
+        // Si es Response y opción es request-inicial, añade contenido extra
+        if (tipoMapeo.value === 'Response' && selected === 'request-inicial') {
+            selectedText = `${selected}: ${contenidoNodoAlterno}`;
+        }
+        // Actualiza celda con el texto final
         activeTable.cell(rowIndex, columnNodeContentIndex).data(selectedText);
+
     }
 
     // Habilita <select> de acción si hay URL
-    const accionSelectId = `${tableId}-list1_${rowIndex}`;
-    const actionSelect = document.getElementById(accionSelectId);
-    if (actionSelect) actionSelect.disabled = !selectedUrl;
+    const idSelectAccion = `${tableId}-list1_${rowIndex}`;
+    const selectAccion = document.getElementById(idSelectAccion);
+    if (selectAccion) selectAccion.disabled = !selected;
 };
 
 

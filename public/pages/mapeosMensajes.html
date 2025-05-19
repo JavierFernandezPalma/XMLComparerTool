@@ -87,8 +87,9 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="card-title">Requerimiento</h4>
                     <div class="d-flex align-items-center">
-                        <button onclick="startTourComparerXML()" class="btn btn-primary btn-circle"
-                            type="button" disabled>?</button>
+                        <button onclick="startTourComparerXML()" class="btn btn-primary btn-circle" type="button"
+                            disabled
+                            title="Formulario Cliente RIN requerido. WS estándar: RIN + pruebas. No estándar: RIN + mapeos + pruebas.">?</button>
                     </div>
                 </div>
 
@@ -98,7 +99,8 @@
                             <h2 class="accordion-header" id="headingRequerimiento">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseRequerimiento" aria-expanded="true"
-                                    aria-controls="collapseRequerimiento">
+                                    aria-controls="collapseRequerimiento"
+                                    title="Formulario Cliente RIN obligatorio. WS estándar: RIN + pruebas. No estándar: RIN + mapeos + pruebas.">
                                     Descripción del Requerimiento
                                 </button>
                             </h2>
@@ -155,7 +157,8 @@
                                         <div class="col-md-6">
                                             <label for="listaTipoWebService" class="form-label">Tipo de Web
                                                 Service:</label>
-                                            <select id="listaTipoWebService" class="form-select" required>
+                                            <select id="listaTipoWebService" class="form-select" required
+                                                title="Seleccione el tipo de WS.">
                                                 <option value="" disabled selected>Selecciona una opción</option>
                                                 <option value="una-via">RTR SOAP una vía</option>
                                                 <option value="dos-vias">RIN SOAP dos vías</option>
@@ -167,7 +170,8 @@
                                             <label for="fechaVencimientoCertificado">Certificado fecha
                                                 vencimiento:</label>
                                             <input type="date" id="fechaVencimientoCertificado" class="form-control"
-                                                required>
+                                                required
+                                                title="Seleccione una fecha de vencimiento con al menos un mes de vigencia.">
                                             <span id="fechaError" style="color: red; display: none;">El certificado debe
                                                 tener mínimo un mes de vigencia.</span>
                                         </div>
@@ -176,27 +180,33 @@
                                     <!-- Checks -->
                                     <div class="mb-3">
                                         <label>Características:</label><br>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" value="WSDL" id="wsdlCheck">
+                                        <div id="divWsdlCheck" class="form-check form-check-inline"
+                                            style="display:none;">
+                                            <input class="form-check-input" type="checkbox" value="WSDL" id="wsdlCheck"
+                                                title="Seleccione si el WS tiene WSDL y si se incluye en los insumos.">
                                             <label class="form-check-label" for="wsdlCheck">WSDL</label>
                                         </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" value="OAS" id="oasCheck">
+                                        <div id="divOasCheck" class="form-check form-check-inline"
+                                            style="display:none;">
+                                            <input class="form-check-input" type="checkbox" value="OAS" id="oasCheck"
+                                                title="Seleccione si el WS tiene OpenAPI Specification y si se incluye en los insumos.">
                                             <label class="form-check-label" for="oasCheck">OpenAPI Specification</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" value="Firma"
-                                                id="firmaCheck">
+                                                id="firmaCheck" title="Seleccione si el WS requiere firma digital.">
                                             <label class="form-check-label" for="firmaCheck">Firma</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" value="Cifrado"
-                                                id="cifradoCheck">
+                                                id="cifradoCheck"
+                                                title="Seleccione si el WS requiere cifrado de los mensajes.">
                                             <label class="form-check-label" for="cifradoCheck">Cifrado</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" id="authBasicCheck"
-                                                onchange="toggleAuthSelect()">
+                                                onchange="toggleAuthSelect()"
+                                                title="Seleccione si el WS utiliza autenticación básica.">
                                             <label class="form-check-label" for="authBasicCheck">Autenticación
                                                 básica</label>
                                         </div>
@@ -205,7 +215,8 @@
                                     <!-- Autenticación básica (condicional) -->
                                     <div class="mb-3" id="authBasic" style="display: none;">
                                         <label>Autenticación básica:</label>
-                                        <select id="authBasicSelect" class="form-select">
+                                        <select id="authBasicSelect" class="form-select"
+                                            title="Seleccione dónde se incluye la autenticación básica.">
                                             <option>Seleccione</option>
                                             <option>header soap</option>
                                             <option>http soap</option>
@@ -240,7 +251,8 @@
                                         <div class="col-md-6">
                                             <label>Tipo de conectividad:</label>
                                             <select class="form-select" id="tipoConectividad"
-                                                onchange="toggleVPNFields()" required>
+                                                onchange="toggleVPNFields()" required
+                                                title="Seleccione el tipo de conectividad del servicio web (WS).">
                                                 <option value="">Seleccione</option>
                                                 <option>Internet</option>
                                                 <option>VPN</option>
@@ -252,10 +264,12 @@
                                     <div class="mb-3" id="vpnFields" style="display: none;">
                                         <label>VPN (IP válida):</label>
                                         <input type="text" class="form-control mb-2" id="vpnCliente"
-                                            placeholder="Ej: 10.0.0.1">
+                                            placeholder="Ej: 10.0.0.1"
+                                            title="Ingrese la dirección IP válida que se utilizará para la conexión VPN.">
                                         <label>Service (TCP, UDP y puerto) o Protocolo:</label>
                                         <input type="text" class="form-control" id="proxyBanco"
-                                            placeholder="Ej: TCP 443">
+                                            placeholder="Ej: TCP 443"
+                                            title="Indique el protocolo (TCP o UDP) y el puerto correspondiente para la conexión VPN.">
                                     </div>
 
                                     <!-- IP y puerto -->
@@ -263,22 +277,29 @@
                                         <div class="col-md-6">
                                             <label>IP Cliente:</label>
                                             <input type="text" class="form-control" id="ipCliente"
-                                                placeholder="Ej: 192.168.0.1" required>
+                                                placeholder="Ej: 192.168.0.1" required
+                                                title="Ingrese la dirección IP del cliente desde donde se hará la conexión.">
                                         </div>
                                         <div class="col-md-6">
                                             <label>Puerto:</label>
-                                            <input type="number" class="form-control" id="puertoCliente" required>
+                                            <input type="number" class="form-control" id="puertoCliente" required
+                                                title="Ingrese el número de puerto que usará el cliente para conectarse.">
                                         </div>
                                     </div>
 
-                                    <!-- Convenios -->
+                                    <!-- Convenios y descripción adicional -->
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label>Convenios:</label>
                                             <input type="text" class="form-control" id="convenios"
-                                                placeholder="Ej: 3456, 6578" required>
+                                                placeholder="Ej: 3456, 6578" required
+                                                title="Ingrese los códigos de convenio separados por coma.">
                                         </div>
                                         <div class="col-md-6">
+                                            <label>Descripción adicional del WS:</label>
+                                            <textarea class="form-control" id="descripcionWS" rows="1"
+                                                placeholder="Descripción adicional del WS."
+                                                title="Descripción adicional si es necesario."></textarea>
                                         </div>
                                     </div>
 
@@ -332,8 +353,8 @@
 
                                     <!-- Botón de envío -->
                                     <div class="text-end mt-3">
-                                        <button type="submit" id="validarFormulario"
-                                            class="btn btn-primary">Validar</button>
+                                        <button type="submit" id="validarFormulario" class="btn btn-primary"
+                                            title="Valide el formulario para habilitar la lista de métodos.">Validar</button>
                                     </div>
 
                                 </div>
@@ -398,7 +419,8 @@
                     <!-- Lista desplegable -->
                     <div class="col-12 col-md-6">
                         <label for="metodoWebService" class="form-label">Método:</label>
-                        <select id="metodoWebService" class="form-select" disabled>
+                        <select id="metodoWebService" class="form-select" disabled
+                            title="Para habilitar valide el formulario.">
                             <option value="">Primero selecciona tipo WS</option>
                         </select>
                     </div>
@@ -508,7 +530,7 @@
                     <div class="col-md-6 mb-3">
                         <text-area-xml id="textarea2" title="XML Cliente" titleformat="Aplicar Formato"
                             titleclear="Limpiar" buttonformatid="formatXmlInput2" buttonclearid="clearXmlInput2"
-                            textareaid="xmlInput2" placeholder="Ingresa código aquí...">
+                            textareaid="xmlInput2" showmode="true" placeholder="Ingresa código aquí...">
                         </text-area-xml>
                     </div>
                 </div>
@@ -539,7 +561,7 @@
                                 Excel</button>
 
                             <!-- Tabla de resultados -->
-                            <table id="xmlTable" class="display" style="width:100%; display: none;">
+                            <table id="xmlTable" class="display" style="display:none;">
                                 <thead>
                                     <tr id="tableHeaders">
                                         <!-- Los encabezados se generarán dinámicamente -->
@@ -571,7 +593,7 @@
                     <div id="collapseFacturaNumeroRequest" class="accordion-collapse collapse show"
                         aria-labelledby="headingFacturaNumeroRequest">
                         <div class="accordion-body">
-                            <table id="xmlTable2" class="display" style="width:100%; display: none;">
+                            <table id="xmlTable2" class="display" style="display:none;">
                                 <thead>
                                     <tr id="tableHeaders">
                                         <!-- Los encabezados se generarán dinámicamente -->
@@ -603,7 +625,7 @@
                     <div id="collapsePagoIFXRequest" class="accordion-collapse collapse show"
                         aria-labelledby="headingPagoIFXRequest">
                         <div class="accordion-body">
-                            <table id="xmlTable3" class="display" style="width:100%; display: none;">
+                            <table id="xmlTable3" class="display" style="display:none;">
                                 <thead>
                                     <tr id="tableHeaders">
                                         <!-- Los encabezados se generarán dinámicamente -->
@@ -672,7 +694,7 @@
                     <div id="collapseFacturaNumeroResponse" class="accordion-collapse collapse show"
                         aria-labelledby="headingFacturaNumeroResponse">
                         <div class="accordion-body">
-                            <table id="xmlTable7" class="display" style="width:100%; display: none;">
+                            <table id="xmlTable7" class="display" style="display:none;">
                                 <thead>
                                     <tr id="tableHeaders">
                                         <!-- Los encabezados se generarán dinámicamente -->
@@ -704,7 +726,7 @@
                     <div id="collapsePagoIFXResponse" class="accordion-collapse collapse show"
                         aria-labelledby="headingPagoIFXResponse">
                         <div class="accordion-body">
-                            <table id="xmlTable8" class="display" style="width:100%; display: none;">
+                            <table id="xmlTable8" class="display" style="display:none;">
                                 <thead>
                                     <tr id="tableHeaders">
                                         <!-- Los encabezados se generarán dinámicamente -->
@@ -727,7 +749,7 @@
         <!-- Card para mostrar el resultado del parceo -->
         <div id="cardResultComparer" class="card">
             <div class="card-body">
-                <h4 class="card-title">Resultado del parseo XML</h4>
+                <h4 class="card-title">Resultado del Mapeo</h4>
                 <!-- Resultado de la comparación -->
                 <pre id="comparisonResult" class="diff p-3 bg-light rounded"></pre>
                 <div id="messageContainer" class="diff p-3 bg-light rounded"></div>
@@ -1489,7 +1511,7 @@ document.getElementById('guardarButton').addEventListener('click', function () {
         }
 
         function deshabilitarCampos(formClonado) {
-            const elements = formClonado.querySelectorAll('input, select, button');
+            const elements = formClonado.querySelectorAll('input, select, button, textarea');
             elements.forEach(el => {
                 if (el.type !== 'button' && el.type !== 'submit') {
                     el.disabled = true;
@@ -1501,15 +1523,17 @@ document.getElementById('guardarButton').addEventListener('click', function () {
     <!-- Incluir la biblioteca jsdiff para comparar diferencias -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js"></script>
     <!-- Incluir CodeMirror para la edición de XML -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
     <!-- Incluir modo XML para CodeMirror -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/xml/xml.min.js"></script>
+    <!-- Modo JSON -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
     <!-- Incluir js-beautify para formatear XML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
     <!-- Incluir el JavaScript de Shepherd.js para tour en la APP -->
     <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
     <!-- CodeMirror fullscreen JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/display/fullscreen.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/fullscreen.min.js"></script>
     <!-- CodeMirror-placeholder -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/placeholder.min.js"></script>
 

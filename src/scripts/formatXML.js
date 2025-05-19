@@ -6,15 +6,17 @@ function formatXML(componentId1, componentId2) {
     if (customElement1) {
         // Obtener boton Aplicar Formato
         var formatXmlInput1 = customElement1.shadowRoot.getElementById('formatXmlInput1');
-        formatXmlInput1.addEventListener('click', function () {
-            formatXmlEditor(window.editor1);
+        formatXmlInput1.addEventListener('click', () => {
+            const mode = customElement1.shadowRoot.getElementById('modeSelectorSelect')?.value;
+            (mode === 'xml' ? formatXmlEditor : formatJsonEditor)(window.editor1);
         });
     }
     if (customElement2) {
         // Obtener boton Aplicar Formato
         var formatXmlInput2 = customElement2.shadowRoot.getElementById('formatXmlInput2');
-        formatXmlInput2.addEventListener('click', function () {
-            formatXmlEditor(window.editor2);
+        formatXmlInput2.addEventListener('click', () => {
+            const mode = customElement2.shadowRoot.getElementById('modeSelectorSelect')?.value;
+            (mode === 'xml' ? formatXmlEditor : formatJsonEditor)(window.editor2);
         });
     }
 }
@@ -81,6 +83,24 @@ function formatXml(xml) {
 
     // Devolver el XML formateado
     return formattedXml;
+}
+
+/**
+ * Formatea el contenido JSON de un editor.
+ * - Intenta parsear una o dos veces (por si viene como string doble)
+ * - Reasigna el valor formateado al editor
+ * @param {object} editor - Objeto con métodos getValue y setValue
+ */
+function formatJsonEditor(editor) {
+    let json = editor.getValue().trim();
+    try {
+        let parsed = JSON.parse(json);
+        if (typeof parsed === 'string') parsed = JSON.parse(parsed);
+        editor.setValue(JSON.stringify(parsed, null, 2));
+    } catch (e) {
+        // Manejo opcional de errores, según sea necesario
+        alert("Error en la estructura json: " + e.message); // ✅ alert solo acepta un string
+    }
 }
 
 // Exportar las funciones necesarias

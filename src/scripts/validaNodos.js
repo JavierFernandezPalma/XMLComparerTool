@@ -3,15 +3,20 @@ import { escapeHtml } from './config.js';
 
 export function validateNodes(xmlString1, xmlString2) {
 
+   // Obtener la referencia del select listaTipoWebService
+   const tipoWS = document.getElementById('listaTipoWebService').value;
+
    const validation1 = isValidXML(xmlString1);
-   const validation2 = isValidXML(xmlString2);
+   // Comprobamos si tipoWS tiene uno de los valores válidos y asignamos la validación correspondiente
+   const validation2 = ['una-via', 'dos-vias'].includes(tipoWS)
+      ? isValidXML(xmlString2) // Validación para tipo XML
+      : isValidJSon(xmlString2); // Validación para tipo JSON
 
    if (!validation1.isValid || !validation2.isValid) {
       const errorMsg = !validation1.isValid ? validation1 : validation2;
       displayResult(`<div class="error"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>${errorMsg === validation1 ? 'XML 1' : 'XML 2'} tiene errores de sintaxis: ${errorMsg.error}<br></div><div><pre>${escapeHtml(errorMsg.partialContent)}</pre></div>`);
       return { headers: [], rows: [] };
    }
-
 
    const parser = new DOMParser();
    const preprocess = str => preprocessXML(str.replace(/\s*(<[^>]+>)\s*/g, '$1').trim());
@@ -20,14 +25,25 @@ export function validateNodes(xmlString1, xmlString2) {
    const xml1 = preprocess(xmlString1);
    const xml2 = preprocess(xmlString2);
 
-
+   // Parsea xml1 y xml2, invierte el orden si el radio 'flexRadioRequest' está seleccionado.
    const [xmlDoc1, xmlDoc2] = document.getElementById('flexRadioRequest').checked
-      ? [parser.parseFromString(xml2, 'application/xml'), parser.parseFromString(xml1, 'application/xml')]
-      : [parser.parseFromString(xml1, 'application/xml'), parser.parseFromString(xml2, 'application/xml')];
+      // Verifica el valor seleccionado en listaTipoWebService
+      ? tipoWS === 'una-via' || tipoWS === 'dos-vias'
+         ? [parser.parseFromString(xml2, 'application/xml'), parser.parseFromString(xml1, 'application/xml')] // SOAP
+         : [JSON.parse(xml2), parser.parseFromString(xml1, 'application/xml')] // REST-SOAP
+      : tipoWS === 'una-via-rest' || tipoWS === 'dos-vias-rest'
+         ? [parser.parseFromString(xml1, 'application/xml'), JSON.parse(xml2)] // SOAP-REST
+         : [parser.parseFromString(xml1, 'application/xml'), parser.parseFromString(xml2, 'application/xml')]; // SOAP
 
-   // Extraer los nodos de ambos XML
-   const nodesInfo1 = extraerNodesHijos([...xmlDoc1.documentElement.children], xmlDoc1.documentElement.localName);
-   const nodesInfo2 = extraerNodesHijos([...xmlDoc2.documentElement.children], xmlDoc2.documentElement.localName);
+   // Extraer los nodos de ambos XML o XML-JSON
+   const [nodesInfo1, nodesInfo2] = document.getElementById('flexRadioRequest').checked
+      // Verifica el valor seleccionado en listaTipoWebService
+      ? tipoWS === 'una-via' || tipoWS === 'dos-vias' // SOAP
+         ? [extraerNodesHijos([...xmlDoc1.documentElement.children], xmlDoc1.documentElement.localName), extraerNodesHijos([...xmlDoc2.documentElement.children], xmlDoc2.documentElement.localName)] // SOAP
+         : [extraerNodesHijosJson(xmlDoc1), extraerNodesHijos([...xmlDoc2.documentElement.children], xmlDoc2.documentElement.localName)] // REST
+      : tipoWS === 'una-via-rest' || tipoWS === 'dos-vias-rest' // REST
+         ? [extraerNodesHijos([...xmlDoc1.documentElement.children], xmlDoc1.documentElement.localName), extraerNodesHijosJson(xmlDoc2)] // REST
+         : [extraerNodesHijos([...xmlDoc1.documentElement.children], xmlDoc1.documentElement.localName), extraerNodesHijos([...xmlDoc2.documentElement.children], xmlDoc2.documentElement.localName)]; // SOAP
 
    const radios = document.querySelectorAll('input[name="tipoMapeo"]');
    // Buscar el radio actualmente seleccionado para colocar el tipo de mapeo en el nombre del Modal
@@ -129,6 +145,19 @@ function isValidXML(xmlString) {
    return { isValid: true, partialContent: xmlString };
 }
 
+// Función para validar si un JSON es válido
+function isValidJSon(jsonString) {
+   try {
+      // Intentamos parsear la cadena a un objeto JSON
+      JSON.parse(jsonString);
+      // Si no hay error, la cadena es un JSON válido
+      return { isValid: true, partialContent: jsonString };
+   } catch (e) {
+      // Si ocurre un error en el parseo, la cadena no es un JSON válido
+      return { isValid: false, error: `${e.name}: ${e.message}`, partialContent: e.stack };
+   }
+}
+
 // Función para obtener el contenido parcial del XML hasta el primer error
 function getPartialContentUntilError(xmlString, errorMessage) {
    const lines = xmlString.split('\n');
@@ -169,41 +198,67 @@ function extraerNodesHijos(nodes, currentPath = '') {
    return result; // Retorna el array con los nodos hijos
 }
 
+/**
+ * Extrae nodos hoja desde un JSON anidado, con ruta usando "." y valores.
+ * @param {Object} json - Objeto JSON.
+ * @returns {Array} Array de { node, url, value }
+ */
+function extraerNodesHijosJson(json) {
+   const resultados = [];
 
+   function recorrer(obj, ruta = []) {
+      for (const clave in obj) {
+         if (!Object.hasOwn(obj, clave)) continue;
+
+         const valor = obj[clave];
+         const nuevaRuta = [...ruta, clave];
+
+         if (valor !== null && typeof valor === 'object' && !Array.isArray(valor)) {
+            recorrer(valor, nuevaRuta);
+         } else {
+            resultados.push({
+               node: clave,
+               url: nuevaRuta.join('.'),
+               value: valor
+            });
+         }
+      }
+   }
+
+   recorrer(json);
+   return resultados;
+}
 
 // Función para construir las cabeceras y las filas
 function crearFilasYColumnas(nodesChildren, nodesChildren2, tablaContext = 'xmlTable') {
    let headers = [];
 
-   if (document.getElementById('flexRadioRequest').checked) {
-      headers = [
-         'Url Nodo Cliente',
-         'Nodo Cliente',
-         'Acción',
-         'Resultado esperado',
-         'Nodo Banco',
-         'Url nodo Banco',
-         'Contenido Nodo Cliente',
-         'Contenido Nodo Banco'
-      ];
-   } else if (document.getElementById('flexRadioResponse').checked) {
-      headers = [
-         'Url Nodo Banco',
-         'Nodo Banco',
-         'Acción',
-         'Resultado esperado',
-         'Nodo Cliente',
-         'Url nodo Cliente',
-         'Contenido Nodo Banco',
-         'Contenido Nodo Cliente'
-      ];
-   }
+   const isRequest = document.getElementById('flexRadioRequest').checked;
+
+   const ladoA = isRequest ? 'Cliente' : 'Banco';
+   const ladoB = isRequest ? 'Banco' : 'Cliente';
+
+   headers = [
+      `Ruta Nodo ${ladoA}`,
+      `Nodo ${ladoA}`,
+      'Acción',
+      'Resultado esperado',
+      `Nodo ${ladoB}`,
+      `Ruta nodo ${ladoB}`,
+      `Contenido Nodo ${ladoA}`,
+      `Contenido Nodo ${ladoB}`
+   ];
 
    const rows = nodesChildren.map((nodeData, index) => {
       const opciones = ['No aplica', 'Formatear', 'Homologar', 'Asignar valor por defecto', 'Nulo'];
+      
       const nodeUrl = nodeData.url;
-      const nodeName = nodeData.node.localName;
-      const nodeTextContent = nodeData.node.textContent;
+      const nodeName = (typeof nodeData.node === 'object' && nodeData.node !== null && 'localName' in nodeData.node)
+         ? nodeData.node.localName
+         : nodeData.node;
+      const nodeTextContent = (typeof nodeData.node === 'object' && nodeData.node !== null && 'textContent' in nodeData.node)
+         ? nodeData.node.textContent
+         : nodeData.value;
 
       const opcionesHTML = opciones.map(opcion =>
          `<option value="${opcion}" data-name="${nodeName}" data-text="${nodeTextContent}" data-url="${nodeUrl}">${opcion}</option>`
@@ -211,12 +266,21 @@ function crearFilasYColumnas(nodesChildren, nodesChildren2, tablaContext = 'xmlT
 
       const nodeSelectOptions = `
          <option value="" disabled selected>Seleccione un nodo</option>
-         ${nodesChildren2.map(child => `
-            <option value="${child.url}" data-name="${child.node.localName}" data-text="${child.node.textContent}">
-               ${child.node.localName}
-            </option>`).join('')}
-         <option value="Sin referencia" data-text="Sin referencia">Sin referencia</option>
+         ${nodesChildren2.map(child => {
+         const isXmlNode = typeof child.node === 'object' && child.node !== null && 'localName' in child.node;
+
+         const localName = isXmlNode ? child.node.localName : child.node;
+         const text = isXmlNode ? child.node.textContent : child.value || child.node;
+
+         return `
+               <option value="${child.url}" data-name="${localName}" data-text="${text}" data-url="${child.url}">
+                  ${localName}
+               </option>`;
+      }).join('')}
+         <option class="${isRequest ? 'd-none' : 'd-flex'}" value="request-inicial" data-text="Dato del request inicial">Dato del request inicial</option>
+         <option value="sin-referencia" data-text="Sin referencia">Sin referencia</option>
       `;
+
 
       // Agregamos prefijo único al ID del select
       const selectAccionId = `${tablaContext}-list1_${index}`;

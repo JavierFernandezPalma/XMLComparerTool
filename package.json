@@ -1,6 +1,6 @@
 {
     "name": "xml-comparer-tool",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "Este proyecto es una aplicación web que permite comparar estructuras XML de manera visual. Utiliza varias tecnologías como HTML, CSS, JavaScript, Bootstrap, CodeMirror y jsdiff para proporcionar una interfaz amigable y funcional.",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",

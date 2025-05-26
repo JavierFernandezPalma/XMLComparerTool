@@ -1,7 +1,4 @@
-// import Shepherd from '/node_modules/shepherd.js';
-// import '/node_modules/shepherd.js/dist/css/shepherd.css';
-
-window.startTourComparerXML = function startTour() {
+window.startTourMapeosMensajes = function startTour() {
 
     const tour = new Shepherd.Tour({
         defaultStepOptions: {
@@ -22,10 +19,10 @@ window.startTourComparerXML = function startTour() {
 
     tour.addStep({
         id: 'step-1',
-        title: 'Cargar archivos',
-        text: 'Aquí cargas archivos XML para comparar o ingrésalos manualmente en los TextAreas.',
+        title: 'Formulario Cliente RIN-RTR',
+        text: 'Requerido: para WS estándar se requiere con pruebas, y para no estándar también mapeos. Contiene campo opcional para agregar descripción adicional y tabla para registrar facturas de prueba.',
         attachTo: {
-            element: '#inputFiles',
+            element: '#formRequerimiento',
             on: 'bottom' // top, top-start, top-end, left, right, left-start, left-end, right-start, right-end, bottom, bottom-start, bottom-end.
         },
         buttons: [
@@ -38,8 +35,8 @@ window.startTourComparerXML = function startTour() {
 
     tour.addStep({
         id: 'step-2',
-        title: 'Tipo comparación',
-        text: 'Aquí puedes seleccionar el tipo de diferencia a comparar.',
+        title: 'Tipo de Mapeo y Método',
+        text: 'Aquí selecciona el tipo de mapeo y el método a mapear. Este paso es requerido.',
         attachTo: {
             element: '#radioButtons',
             on: 'bottom'
@@ -78,8 +75,8 @@ window.startTourComparerXML = function startTour() {
 
     tour.addStep({
         id: 'step-4',
-        title: 'Estructuras de contenido XML',
-        text: 'Aquí visualizas e interactúas con las estructuras XML a comparar.',
+        title: 'Estructuras de Banco y Cliente',
+        text: 'Carga y edita las estructuras XML del Banco y XML/JSON del Cliente para los mapeos de mensajería.',
         attachTo: {
             element: '#textAreasComparar',
             on: 'top'
@@ -98,11 +95,11 @@ window.startTourComparerXML = function startTour() {
 
     tour.addStep({
         id: 'step-5',
-        title: 'Card de resultados',
-        text: 'Aquí visualizas los resultados de la comparación.',
+        title: 'Cargar y Guardar Mapeos',
+        text: 'Desde aquí puedes cargar y guardar los mapeos de mensajes SOAP y SOAP/REST.',
         attachTo: {
-            element: '#cardResultComparer',
-            on: 'top'
+            element: '#botonesAccion',
+            on: 'bottom'
         },
         buttons: [
             {

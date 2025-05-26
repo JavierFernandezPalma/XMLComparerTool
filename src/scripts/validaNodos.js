@@ -63,10 +63,10 @@ export function validateNodes(xmlString1, xmlString2) {
       case 'RegistrarPagoIFXRequest':
          tablaContext = 'xmlTable3';
          break;
-      case 'ConsultaFacturaPorNumeroIFX':
+      case 'ConsultarFacturasPorNitRequest':
          tablaContext = 'xmlTable4';
          break;
-      case 'ConsultaFacturaPorNumeroIFX2':
+      case 'ConsultarFacturasPorNegocioRequest':
          tablaContext = 'xmlTable5';
          break;
       case 'VerificarEstadoWebServiceResponse':
@@ -77,6 +77,12 @@ export function validateNodes(xmlString1, xmlString2) {
          break;
       case 'RegistrarPagoIFXResponse':
          tablaContext = 'xmlTable8';
+         break;
+      case 'ConsultarFacturasPorNitResponse':
+         tablaContext = 'xmlTable9';
+         break;
+      case 'ConsultarFacturasPorNegocioResponse':
+         tablaContext = 'xmlTable10';
          break;
       default:
          tablaContext = 'xmlTable';

@@ -19,6 +19,9 @@
  */
 
 // Define un nuevo elemento personalizado 'text-area-xml'
+
+import { clearComparisonResult } from '../scripts/config.js';
+
 class textAreaXML extends HTMLElement {
     constructor() {
         super();
@@ -158,34 +161,104 @@ class textAreaXML extends HTMLElement {
     }
 
     /**
-     * Función para cargar dinámicamente los scripts de CodeMirror.
+     * Carga única, ordenada y asíncrona de scripts de CodeMirror si no están en el DOM.
      * 
      * Carga los siguientes scripts:
-     * - CodeMirror (la biblioteca principal)
-     * - xml.min.js - xml2js.min.js (modo XML para CodeMirror)
-     * - Fullscreen.js (para habilitar el modo pantalla completa)
+     * - codemirror.min.js (núcleo)
+     * - xml.min.js (modo XML)
+     * - javascript.min.js (modo JSON)
+     * - fullscreen.min.js (modo pantalla completa)
+     * - simplescrollbars.min.js (scroll personalizado)
+     * - placeholder.min.js (texto de ayuda en vacío)
+     * 
+     * @returns {Promise<void>} Promesa que se resuelve al terminar la carga.
      */
-    // Cargar los scripts de CodeMirror dinámicamente
-    loadCodeMirrorScripts() {
-        const scripts = [
-            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/xml/xml.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/fullscreen.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/scroll/simplescrollbars.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/placeholder.min.js'
+    static codeMirrorReady = null;
+
+    async loadCodeMirrorScripts() {
+        // Evita múltiples cargas si ya está en progreso o finalizado
+        if (textAreaXML.codeMirrorReady) return textAreaXML.codeMirrorReady;
+
+        /**
+         * Carga un script si no existe ya en el DOM.
+         * @param {string} src - URL del script.
+         * @returns {Promise<void>} Promesa resuelta al cargar (o si ya está).
+         */
+        const loadScript = (src) => new Promise((resolve, reject) => {
+            const fullSrc = new URL(src, document.baseURI).href;
+
+            const alreadyExists = Array.from(document.scripts).some(script =>
+                script.src === fullSrc
+            );
+
+            if (alreadyExists) {
+                resolve(); // Ya está cargado
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = fullSrc;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.body.appendChild(script);
+        });
+
+        // Lista de grupos con base y scripts relativos
+        const scriptGroups = [
+            {
+                // Base de los scripts
+                base: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/',
+                // Lista de scripts a cargar en orden
+                files: [
+                    'codemirror.min.js',                     // núcleo
+                    'mode/xml/xml.min.js',                   // modo XML
+                    'addon/display/fullscreen.min.js',       // pantalla completa
+                    'addon/scroll/simplescrollbars.min.js',  // scroll estilizado
+                    'addon/display/placeholder.min.js'       // placeholder
+                ]
+            },
+            {
+                base: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/',
+                files: [
+                    'mode/javascript/javascript.min.js' // mono JSON
+                ]
+            }
         ];
 
-        scripts.forEach(src => {
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = () => {
-                this.scriptsLoaded++; // Incrementa el contador cuando un script se carga
-                if (this.scriptsLoaded === scripts.length) {
-                    // Todos los scripts se han cargado, inicializamos CodeMirror
-                    // this.initializeCodeMirror(this._textareaId); // Inicializar CodeMirror cuando se cargue el JS
+        // Ejecuta carga secuencial una sola vez
+        textAreaXML.codeMirrorReady = (async () => {
+            for (const group of scriptGroups) {
+                for (const file of group.files) {
+                    await loadScript(group.base + file);
                 }
-            };
-            this.shadowRoot.appendChild(script); // Añadir al shadow DOM
+            }
+        })();
+
+        return textAreaXML.codeMirrorReady;
+    }
+
+    /**
+     * Configura el evento 'codemirror-ready' para limpiar el contenido del editor y el resultado de comparación.
+     * @param {string} elementId - ID del componente personalizado (<text-area-xml>).
+     * @param {string} clearBtnId - ID del botón dentro del Shadow DOM para limpiar el editor.
+     * @param {string} editorGlobalName - Nombre para exponer el editor en `window`.
+     */
+    setupEditorClearEvent(elementId, clearBtnId, editorGlobalName) {
+        const customElement = document.getElementById(elementId);
+        if (!customElement) return;
+
+        customElement.addEventListener('codemirror-ready', () => {
+            const editor = customElement.getCodeMirrorInstance();
+            const clearBtn = customElement.shadowRoot.getElementById(clearBtnId);
+            if (editor && clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    editor.setValue(''); // Limpiar contenido de xmlInput2
+                    clearComparisonResult(); // Limpiar resultado de comparación
+                });
+
+                // Exponer el editor en window para uso global
+                if (editorGlobalName) window[editorGlobalName] = editor;
+            }
         });
     }
 
@@ -206,6 +279,10 @@ class textAreaXML extends HTMLElement {
             const selectedMode = e.target.value;
             this.updateMode(selectedMode); // Cambia el modo cuando se selecciona una opción
         });
+
+        // Inicializa eventos para limpiar los dos editores y exponer los editores en `window`.
+        this.setupEditorClearEvent('textarea1', 'clearXmlInput1', 'editor1');
+        this.setupEditorClearEvent('textarea2', 'clearXmlInput2', 'editor2');
 
     }
 
@@ -270,25 +347,25 @@ class textAreaXML extends HTMLElement {
         this.render(); // Renderiza el componente
 
         // // Carga los scripts de CodeMirror y luego inicializa el editor
-        // this.loadCodeMirrorScripts(); // Llama a la función para cargar los scripts
+        this.loadCodeMirrorScripts().then(() => {
+            // Espera un tick para asegurarse que textarea está en el shadow DOM
+            setTimeout(() => {
+                this.codemirrorInstance = this.initializeCodeMirror(this._textareaId);
+                if (this.codemirrorInstance) {
+                    this.statusReadOnly(this._readonly);
+                    this.statusPlaceholder(this._placeholder);
+                    this.codemirrorInstance.refresh();
 
-        // Observar cambios en el shadow DOM para detectar la carga de CodeMirror
-        const observer = new MutationObserver(() => {
-            const codemirrorInstance = this.shadowRoot.querySelector('.CodeMirror');
-            if (codemirrorInstance) {
-                this.codemirrorInstance = codemirrorInstance.CodeMirror;
-                this.statusReadOnly(this._readonly);
-                this.statusPlaceholder(this._placeholder);
-                // Refrescar el editor para aplicar los cambios (en este caso el placeholder y otros ajustes)
-                this.codemirrorInstance.refresh();
-                observer.disconnect(); // Dejar de observar una vez que se ha encontrado CodeMirror
-            }
+                    // 🚀 Emitir evento cuando editor esté listo
+                    this.dispatchEvent(new CustomEvent('codemirror-ready', {
+                        detail: this.codemirrorInstance
+                    }));
+                }
+            }, 0);
+        }).catch(err => {
+            console.error("Error cargando scripts de CodeMirror:", err);
         });
 
-        observer.observe(this.shadowRoot, { childList: true, subtree: true });
-
-        // Inicializa CodeMirror si se requiere
-        this.initializeCodeMirror(this._textareaId); // Opcional, si se necesita cargar dinámicamente los scripts
     }
 }
 

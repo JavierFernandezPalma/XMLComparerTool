@@ -1,6 +1,6 @@
 import { validateNodes } from '../scripts/validaNodos.js';
 import { clearComparisonResult } from '../scripts/config.js';
-import { mostrarAccordionDummyoRequest, mostrarAccordionConsultaNumeroRequest, mostrarAccordionPagoRequest, mostrarAccordionDummyResponse, mostrarAccordionConsultaNumeroResponse, mostrarAccordionPagoResponse } from './indexDinamico.js';
+import { mostrarAccordionDummyoRequest, mostrarAccordionConsultaNumeroRequest, mostrarAccordionConsultaNitRequest, mostrarAccordionConsultaNegocioRequest, mostrarAccordionPagoRequest, mostrarAccordionDummyResponse, mostrarAccordionConsultaNumeroResponse, mostrarAccordionPagoResponse, mostrarAccordionConsultaNitResponse, mostrarAccordionConsultaNegocioResponse } from './indexDinamico.js';
 
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
@@ -24,24 +24,28 @@ document.addEventListener("DOMContentLoaded", function () {
          * Cambia el modo del componente textarea2 (modo CodeMirror + <select>)
          * @param {string} modo - Modo a aplicar (ej: 'xml', 'application/json')
          */
-        const cambiarModoEditor = (modo) => {
+        const cambiarModoEditor = (modo, theme) => {
             const textarea = document.getElementById('textarea2');
             if (!textarea?.shadowRoot) return;
 
             const modeSelect = textarea.shadowRoot.querySelector('#modeSelectorSelect');
+            const modeTheme = textarea.shadowRoot.querySelector('#themeSelector');
             const cmInstance = textarea.shadowRoot.querySelector('.CodeMirror');
 
             if (modeSelect) modeSelect.value = modo;
+            if (modeTheme) modeTheme.value = theme;
             if (cmInstance?.CodeMirror) {
                 cmInstance.CodeMirror.setOption('mode', modo);
+                cmInstance.CodeMirror.setOption('theme', theme);
             }
         };
 
         const esRest = value?.includes('rest');
         const nuevoModo = esRest ? 'application/json' : 'xml';
+        const nuevoTheme = esRest ? 'abbott' : 'monokai';
 
         // Aplicar cambios
-        cambiarModoEditor(nuevoModo);
+        cambiarModoEditor(nuevoModo, nuevoTheme);
         // Mostrar 'divOasCheck' solo si el valor seleccionado contiene "rest"
         display('divOasCheck', value.includes('rest'));
         // Mostrar 'divWsdlCheck' si hay valor y no es "rest"
@@ -61,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "VerificarEstadoWebService",
             "ConsultaFacturaPorNumero",
             "ConsultarFacturasPorNit",
-            "ConsultarFacturasPoNegocio",
+            "ConsultarFacturasPorNegocio",
             "RegistrarPagoIFX"
         ],
         "dos-vias-rest": [
@@ -229,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-let xmlTable, xmlTable2, xmlTable3; // Variables globales para las tablas
+let xmlTable, xmlTable2, xmlTable3, xmlTable4, xmlTable5; // Variables globales para las tablas
 
 /**
  * Carga y renderiza los datos en la tabla seleccionada.
@@ -268,6 +272,28 @@ document.getElementById('cargarMapeos').addEventListener('click', () => {
             tablaLabel: tipoMapeo.value === 'Request'
                 ? 'Tabla 2'
                 : 'Tabla 7'
+        },
+        ConsultarFacturasPorNit: {
+            accordionFn: tipoMapeo.value === 'Request'
+                ? mostrarAccordionConsultaNitRequest
+                : mostrarAccordionConsultaNitResponse,
+            tableId: tipoMapeo.value === 'Request'
+                ? 'xmlTable4'
+                : 'xmlTable9',
+            tablaLabel: tipoMapeo.value === 'Request'
+                ? 'Tabla 4'
+                : 'Tabla 9'
+        },
+        ConsultarFacturasPorNegocio: {
+            accordionFn: tipoMapeo.value === 'Request'
+                ? mostrarAccordionConsultaNegocioRequest
+                : mostrarAccordionConsultaNegocioResponse,
+            tableId: tipoMapeo.value === 'Request'
+                ? 'xmlTable5'
+                : 'xmlTable10',
+            tablaLabel: tipoMapeo.value === 'Request'
+                ? 'Tabla 5'
+                : 'Tabla 10'
         },
         RegistrarPagoIFX: {
             accordionFn: tipoMapeo.value === 'Request'

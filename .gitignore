@@ -166,6 +166,7 @@ recycle/
 # Custom files
 webpack.config.dev.js
 server_prueba.js
-vercel.json
+prueba.ipynb
+# vercel.json
 mysql_data
 tools

@@ -4,19 +4,27 @@ function formatXML(componentId1, componentId2) {
 
     // Agregar eventos click a los botones
     if (customElement1) {
-        // Obtener boton Aplicar Formato
-        var formatXmlInput1 = customElement1.shadowRoot.getElementById('formatXmlInput1');
-        formatXmlInput1.addEventListener('click', () => {
-            const mode = customElement1.shadowRoot.getElementById('modeSelectorSelect')?.value;
-            (mode === 'xml' ? formatXmlEditor : formatJsonEditor)(window.editor1);
+        // 🔒 Espera a que el editor esté listo
+        customElement1.addEventListener('codemirror-ready', (e) => {
+            window.editor1 = e.detail;
+            // Obtener boton Aplicar Formato
+            var formatXmlInput1 = customElement1.shadowRoot.getElementById('formatXmlInput1');
+            formatXmlInput1.addEventListener('click', () => {
+                const mode = customElement1.shadowRoot.getElementById('modeSelectorSelect')?.value;
+                (mode === 'xml' ? formatXmlEditor : formatJsonEditor)(window.editor1);
+            });
         });
     }
     if (customElement2) {
-        // Obtener boton Aplicar Formato
-        var formatXmlInput2 = customElement2.shadowRoot.getElementById('formatXmlInput2');
-        formatXmlInput2.addEventListener('click', () => {
-            const mode = customElement2.shadowRoot.getElementById('modeSelectorSelect')?.value;
-            (mode === 'xml' ? formatXmlEditor : formatJsonEditor)(window.editor2);
+        // 🔒 Espera a que el editor 2 esté listo
+        customElement2.addEventListener('codemirror-ready', (e) => {
+            window.editor2 = e.detail;
+            // Obtener boton Aplicar Formato
+            var formatXmlInput2 = customElement2.shadowRoot.getElementById('formatXmlInput2');
+            formatXmlInput2.addEventListener('click', () => {
+                const mode = customElement2.shadowRoot.getElementById('modeSelectorSelect')?.value;
+                (mode === 'xml' ? formatXmlEditor : formatJsonEditor)(window.editor2);
+            });
         });
     }
 }

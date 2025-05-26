@@ -8,9 +8,6 @@
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <!-- Enlace a CodeMirror CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
     <!-- Incluir el CSS de Shepherd.js para tour en la APP -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css" />
     <!-- Enlace a la librería DataTables -->
@@ -37,21 +34,17 @@
     <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
 
     <!-- Incluir DataTables Column Reorder CSS y JS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.4/css/colReorder.dataTables.css">
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/colreorder/2.0.4/js/dataTables.colReorder.js"></script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/colreorder/2.0.4/js/colReorder.dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.4/css/colReorder.dataTables.min.css">
+    <script src="https://cdn.datatables.net/colreorder/2.0.4/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/2.0.4/js/colReorder.dataTables.min.js"></script>
 
     <!-- Incluir la librería SheetJS para exportar a Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/3.0.0/css/select.dataTables.css">
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/select/3.0.0/js/dataTables.select.js"></script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/select/3.0.0/js/select.dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/3.0.0/css/select.dataTables.min.css">
+    <script src="https://cdn.datatables.net/select/3.0.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/select/3.0.0/js/select.dataTables.min.js"></script>
     <style>
         .accordion-button.bg-verde.collapsed {
             background-color: #d1e7dd !important;
@@ -87,8 +80,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="card-title">Requerimiento</h4>
                     <div class="d-flex align-items-center">
-                        <button onclick="startTourComparerXML()" class="btn btn-primary btn-circle" type="button"
-                            disabled
+                        <button onclick="startTourMapeosMensajes()" class="btn btn-primary btn-circle" type="button"
                             title="Formulario Cliente RIN requerido. WS estándar: RIN + pruebas. No estándar: RIN + mapeos + pruebas.">?</button>
                     </div>
                 </div>
@@ -100,7 +92,7 @@
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseRequerimiento" aria-expanded="true"
                                     aria-controls="collapseRequerimiento"
-                                    title="Formulario Cliente RIN obligatorio. WS estándar: RIN + pruebas. No estándar: RIN + mapeos + pruebas.">
+                                    title="Formulario Cliente RIN requerido. WS estándar: RIN + pruebas. No estándar: RIN + mapeos + pruebas.">
                                     Descripción del Requerimiento
                                 </button>
                             </h2>
@@ -244,9 +236,9 @@
                                         <div class="col-md-6">
                                             <label>URL del servicio (endpoint):</label>
                                             <input type="url" class="form-control" id="urlServicio"
-                                                placeholder="https://ejemplo.com/servicio" required
-                                                pattern="^https?:\/\/[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}.*$"
-                                                title="Ingrese una URL válida que comience con http:// o https:// (ej. https://ejemplo.com)">
+                                                placeholder="https://ejemplo/servicio" required
+                                                pattern="^https?:\/\/[a-zA-Z0-9\-\.]+(?:\/.*)?$"
+                                                title="Ingrese una URL válida que comience con http:// o https:// (ej. https://ejemplo)">
                                         </div>
                                         <div class="col-md-6">
                                             <label>Tipo de conectividad:</label>
@@ -536,7 +528,7 @@
                 </div>
 
                 <!-- Botón para comparar XML -->
-                <div class="text-center">
+                <div id="botonesAccion" class="text-center">
                     <button id="cargarMapeos" class="btn btn-success">Cargar</button>
                     <button id="guardarDatos" class="btn btn-primary">Guardar</button>
                 </div>
@@ -643,6 +635,70 @@
         <!-- Contenedor donde se insertará el template la tabla RegistrarPagoIFX Request -->
         <div id="containerRegistrarPagoIFXRequest"></div>
 
+        <!-- Template para mostrar tabla ConsultarFacturasPorNit Request -->
+        <template id="templateConsultarFacturasPorNitRequest">
+            <div class="accordion" id="accordionConsultaNitRequest">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingConsultaNitRequest">
+                        <button class="accordion-button bg-verde" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseConsultaNitRequest" aria-expanded="true"
+                            aria-controls="collapseConsultaNitRequest">
+                            ConsultarFacturasPorNit - Request
+                        </button>
+                    </h2>
+                    <div id="collapseConsultaNitRequest" class="accordion-collapse collapse show"
+                        aria-labelledby="headingConsultaNitRequest">
+                        <div class="accordion-body">
+                            <table id="xmlTable4" class="display" style="display:none;">
+                                <thead>
+                                    <tr id="tableHeaders">
+                                        <!-- Los encabezados se generarán dinámicamente -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Aquí se llenarán las filas dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- Contenedor donde se insertará el template la tabla ConsultarFacturasPorNit Request -->
+        <div id="containerConsultarFacturasPorNitRequest"></div>
+
+        <!-- Template para mostrar tabla ConsultarFacturasPorNegocio Request -->
+        <template id="templateConsultarFacturasPorNegocioRequest">
+            <div class="accordion" id="accordionConsultaNegocioRequest">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingConsultaNegocioRequest">
+                        <button class="accordion-button bg-verde" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseConsultaNegocioRequest" aria-expanded="true"
+                            aria-controls="collapseConsultaNegocioRequest">
+                            ConsultarFacturasPorNegocio - Request
+                        </button>
+                    </h2>
+                    <div id="collapseConsultaNegocioRequest" class="accordion-collapse collapse show"
+                        aria-labelledby="headingConsultaNegocioRequest">
+                        <div class="accordion-body">
+                            <table id="xmlTable5" class="display" style="display:none;">
+                                <thead>
+                                    <tr id="tableHeaders">
+                                        <!-- Los encabezados se generarán dinámicamente -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Aquí se llenarán las filas dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- Contenedor donde se insertará el template la tabla ConsultarFacturasPorNegocio Request -->
+        <div id="containerConsultarFacturasPorNegocioRequest"></div>
+
         <!-- Template para mostrar tabla Dummy Response -->
         <template id="templateDummyResponse">
             <div class="accordion" id="accordionDummyResponse">
@@ -712,6 +768,10 @@
         <!-- Contenedor donde se insertará el template la tabla ConsultaFacturaPorNumero Response -->
         <div id="containerConsultaFacturaPorNumeroResponse"></div>
 
+        <template-table-request templateid="templateRegistrarPagoIFXResponse" accordionid="accordionPagoIFXResponse"
+            headingid="headingPagoIFXResponse" collapseid="collapsePagoIFXResponse" buttonname="RegistrarPagoIFX"
+            tableid="xmlTable8" conteinername="containerRegistrarPagoIFXResponse">HOLA 1</template-table-request>
+
         <!-- Template para mostrar tabla RegistrarPagoIFX Response -->
         <template id="templateRegistrarPagoIFXResponse">
             <div class="accordion" id="accordionPagoIFXResponse">
@@ -742,10 +802,73 @@
             </div>
         </template>
         <!-- Contenedor donde se insertará el template la tabla RegistrarPagoIFX Response -->
-        <div id="containerRegistrarPagoIFXResponse">
-            <br>
-        </div>
+        <div id="containerRegistrarPagoIFXResponse"></div>
 
+        <!-- Template para mostrar tabla ConsultarFacturasPorNit Response -->
+        <template id="templateConsultarFacturasPorNitResponse">
+            <div class="accordion" id="accordionFacturasNitResponse">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFacturasNitResponse">
+                        <button class="accordion-button bg-celeste" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFacturasNitResponse" aria-expanded="true"
+                            aria-controls="collapseFacturasNitResponse">
+                            ConsultarFacturasPorNit - Response
+                        </button>
+                    </h2>
+                    <div id="collapseFacturasNitResponse" class="accordion-collapse collapse show"
+                        aria-labelledby="headingFacturasNitResponse">
+                        <div class="accordion-body">
+                            <table id="xmlTable9" class="display" style="display:none;">
+                                <thead>
+                                    <tr id="tableHeaders">
+                                        <!-- Los encabezados se generarán dinámicamente -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Aquí se llenarán las filas dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- Contenedor donde se insertará el template la tabla ConsultarFacturasPorNit Response -->
+        <div id="containerConsultarFacturasPorNitResponse"></div>
+
+        <!-- Template para mostrar tabla ConsultarFacturasPorNegocio Response -->
+        <template id="templateConsultarFacturasPorNegocioResponse">
+            <div class="accordion" id="accordionFacturasNegocioResponse">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFacturasNegocioResponse">
+                        <button class="accordion-button bg-celeste" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFacturasNegocioResponse" aria-expanded="true"
+                            aria-controls="collapseFacturasNegocioResponse">
+                            ConsultarFacturasPorNegocio - Response
+                        </button>
+                    </h2>
+                    <div id="collapseFacturasNegocioResponse" class="accordion-collapse collapse show"
+                        aria-labelledby="headingFacturasNegocioResponse">
+                        <div class="accordion-body">
+                            <table id="xmlTable10" class="display" style="display:none;">
+                                <thead>
+                                    <tr id="tableHeaders">
+                                        <!-- Los encabezados se generarán dinámicamente -->
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <!-- Aquí se llenarán las filas dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- Contenedor donde se insertará el template la tabla ConsultarFacturasPorNegocio Response -->
+        <div id="containerConsultarFacturasPorNegocioResponse"></div>
+
+        <br>
         <!-- Card para mostrar el resultado del parceo -->
         <div id="cardResultComparer" class="card">
             <div class="card-body">
@@ -865,7 +988,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Modal Solución -->
         <modal-xml title="Actualizar Solución" titleLabel1="ID de la solición" inputid1="idSolucion"
@@ -1035,92 +1157,107 @@
         }
 
         $('#guardarDatos').click(function () {
+            // Obtiene el formulario original desde el DOM mediante su ID.
             const formOriginal = document.getElementById('formRequerimiento');
+            // Clona el formulario completo (incluyendo sus elementos hijos) y lo convierte en una cadena HTML.
             const formClonado = formOriginal.cloneNode(true).outerHTML;
+            // Obtiene el valor seleccionado del menú desplegable de tipo de Web Service.
             const tipoWS = document.getElementById('listaTipoWebService').value;
-            const tablaIds = ['xmlTable', 'xmlTable2', 'xmlTable3', 'xmlTable6', 'xmlTable7', 'xmlTable8'];
+            // Construye un arreglo con los IDs de tabla: "xmlTable", "xmlTable2", ..., "xmlTable10"
+            const tablaIds = ['xmlTable', ...Array.from({ length: 9 }, (_, i) => `xmlTable${i + 2}`)];
 
-            const resultado = {};
+            // Objeto que almacenará los datos formateados por cada tabla
+            const resultado = tablaIds.reduce((resultado, idTabla) => {
+                // Obtiene y formatea los datos de la tabla activa mediante su ID
+                const datosFiltrados = formatearDatosDesdeTablaActiva(idTabla);
 
-            tablaIds.forEach(id => {
-                const filas = formatearDatosDesdeTablaActiva(id);
-                if (filas.length > 0) {
-                    resultado[id] = filas;
+                // Agrega al resultado solo si hay datos presentes
+                if (datosFiltrados.length > 0) {
+                    resultado[idTabla] = datosFiltrados;
                 }
-            });
 
-            let htmlOutput = `
-                <div class="accordion" id="accordionTablas">
-            `;
+                return resultado;
+            }, {});
 
+            // Inicializa el contenedor principal del acordeón
+            let htmlOutput = `<div class="accordion" id="accordionTablas">`;
+
+            // Índice utilizado para generar IDs únicos en cada acordeón
             let indexAccordion = 0;
 
-            for (const [tablaId, registros] of Object.entries(resultado)) {
-                let titulo = '';
-                // Asignar título según el ID de la tabla
-                switch (tablaId) {
-                    case 'xmlTable':
-                        titulo = 'VerificarEstadoWebService - Request';
-                        break;
-                    case 'xmlTable2':
-                        titulo = 'ConsultaFacturaPorNumero - Request';
-                        break;
-                    case 'xmlTable3':
-                        titulo = 'RegistrarPagoIFX - Request';
-                        break;
-                    case 'xmlTable6':
-                        titulo = 'VerificarEstadoWebService - Response';
-                        break;
-                    case 'xmlTable7':
-                        titulo = 'ConsultaFacturaPorNumero - Response';
-                        break;
-                    case 'xmlTable8':
-                        titulo = 'RegistrarPagoIFX - Response';
-                        break;
-                    default:
-                        titulo = tablaId;
-                }
+            // Diccionario que mapea IDs de tabla a sus títulos descriptivos
+            const titulosPorTabla = {
+                xmlTable: 'VerificarEstadoWebService - Request',
+                xmlTable2: 'ConsultaFacturaPorNumero - Request',
+                xmlTable3: 'RegistrarPagoIFX - Request',
+                xmlTable4: 'ConsultarFacturasPorNit - Request',
+                xmlTable5: 'ConsultarFacturasPorNegocio - Request',
+                xmlTable6: 'VerificarEstadoWebService - Response',
+                xmlTable7: 'ConsultaFacturaPorNumero - Response',
+                xmlTable8: 'RegistrarPagoIFX - Response',
+                xmlTable9: 'ConsultarFacturasPorNit - Response',
+                xmlTable10: 'ConsultarFacturasPorNegocio - Response'
+            };
 
+            // Recorre cada tabla y sus registros para generar acordeones dinámicamente
+            for (const [tablaId, registros] of Object.entries(resultado)) {
+                // Obtiene el título desde el diccionario, o usa el ID como valor por defecto
+                const titulo = titulosPorTabla[tablaId] || tablaId;
+
+                // IDs únicos por acordeón para encabezado y colapso
                 const collapseId = `collapse${indexAccordion}`;
                 const headingId = `heading${indexAccordion}`;
 
+                // Construcción de la estructura de cada ítem del acordeón
                 htmlOutput += `
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="${headingId}">
-                            <button class="accordion-button ${indexAccordion > 0 ? 'collapsed' : ''}" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="${indexAccordion === 0}" aria-controls="${collapseId}">
+                            <button class="accordion-button ${indexAccordion > 0 ? 'collapsed' : ''}" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#${collapseId}" 
+                                aria-expanded="${indexAccordion === 0}" 
+                                aria-controls="${collapseId}">
                                 ${titulo}
                             </button>
                         </h2>
-                        <div id="${collapseId}" class="accordion-collapse collapse ${indexAccordion === 0 ? 'show' : ''}" aria-labelledby="${headingId}" data-bs-parent="#accordionTablas">
+                        <div id="${collapseId}"
+                            class="accordion-collapse collapse ${indexAccordion === 0 ? 'show' : ''}" 
+                            aria-labelledby="${headingId}" 
+                            data-bs-parent="#accordionTablas">
                             <div class="accordion-body">
                 `;
 
+                // Recorre los registros para generar tarjetas individuales con controles
                 registros.forEach((registro, regIndex) => {
-                    const contenido = Object.entries(registro)
+                    const contenidoRegistro = Object.entries(registro)
                         .map(([clave, valor]) => `<strong>${clave}:</strong> ${valor}`)
                         .join('<br>');
 
+                    // Construcción de la tarjeta individual con opciones de color
                     htmlOutput += `
                         <div class="card mb-3 registro" style="background-color: white;">
                             <div class="card-body">
-                                <p class="card-text">${contenido}</p>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input color-radio" type="radio" name="color${tablaId}${regIndex}" value="lightgreen">
-                                    <label class="form-check-label">✔ Todo Ok (completo)</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input color-radio" type="radio" name="color${tablaId}${regIndex}" value="orange">
-                                    <label class="form-check-label">⚠ Requiere Pruebas</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input color-radio" type="radio" name="color${tablaId}${regIndex}" value="#e74c3c">
-                                    <label class="form-check-label">✖ Consultar con Analista</label>
-                                </div>
+                                <p class="card-text">${contenidoRegistro}</p>
+                                ${['✔ Todo Ok (completo)', '⚠ Requiere Pruebas', '✖ Consultar con Analista']
+                            .map((etiqueta, opcionIndex) => {
+                                const colores = ['lightgreen', 'orange', '#e74c3c'];
+                                return `
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input color-radio" 
+                                                type="radio" 
+                                                name="color${tablaId}${regIndex}" 
+                                                value="${colores[opcionIndex]}">
+                                            <label class="form-check-label">${etiqueta}</label>
+                                        </div>
+                                    `;
+                            }).join('')}
                             </div>
                         </div>
                     `;
                 });
 
+                // Cierre del cuerpo del acordeón
                 htmlOutput += `
                             </div>
                         </div>
@@ -1130,9 +1267,10 @@
                 indexAccordion++;
             }
 
-            htmlOutput += `</div>`; // cierre de accordion
+            // Cierra el contenedor principal del acordeón
+            htmlOutput += `</div>`;
 
-            // Abrimos una nueva ventana y escribimos el HTML
+            // Abre una nueva ventana y escribe el HTML
             const outputWindow = window.open('', 'HTML Output', 'width=1000,height=800');
 
             outputWindow.document.write(`
@@ -1522,20 +1660,10 @@ document.getElementById('guardarButton').addEventListener('click', function () {
 
     <!-- Incluir la biblioteca jsdiff para comparar diferencias -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js"></script>
-    <!-- Incluir CodeMirror para la edición de XML -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
-    <!-- Incluir modo XML para CodeMirror -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/xml/xml.min.js"></script>
-    <!-- Modo JSON -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
     <!-- Incluir js-beautify para formatear XML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify.min.js"></script>
     <!-- Incluir el JavaScript de Shepherd.js para tour en la APP -->
     <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
-    <!-- CodeMirror fullscreen JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/fullscreen.min.js"></script>
-    <!-- CodeMirror-placeholder -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/display/placeholder.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"

@@ -167,6 +167,7 @@ recycle/
 webpack.config.dev.js
 server_prueba.js
 prueba.ipynb
+copilot.html
 # vercel.json
 mysql_data
 tools

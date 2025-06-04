@@ -254,14 +254,26 @@
 
                                     <!-- VPN campos -->
                                     <div class="mb-3" id="vpnFields" style="display: none;">
-                                        <label>VPN (IP válida):</label>
-                                        <input type="text" class="form-control mb-2" id="vpnCliente"
-                                            placeholder="Ej: 10.0.0.1"
-                                            title="Ingrese la dirección IP válida que se utilizará para la conexión VPN.">
-                                        <label>Service (TCP, UDP y puerto) o Protocolo:</label>
-                                        <input type="text" class="form-control" id="proxyBanco"
-                                            placeholder="Ej: TCP 443"
-                                            title="Indique el protocolo (TCP o UDP) y el puerto correspondiente para la conexión VPN.">
+                                        <label>Endpoint vía proxy Datapower:</label>
+                                        <input type="text" class="form-control mb-2" id="endpointProxyDatapower"
+                                            placeholder="Ej: https://ip-del-proxy:puerto/ruta(path)-cliente"
+                                            title="Ingrese la URL del endpoint expuesto a través del proxy Datapower y ruta cliente.">
+                                    </div>
+
+                                    <!-- Épica e Historia de Usuario -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="epica">Épica:</label>
+                                            <input type="text" class="form-control" id="epica"
+                                                placeholder="Ej: EPIC 5478913"
+                                                title="Ingrese el identificador de la épica asociada al requerimiento.">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="historiaUsuario">Historia de usuario (HU):</label>
+                                            <input type="text" class="form-control" id="historiaUsuario"
+                                                placeholder="Ej: USER STORY 6281773"
+                                                title="Ingrese el identificador numérico de la historia de usuario (HU).">
+                                        </div>
                                     </div>
 
                                     <!-- IP y puerto -->
@@ -274,7 +286,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label>Puerto:</label>
-                                            <input type="number" class="form-control" id="puertoCliente" required
+                                            <input type="number" class="form-control" id="puertoCliente"
+                                                placeholder="Ej: 443" min="1" required
                                                 title="Ingrese el número de puerto que usará el cliente para conectarse.">
                                         </div>
                                     </div>
@@ -361,7 +374,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="card-title">Cargar Archivos SOAP</h4>
+                    <h4 class="card-title">Cargar Archivos</h4>
                     <!-- Contenedor para el botón de tour -->
                     <div class="d-flex align-items-center">
                     </div>
@@ -369,18 +382,18 @@
                 <!-- Input para cargar archivo XML base -->
                 <div id="inputFiles">
                     <div class="mb-3">
-                        <label for="fileInput1" class="form-label">Seleccionar SOAP Banco</label>
+                        <label for="fileInput1" class="form-label">Seleccionar XML Banco</label>
                         <input type="file" class="form-control" id="fileInput1" accept=".xml">
                     </div>
                     <!-- Input para cargar archivo XML a comparar -->
                     <div class="mb-3">
-                        <label for="fileInput2" class="form-label">Seleccionar SOAP Cliente</label>
+                        <label for="fileInput2" class="form-label">Seleccionar XML/JSON Cliente</label>
                         <input type="file" class="form-control" id="fileInput2" accept=".xml">
                     </div>
                 </div>
                 <!-- Select para seleccionar archivo XML desde una lista -->
                 <div class="mb-3">
-                    <label for="xmlFileSelect" class="form-label">Seleccionar SOAP Banco desde lista</label>
+                    <label for="xmlFileSelect" class="form-label">Seleccionar XML Banco desde lista</label>
                     <select class="form-select" id="xmlFileSelect">
                         <option value="">Seleccionar archivo</option>
                     </select>
@@ -398,12 +411,12 @@
                         <label class="form-label d-block mb-1">Tipo Mapeo:</label>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="tipoMapeo" id="flexRadioRequest"
-                                value="Request" checked>
+                                value="Request" title="Mapeo de Banco (origen) a Cliente (destino)." checked>
                             <label class="form-check-label" for="flexRadioRequest">Mapeo Request</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="tipoMapeo" id="flexRadioResponse"
-                                value="Response">
+                                value="Response" title="Mapeo de Cliente (origen) a Banco (destino).">
                             <label class="form-check-label" for="flexRadioResponse">Mapeo Response</label>
                         </div>
                     </div>
@@ -484,7 +497,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="card-title mb-0">Ingresar XML Manual</h4>
+                    <h4 class="card-title mb-0">Ingresar Estructura Manual</h4>
                     <div id="switchScroll" class="d-flex align-items-center">
                         <!-- Switch para activar/desactivar el scroll vertical -->
                         <div class="form-check form-switch me-3">
@@ -515,22 +528,25 @@
                     <div class="col-md-6 mb-3">
                         <text-area-xml id="textarea1" title="XML Banco" titleformat="Aplicar Formato"
                             titleclear="Limpiar" buttonformatid="formatXmlInput1" buttonclearid="clearXmlInput1"
-                            textareaid="xmlInput1">
+                            textareaid="xmlInput1" placeholder="Ingresa estructura XML válida...">
                         </text-area-xml>
                     </div>
                     <!-- Textarea para XML a comparar -->
                     <div class="col-md-6 mb-3">
-                        <text-area-xml id="textarea2" title="XML Cliente" titleformat="Aplicar Formato"
+                        <text-area-xml id="textarea2" title="XML/JSON Cliente" titleformat="Aplicar Formato"
                             titleclear="Limpiar" buttonformatid="formatXmlInput2" buttonclearid="clearXmlInput2"
-                            textareaid="xmlInput2" showmode="true" placeholder="Ingresa código aquí...">
+                            textareaid="xmlInput2" showmode="true"
+                            placeholder="Ingresa estructura XML o JSON válido...">
                         </text-area-xml>
                     </div>
                 </div>
 
                 <!-- Botón para comparar XML -->
                 <div id="botonesAccion" class="text-center">
-                    <button id="cargarMapeos" class="btn btn-success">Cargar</button>
-                    <button id="guardarDatos" class="btn btn-primary">Guardar</button>
+                    <button id="cargarMapeos" title="Cargar estructura para realizar mapeos o transformaciones."
+                        class="btn btn-success">Cargar</button>
+                    <button id="guardarDatos" title="Guardar mapeos o transformaciones como referencia para desarrollo."
+                        class="btn btn-primary">Guardar</button>
                 </div>
             </div>
         </div>
@@ -1157,15 +1173,25 @@
         }
 
         $('#guardarDatos').click(function () {
+            // Arreglo IDs de tablas: xmlTable, xmlTable2...xmlTable10
+            const tablaIds = ['xmlTable', ...Array.from({ length: 9 }, (_, i) => `xmlTable${i + 2}`)];
+
+            // Si existe y es DataTable
+            tablaIds.forEach(id => {
+                const $tabla = $('#' + id);
+
+                if ($tabla.length && $.fn.DataTable.isDataTable($tabla)) {
+                    const dt = $tabla.DataTable();
+                    dt.page.len(-1).draw(); // Mostrar todos los registros
+                }
+            });
+
             // Obtiene el formulario original desde el DOM mediante su ID.
             const formOriginal = document.getElementById('formRequerimiento');
             // Clona el formulario completo (incluyendo sus elementos hijos) y lo convierte en una cadena HTML.
             const formClonado = formOriginal.cloneNode(true).outerHTML;
             // Obtiene el valor seleccionado del menú desplegable de tipo de Web Service.
             const tipoWS = document.getElementById('listaTipoWebService').value;
-            // Construye un arreglo con los IDs de tabla: "xmlTable", "xmlTable2", ..., "xmlTable10"
-            const tablaIds = ['xmlTable', ...Array.from({ length: 9 }, (_, i) => `xmlTable${i + 2}`)];
-
             // Objeto que almacenará los datos formateados por cada tabla
             const resultado = tablaIds.reduce((resultado, idTabla) => {
                 // Obtiene y formatea los datos de la tabla activa mediante su ID
@@ -1199,6 +1225,8 @@
                 xmlTable10: 'ConsultarFacturasPorNegocio - Response'
             };
 
+            let uniqueIndex = 0; // Se incrementa por cada registro en todas las tablas
+
             // Recorre cada tabla y sus registros para generar acordeones dinámicamente
             for (const [tablaId, registros] of Object.entries(resultado)) {
                 // Obtiene el título desde el diccionario, o usa el ID como valor por defecto
@@ -1223,8 +1251,7 @@
                         </h2>
                         <div id="${collapseId}"
                             class="accordion-collapse collapse ${indexAccordion === 0 ? 'show' : ''}" 
-                            aria-labelledby="${headingId}" 
-                            data-bs-parent="#accordionTablas">
+                            aria-labelledby="${headingId}">
                             <div class="accordion-body">
                 `;
 
@@ -1236,9 +1263,49 @@
 
                     // Construcción de la tarjeta individual con opciones de color
                     htmlOutput += `
-                        <div class="card mb-3 registro" style="background-color: white;">
+                        <div class="card mb-3 registro" style="background-color: white; position: relative;">
                             <div class="card-body">
+                                <!-- Botón con script para mostrar/ocultar la tabla en la esquina superior derecha -->
+                                <div class="form-check form-switch" style="position: absolute; top: 10px; right: 10px;">
+                                    <input class="form-check-input toggle-table" type="checkbox" id="toggleTable${uniqueIndex}" 
+                                        onclick="document.getElementById('tableContainer${uniqueIndex}').style.display = (document.getElementById('tableContainer${uniqueIndex}').style.display === 'none' ? 'block' : 'none')">
+                                    <label class="form-check-label" for="toggleTable${uniqueIndex}"></label>
+                                </div>
+                                <!-- Contenido de la tarjeta -->
                                 <p class="card-text">${contenidoRegistro}</p>
+                                <!-- Contenedor de la tabla con display: none inicialmente -->
+                                <div class="table-responsive" id="tableContainer${uniqueIndex}" style="display: none;">
+                                    <table class="table table-striped border border-secondary mb-0" style="table-layout: fixed; width: 100%;">
+                                        <thead>
+                                            <tr class="text-center border border-secondary" >
+                                                <th style="width: 33.33%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                    ${Object.entries(registro)[0][0]}
+                                                </th>
+                                                <th style="width: 33.33%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                    ${Object.entries(registro)[2][0]}
+                                                </th>
+                                                <th style="width: 33.33%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                    ${Object.entries(registro)[5][0]}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="text-center align-middle">
+                                                <td style="overflow: hidden; text-overflow: ellipsis;">
+                                                    ${Object.entries(registro)[0][1]}
+                                                </td>
+                                                <td style="word-wrap: break-word;">
+                                                    ${Object.entries(registro)[2][1]}<br>
+                                                    <strong>${Object.entries(registro)[3][0]}</strong><br> 
+                                                    ${Object.entries(registro)[3][1]}
+                                                </td>
+                                                <td style="overflow: hidden; text-overflow: ellipsis;">
+                                                    ${Object.entries(registro)[5][1]}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 ${['✔ Todo Ok (completo)', '⚠ Requiere Pruebas', '✖ Consultar con Analista']
                             .map((etiqueta, opcionIndex) => {
                                 const colores = ['lightgreen', 'orange', '#e74c3c'];
@@ -1255,6 +1322,7 @@
                             </div>
                         </div>
                     `;
+                    uniqueIndex++; // Incrementa para el próximo ID
                 });
 
                 // Cierre del cuerpo del acordeón
@@ -1290,7 +1358,21 @@
                                     ${htmlOutput}
                                     <br />
                                     <h3 class="mb-4 text-center">Pruebas Antes de Desarrollo</h3>
-                                    <div id="editor-container"></div>
+                                    <!-- Accordion pruebas Pre-Desarrollo -->
+                                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                                Casos de Prueba Base Pre-Desarrollo
+                                            </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                                                <div class="accordion-body">
+                                                    <div id="editor-container"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- Contenedor de botones alineados -->
                                     <div class="d-flex justify-content-between mt-4">
                                         <button class="btn btn-secondary" id="add-editors-btn">Añadir Editores</button>
@@ -1361,6 +1443,9 @@
                         border-radius: 0.5rem;
                         background-color: #f8f9fa;
                     }
+                    .CodeMirror-gutter-wrapper {
+                        user-select: none; /* Evita que se seleccionen al copiar */
+                    }
                 `;
             outputWindow.document.head.appendChild(style);
 
@@ -1369,74 +1454,73 @@
 
             const scriptGuardar = outputWindow.document.createElement('script');
             scriptGuardar.textContent = `
-document.getElementById('guardarButton').addEventListener('click', function () {
-    // Marcar los radios seleccionados con 'checked'
-    document.querySelectorAll('input[type="radio"]').forEach(r =>
-        r.checked ? r.setAttribute('checked', 'checked') : r.removeAttribute('checked')
-    );
+                document.getElementById('guardarButton').addEventListener('click', function () {
+                    // Marcar los radios seleccionados con 'checked'
+                    document.querySelectorAll('input[type="radio"]').forEach(r =>
+                        r.checked ? r.setAttribute('checked', 'checked') : r.removeAttribute('checked')
+                    );
 
-    // Clonar documento completo
-    const clonedDoc = document.documentElement.cloneNode(true);
-    const formOriginal = document.getElementById('formRequerimiento');
-    const formClonado = clonedDoc.querySelector('#formRequerimiento');
+                    // Clonar documento completo
+                    const clonedDoc = document.documentElement.cloneNode(true);
+                    const formOriginal = document.getElementById('formRequerimiento');
+                    const formClonado = clonedDoc.querySelector('#formRequerimiento');
 
-    // Recolectar datos del formulario original como clave: valor
-    const datosFormulario = {};
-    formOriginal.querySelectorAll('input, select, textarea').forEach(el => {
-        if (el.type === 'radio' || el.type === 'checkbox') {
-            datosFormulario[el.id] = el.checked;
-        } else {
-            datosFormulario[el.id] = el.value;
-        }
-    });
-
-    // Eliminar elementos no deseados del documento clonado
-    ['header1-row-', 'header2-row-'].forEach(prefix =>
-        clonedDoc.querySelectorAll("div[id^=" + prefix + "]").forEach(div => div.remove())
-    );
-
-    const addBtn = clonedDoc.querySelector('#add-editors-btn');
-    if (addBtn) addBtn.remove();
-
-    // Verificar si el script de eliminar editores
-    const existingEditoresScript = clonedDoc.querySelector('#editoresScript');
-    if (existingEditoresScript) existingEditoresScript.remove();
-
-    // Verificar si el script de restauración ya ha sido agregado
-    const existingRestoreScript = clonedDoc.querySelector('#restoreScript');
-    if (!existingRestoreScript) {
-        // Inyectar el script que restaurará los valores solo si no existe ya
-        const restoreScript = document.createElement('script');
-        restoreScript.id = 'restoreScript';
-        restoreScript.textContent = \`
-            document.addEventListener('DOMContentLoaded', function () {
-                const datosFormulario = \${JSON.stringify(datosFormulario)};
-                Object.entries(datosFormulario).forEach(([id, valor]) => {
-                    const el = document.getElementById(id);
-                    if (el) {
-                        if (el.type === 'checkbox' || el.type === 'radio') {
-                            el.checked = valor;
+                    // Recolectar datos del formulario original como clave: valor
+                    const datosFormulario = {};
+                    formOriginal.querySelectorAll('input, select, textarea').forEach(el => {
+                        if (el.type === 'radio' || el.type === 'checkbox') {
+                            datosFormulario[el.id] = el.checked;
                         } else {
-                            el.value = valor;
+                            datosFormulario[el.id] = el.value;
                         }
+                    });
+
+                    // Eliminar elementos no deseados del documento clonado
+                    ['header1-row-', 'header2-row-'].forEach(prefix =>
+                        clonedDoc.querySelectorAll("div[id^=" + prefix + "]").forEach(div => div.remove())
+                    );
+
+                    const addBtn = clonedDoc.querySelector('#add-editors-btn');
+                    if (addBtn) addBtn.remove();
+
+                    // Verificar si el script de eliminar editores
+                    const existingEditoresScript = clonedDoc.querySelector('#editoresScript');
+                    if (existingEditoresScript) existingEditoresScript.remove();
+
+                    // Verificar si el script de restauración ya ha sido agregado
+                    const existingRestoreScript = clonedDoc.querySelector('#restoreScript');
+                    if (!existingRestoreScript) {
+                        // Inyectar el script que restaurará los valores solo si no existe ya
+                        const restoreScript = document.createElement('script');
+                        restoreScript.id = 'restoreScript';
+                        restoreScript.textContent = \`
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const datosFormulario = \${JSON.stringify(datosFormulario)};
+                                Object.entries(datosFormulario).forEach(([id, valor]) => {
+                                    const el = document.getElementById(id);
+                                    if (el) {
+                                        if (el.type === 'checkbox' || el.type === 'radio') {
+                                            el.checked = valor;
+                                        } else {
+                                            el.value = valor;
+                                        }
+                                    }
+                                });
+                            });
+                        \`;
+                        clonedDoc.querySelector('body').appendChild(restoreScript);
                     }
+
+                    // Generar contenido final y descargar
+                    const doctype = '<!DOCTYPE html>\\n';
+                    const htmlContent = doctype + clonedDoc.outerHTML;
+                    const blob = new Blob([htmlContent], { type: 'text/html' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'mapeos_mensajes.html';
+                    link.click();
                 });
-            });
-        \`;
-        clonedDoc.querySelector('body').appendChild(restoreScript);
-    }
-
-    // Generar contenido final y descargar
-    const doctype = '<!DOCTYPE html>\\n';
-    const htmlContent = doctype + clonedDoc.outerHTML;
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'mapeos_mensajes.html';
-    link.click();
-});
-`;
-
+                `;
 
             // Agregar el script de guardado al DOM
             outputWindow.document.body.appendChild(scriptGuardar);

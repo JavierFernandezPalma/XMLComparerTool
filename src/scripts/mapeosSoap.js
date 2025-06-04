@@ -373,7 +373,9 @@ document.getElementById('cargarMapeos').addEventListener('click', () => {
         colReorder: true,
         stateSave: false,
         dom: 'Bfrtip',
-        buttons: ['pageLength', 'colvis']
+        buttons: ['pageLength', 'colvis'],
+        order: [],  // Esto asegura que no haya ordenamiento por defecto
+        ordering: false  // Desactiva el ordenamiento de las columnas
     });
 
     // Asignar instancia a la variable global
@@ -427,7 +429,7 @@ window.actualizarUrlSeleccionado = function (selectElement, rowIndex, tablaConte
         activeTable.cell(rowIndex, columnUrlIndex).data(selected);
 
         // Si es Response y opción es request-inicial, añade contenido extra
-        if (tipoMapeo.value === 'Response' && selected === 'request-inicial') {
+        if (selected === 'request-inicial') {
             selectedText = `${selected}: ${contenidoNodoAlterno}`;
         }
         // Actualiza celda con el texto final
@@ -468,8 +470,8 @@ window.actualizarAccionSeleccionada = function (selectElement, rowIndex, tablaCo
     const cellIndex = cell.cellIndex;
 
     switch (selectElement.value) {
-        case 'No aplica':
-            activeTable.cell(rowIndex, cellIndex).data('No aplica');
+        case 'Quitar':
+            activeTable.cell(rowIndex, cellIndex).data('Quitar');
             break;
 
         case 'Homologar':
@@ -784,7 +786,7 @@ const actualizarResultadoExtraido = () => {
 
     if (inicio || fin) {
         const resultado = extraerEntre(texto, inicio, fin);
-        resultadoInput.value = `${inicio} ${fin}: ${resultado ?? null}`;
+        resultadoInput.value = `Entre ${inicio} y Entre ${fin}: ${resultado ?? null}`;
     }
 };
 

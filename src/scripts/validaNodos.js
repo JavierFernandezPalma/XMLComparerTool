@@ -256,8 +256,14 @@ function crearFilasYColumnas(nodesChildren, nodesChildren2, tablaContext = 'xmlT
    ];
 
    const rows = nodesChildren.map((nodeData, index) => {
-      const opciones = ['No aplica', 'Formatear', 'Homologar', 'Asignar valor por defecto', 'Nulo'];
-      
+      const opciones = [
+         { label: 'Formatear', title: 'Aplicar un formato específico al valor del nodo' },
+         { label: 'Homologar', title: `Asignar el valor del nodo ${ladoB}` },
+         { label: 'Asignar valor por defecto', title: 'Asignar un valor fijo' },
+         { label: 'Nulo', title: 'Establecer el valor como nulo explícitamente' },
+         { label: 'Quitar', title: 'Quitar el nodo de la solicitud' }
+      ];
+
       const nodeUrl = nodeData.url;
       const nodeName = (typeof nodeData.node === 'object' && nodeData.node !== null && 'localName' in nodeData.node)
          ? nodeData.node.localName
@@ -266,8 +272,9 @@ function crearFilasYColumnas(nodesChildren, nodesChildren2, tablaContext = 'xmlT
          ? nodeData.node.textContent
          : nodeData.value;
 
-      const opcionesHTML = opciones.map(opcion =>
-         `<option value="${opcion}" data-name="${nodeName}" data-text="${nodeTextContent}" data-url="${nodeUrl}">${opcion}</option>`
+      let opcionesHTML = '<option value="" disabled selected>Seleccione una acción</option>';
+      opcionesHTML += opciones.map(opcion =>
+         `<option value="${opcion.label}" title="${opcion.title}" data-name="${nodeName}" data-text="${nodeTextContent}" data-url="${nodeUrl}" ${opcion.label === 'Homologar' ? 'selected' : ''}>${opcion.label}</option>`
       ).join('');
 
       const nodeSelectOptions = `
@@ -283,8 +290,8 @@ function crearFilasYColumnas(nodesChildren, nodesChildren2, tablaContext = 'xmlT
                   ${localName}
                </option>`;
       }).join('')}
-         <option class="${isRequest ? 'd-none' : 'd-flex'}" value="request-inicial" data-text="Dato del request inicial">Dato del request inicial</option>
-         <option value="sin-referencia" data-text="Sin referencia">Sin referencia</option>
+         <option value="request-inicial" data-text="Contenido Nodo ${ladoA}" title="Valor por defecto contenido dentro del nodo ${ladoA}." selected>Contenido Nodo ${ladoA}</option>
+         <option value="sin-referencia" data-text="Sin ruta ni contenido de nodo ${ladoB} como referencia para mapeo.">Sin referencia</option>
       `;
 
 
@@ -296,9 +303,9 @@ function crearFilasYColumnas(nodesChildren, nodesChildren2, tablaContext = 'xmlT
          nodeUrl,
          nodeName,
          `<select id="${selectAccionId}" onchange="actualizarAccionSeleccionada(this, ${index}, '${tablaContext}')" disabled>${opcionesHTML}</select>`,
-         `<span id="${tablaContext}-fourth-column-${index}"></span>`,
+         `<span id="${tablaContext}-fourth-column-${index}">${nodeTextContent}</span>`,
          `<select onchange="actualizarUrlSeleccionado(this, ${index}, '${tablaContext}')" id="${selectNodoId}">${nodeSelectOptions}</select>`,
-         `<span id="${tablaContext}-result3_${index}"></span>`,
+         `<span id="${tablaContext}-result3_${index}">${isRequest ? 'sin-referencia' : 'request-inicial'}</span>`,
          nodeTextContent,
          `<span id="${tablaContext}-eighth-column-${index}"></span>`
       ];

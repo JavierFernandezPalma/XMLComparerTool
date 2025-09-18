@@ -1,0 +1,11 @@
+<soapenv:Envelope xmlns:tram="http://TramaDummyRIN/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tram:envioTramaDummyResponse>
+         <tram:salidaResponse>
+            <respuesta>0</respuesta>
+            <descripcion>Exitoso</descripcion>
+         </tram:salidaResponse>
+      </tram:envioTramaDummyResponse>
+   </soapenv:Body>
+</soapenv:Envelope>

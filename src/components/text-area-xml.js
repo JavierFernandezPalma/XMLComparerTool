@@ -51,12 +51,12 @@ class textAreaXML extends HTMLElement {
     getTemplate() {
         const template = document.createElement('template');
         template.innerHTML = `
-            <div class="d-flex align-items-center">
-                <label for="${this._textareaId || 'xmlInput'}" class="form-label">${this._title}</label>
-                <div class="ms-auto d-flex align-items-center">                
-                    <!-- Lista de Selección de Tema -->
-                    <label for="themeSelector" class="form-label me-2">Tema</label>
-                    <select id="themeSelector" class="form-select form-select-sm w-auto">
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <label for="${this._textareaId || 'xmlInput'}" class="form-label me-auto mb-0">${this._title}</label>
+                <!-- Lista de Selección de Tema -->
+                <div class="d-flex align-items-center gap-2">                
+                    <label for="themeSelector" class="form-label mb-0">Tema</label>
+                    <select id="themeSelector" class="form-select form-select-sm">
                         <option value="monokai">monokai</option>
                         <option value="default">default</option>
                         <option value="abbott">abbott</option>
@@ -64,17 +64,17 @@ class textAreaXML extends HTMLElement {
                         <option value="night">night</option>
                         <option value="rubyblue">rubyblue</option>
                     </select>
-                    <!-- Lista de Selección de Mode (XML a JSON) -->
-                    <div class="${this._showmode === 'true' ? 'd-flex' : 'd-none'} align-items-center">
-                        <label for="modeSelectorLabel" class="form-label ms-3 me-2">Modo</label>
-                        <select id="modeSelectorSelect" class="form-select form-select-sm w-auto">
-                            <option value="xml">XML</option>
-                            <option value="application/json">JSON</option>
-                        </select>
-                    </div>
+                </div>
+                <!-- Lista de Selección de Mode (XML a JSON) -->
+                <div class="${this._showmode === 'true' ? 'd-flex' : 'd-none'} align-items-center gap-2">
+                    <label for="modeSelectorLabel" class="form-label mb-0">Modo</label>
+                    <select id="modeSelectorSelect" class="form-select form-select-sm">
+                        <option value="xml">XML</option>
+                        <option value="application/json">JSON</option>
+                    </select>
                 </div>
             </div>
-            <textarea class="form-control" id="${this._textareaId || 'xmlInput'}" placeholder="Ingresa código aquí" rows="10"></textarea>
+            <textarea class="form-control mt-2" id="${this._textareaId || 'xmlInput'}" placeholder="Ingresa código aquí" rows="10"></textarea>
             <div class="d-flex justify-content-end mt-2">
                 <button id="${this._buttonFormatId || 'formatXmlInput'}" class="btn btn-secondary me-2">${this._titleFormat}</button>
                 <button id="${this._buttonClearId || 'clearXmlInput'}" class="btn btn-warning">${this._titleClear}</button>

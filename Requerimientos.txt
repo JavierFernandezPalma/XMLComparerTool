@@ -1,4 +1,5 @@
 Docuentación varios lenguajes: https://www.w3schools.com/
+Animaciones: https://animate.style/
 
 Instalar Node.js v18.13.0 o superior.
 JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
@@ -8,9 +9,17 @@ JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 Actualizar PATH proyecto
     export PATH=$PATH:/path/to/node/bin
     export PATH=$PATH:"/c/Program Files/nodejs"
+    export PATH=/c/workspace/node-v22.19.0-win-x64/node-v22.19.0-win-x64:$PATH
 
     export NVM_DIR="./tools/nvm_1.2.2"
     export PATH=$NVM_DIR:$NVM_DIR/nodejs:$PATH
+
+    export JAVA_HOME="/c/Program Files/Java/jdk-21"
+    export PATH=$JAVA_HOME/bin:$PATH
+
+//-----------------PATH Gradle (Para pruebas automatizadas)
+    GRADLE_PATH="/c/workspace/gradle-9.0.0-bin/gradle-9.0.0/bin"
+    export PATH="$GRADLE_PATH:$PATH"
 
 Crear proyecto y posicionado en la raíz inicializar proyecto Node.js:
     npm init -y
@@ -315,3 +324,8 @@ podman run -d --name pgadmin -p 8080:80 \
   -e PGADMIN_DEFAULT_EMAIL=admin@admin.com \
   -e PGADMIN_DEFAULT_PASSWORD=admin \
   dpage/pgadmin4
+
+
+Pendiente:
+1. Opción Token.
+2. Cambiar contacto comercial por Consultor.

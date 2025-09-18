@@ -13,6 +13,8 @@
     "ResponseConsultarFacturasPorNegocio_WS2vias.xml",
     "responseDummy.xml",
     "ResponseRegistrarPagoIFX_WS1via.xml",
-    "ResponseRegistrarPagoIFX_WS2vias.xml"
+    "ResponseRegistrarPagoIFX_WS2vias.xml",
+    "RequestDummyMapeo.xml",
+    "ResponseDummyMapeo.xml"
   ]
 }

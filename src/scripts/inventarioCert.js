@@ -7,20 +7,25 @@ import { formatXML } from '@scripts/formatXML.js';
 // Esperamos a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
 
-  const customElement = document.getElementById('xmlInput');
+  const customElement = document.getElementById('textarea1');
 
-  // Configuración inicial de los CodeMirror para xmlInput1 y xmlInput2
-  // const xmlInput1 = initializeCodeMirror("xmlInput1","xmlInput");
-  const xmlInput1 = customElement.getCodeMirrorInstance();
+  let xmlInput1;
 
-  // Obtiene elementos DOM
-  const scrollSwitch = document.getElementById('scrollSwitch');
-  const scrollSizeInput = document.getElementById('scrollSizeInput');
+  // 🔒 Espera a que el editor esté listo
+  customElement.addEventListener('codemirror-ready', (e) => {
+    // Configuración inicial del CodeMirror para xmlInput1
+    xmlInput1 = customElement.getCodeMirrorInstance();
 
-  // Maneja cambios del switch de scroll
-  handleScrollSwitchChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput1);
-  // Maneja cambios del tamaño del scroll
-  handleScrollSizeInputChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput1);
+    // Obtiene elementos DOM
+    const scrollSwitch = document.getElementById('scrollSwitch');
+    const scrollSizeInput = document.getElementById('scrollSizeInput');
+
+    // Maneja cambios del switch de scroll
+    handleScrollSwitchChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput1);
+    // Maneja cambios del tamaño del scroll
+    handleScrollSizeInputChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput1);
+  });
+
 
   // Guardar en el global scope para que sea accesible en otros scripts
   window.editor1 = xmlInput1;
@@ -30,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Eventos para cargar archivos XML manualmente desde input type="file"
   document.getElementById('fileInput1').addEventListener('change', (event) => handleFileSelect(event, 1, window.editor1));
-  
+
   var clearXmlInput1 = customElement.shadowRoot.getElementById('clearXmlInput1');
   if (clearXmlInput1) {
     // Eventos para limpiar el contenido de xmlInput1 y xmlInput2 y el resultado de la comparación
@@ -43,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error('Elemento clearXmlInput1 no encontrado');
   }
 
-  formatXML("xmlInput", null);
+  formatXML("textarea1", null);
 });
 
 // Mostrar la tabla al hacer clic en el botón
@@ -82,7 +87,7 @@ document.getElementById('showTableButton').addEventListener('click', function ()
   //     document.getElementById('exportToExcel').style.display = 'inline-block';
   //   }
   // });
-  
+
   // Verificar si la tabla ya ha sido inicializada
   if ($.fn.dataTable.isDataTable('#xmlTable')) {
     // Si está inicializada, destruir la instancia de DataTable

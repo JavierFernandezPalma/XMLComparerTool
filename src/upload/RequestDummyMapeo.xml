@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tram="http://TramaDummyRIN/">
+	<soapenv:Header/>
+	<soapenv:Body>
+		<tram:envioTramaDummy>
+			<codigoConvenio>30405</codigoConvenio>
+		</tram:envioTramaDummy>
+	</soapenv:Body>
+</soapenv:Envelope>

@@ -590,10 +590,13 @@ document.querySelector('#formato').addEventListener('change', function () {
     const modalElement = document.getElementById('modalFormatoDatos');
     const valor = modalElement.querySelector('#contenidoNodo').value;
     const grupoFormatoFecha = document.getElementById('grupoFormatoFecha');
+    const grupoFormatoHora = document.getElementById('grupoFormatoHora');
     const grupoExtraer = document.getElementById('grupoExtraer');
 
     // Oculta por defecto el grupo de formato fecha
     grupoFormatoFecha.classList.add('d-none');
+    // Oculta por defecto el grupo de formato hora
+    grupoFormatoHora.classList.add('d-none');
     // Oculta por defecto el grupo extraer
     grupoExtraer.classList.add('d-none');
 
@@ -612,6 +615,8 @@ document.querySelector('#formato').addEventListener('change', function () {
         }
     } else if (opcionSeleccionada === 'formato-fecha') {
         grupoFormatoFecha.classList.remove('d-none');
+    } else if (opcionSeleccionada === 'formato-hora') {
+        grupoFormatoHora.classList.remove('d-none');
     } else if (opcionSeleccionada === 'extraer') {
         grupoExtraer.classList.remove('d-none');
     } else {
@@ -743,6 +748,39 @@ function formatearFecha(isoDate, formato) {
         .replace(/HH/, hour)
         .replace(/mm/, minute)
         .replace(/ss/, second);
+}
+
+document.getElementById('formatoHora').addEventListener('change', function () {
+    const opcionSeleccionada = this.value;
+    const modalElement = document.getElementById('modalFormatoDatos');
+    const valor = modalElement.querySelector('#contenidoNodo').value;
+
+    const resultadoInput = document.querySelector('#resultadoEsperado');
+
+    resultadoInput.value = opcionSeleccionada + ': ' + formatearHora(valor, opcionSeleccionada);
+});
+
+function formatearHora(isoDateTime, formato) {
+    const match = isoDateTime.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})$/);
+
+    if (!match) {
+        alert("El contenido del nodo no es un valor de fecha y hora válido (se espera formato ISO: YYYY-MM-DDTHH:mm:ss)");
+        return "";
+    }
+
+    let [_, year, month, day, hour, minute, second] = match;
+
+    // Convertir a entero para uso en 12h y AM/PM
+    const hourNum = parseInt(hour, 10);
+    const hour12 = ((hourNum + 11) % 12 + 1).toString().padStart(2, '0');
+    const ampm = hourNum >= 12 ? "PM" : "AM";
+
+    return formato
+        .replace(/HH/, hour)      // 24h formato
+        .replace(/hh/, hour12)    // 12h formato
+        .replace(/mm/, minute)
+        .replace(/ss/, second)
+        .replace(/A/, ampm);
 }
 
 // Referencias a elementos clave del DOM

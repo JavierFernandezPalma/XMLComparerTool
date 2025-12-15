@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Seleccionar Usuario</title>
+  <!-- Cargamos la biblioteca Animate.css desde CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <!-- <link rel="stylesheet" href="/src/styles/usuarios.css"> -->
+</head>
+
+<body>
+  <!-- Barra de navegación con fondo oscuro y texto en color blanco -->
+  <nav class="navbar navbar-dark bg-dark">
+    <!-- Contenedor fluido que asegura que el contenido ocupa todo el ancho disponible -->
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+      <!-- Logo a la izquierda -->
+      <a class="navbar-brand" href="#">
+        <img src="./assets/images/Bancolombiablanco.png" alt="Logo" class="d-inline-block align-top"
+          style="max-width: 100px; height: auto;">
+      </a>
+      <!-- Párrafo alineado a la derecha con el margen inferior eliminado -->
+      <p class="mb-0" style="color: white;">Versión: <span id="app-version"></span></p>
+      <!-- El <span> con id="app-version" se usará para mostrar la versión de la aplicación -->
+    </div>
+  </nav>
+
+  <!-- Opcional: encabezado global -->
+  <!-- <header class="py-3">
+    <div class="container">
+      <h1 class="h3 mb-0">Gestión de practicantes</h1>
+    </div>
+  </header> -->
+
+  <main class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+    <!-- Título de la página -->
+    <h1 class="text-center mb-4 animate__animated animate__pulse pulse-text">Gestión de practicantes</h1>
+
+    <!-- Tarjeta centrada -->
+    <div class="card p-4 text-center" style="width: 360px;">
+      <h2 class="mb-4 text-primary">Selecciona tu usuario</h2>
+      <select id="usuariosSelect" class="form-select mb-3">
+        <option value="">-- Selecciona un usuario --</option>
+      </select>
+      <button class="btn btn-primary w-100" onclick="ingresar()">Ingresar</button>
+    </div>
+  </main>
+
+  <!-- Footer con navbar -->
+  <footer>
+    <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse dropup" id="navbarCollapse">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item dropup">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown10" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Herramientas XML
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown10">
+                <li><a class="dropdown-item" href="index.html"><i class="bi bi-file-diff me-2"></i> Comparar Estructuras XML</a></li>
+                <li><a class="dropdown-item" href="validarXML.html"><i class="bi bi-check-circle me-2"></i> Validar XML</a></li>
+                <li><a class="dropdown-item" href="inventarioCert.html"><i class="bi bi-folder2-open me-2"></i> Inventario Certificados</a></li>
+                <li><a class="dropdown-item" href="logErrores.html"><i class="bi bi-exclamation-triangle me-2"></i> Log de errores</a></li>
+                <li><a class="dropdown-item" href="mapeosMensajes.html"><i class="bi bi-diagram-3 me-2"></i> Mapeos de mensajes</a></li>
+                <li><a class="dropdown-item" href="usuarios.html"><i class="bi bi-people me-2"></i> Gestión de practicantes</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </footer>
+
+  <script>
+    const apiGestionPracticantesUrl = 'https://xmlcomparertool.onrender.com';
+    const API_URL = `${apiGestionPracticantesUrl}/api/v1`;
+    let usuarios = [];
+
+    // Cargar usuarios al iniciar
+    async function cargarUsuarios() {
+      try {
+        const res = await fetch(`${API_URL}/usuarios`);
+
+        if (!res.ok) {
+          throw new Error(`Error HTTP: ${res.status}`);
+        }
+
+        usuarios = await res.json();
+
+        const select = document.getElementById('usuariosSelect');
+
+        // Limpiar opciones existentes (excepto la primera)
+        while (select.children.length > 1) {
+          select.removeChild(select.lastChild);
+        }
+
+        // Agregar usuarios al select
+        usuarios.forEach(u => {
+          const option = document.createElement('option');
+          option.value = u.id_usuario;
+          option.textContent = `${u.nom_usuario} (${u.nom_roll})`;
+          option.setAttribute('data-nombre', u.nom_usuario);
+          select.appendChild(option);
+        });
+
+        // console.log('Usuarios cargados correctamente:', usuarios.length);
+
+      } catch (err) {
+        // console.error('Error cargando usuarios:', err);
+        mostrarError('No se pudieron cargar los usuarios. Verifica que el servidor esté ejecutándose.');
+      }
+    }
+
+    // Mostrar mensaje de error
+    function mostrarError(mensaje) {
+      // Crear alerta Bootstrap
+      const alertDiv = document.createElement('div');
+      alertDiv.className = 'alert alert-danger alert-dismissible fade show position-fixed';
+      alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 1050; min-width: 300px;';
+      alertDiv.innerHTML = `
+    <strong>Error:</strong> ${mensaje}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  `;
+
+      document.body.appendChild(alertDiv);
+
+      // Auto-eliminar después de 5 segundos
+      setTimeout(() => {
+        if (alertDiv.parentNode) {
+          alertDiv.remove();
+        }
+      }, 5000);
+    }
+
+    // Acción al presionar ingresar
+    function ingresar() {
+      const select = document.getElementById('usuariosSelect');
+      const id = select.value;
+
+      if (!id) {
+        mostrarError('Por favor selecciona un usuario');
+        return;
+      }
+
+      const usuario = usuarios.find(u => u.id_usuario == id);
+      if (!usuario) {
+        mostrarError('Usuario no encontrado');
+        return;
+      }
+
+      // Guardar información del usuario en localStorage
+      const usuarioInfo = {
+        id: usuario.id_usuario,
+        nombre: usuario.nom_usuario,
+        rol: usuario.nom_roll
+      };
+
+      localStorage.setItem('usuarioActual', JSON.stringify(usuarioInfo));
+
+      // console.log('Usuario guardado:', usuarioInfo);
+
+      // Redirigir según el rol
+      const rol = usuario.nom_roll.toLowerCase();
+      if (rol === 'practicante') {
+        window.location.href = 'menuPracticante.html';
+      } else {
+        window.location.href = 'menuAsignador.html';
+      }
+    }
+
+    // Manejar la tecla Enter en el select
+    document.addEventListener('DOMContentLoaded', function () {
+      const select = document.getElementById('usuariosSelect');
+      if (select) {
+        select.addEventListener('keypress', function (e) {
+          if (e.key === 'Enter') {
+            ingresar();
+          }
+        });
+      }
+    });
+
+    // Llamar a cargar usuarios al abrir la página
+    window.onload = cargarUsuarios;
+
+    // También cargar usuarios cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', cargarUsuarios);
+  </script>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Script usuarios -->
+  <!-- <script src="/src/scripts/usuarios.js"></script> -->
+</body>
+
+
+</html>

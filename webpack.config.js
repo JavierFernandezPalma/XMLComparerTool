@@ -15,7 +15,10 @@ module.exports = {
         mainValidarXML: './src/mainValidarXML.js', // entrada adicional
         mainInventarioCert: './src/mainInventarioCert.js', // entrada adicional
         mainLogErrores: './src/mainLogErrores.js', // entrada adicional
-        mapeosMensajes: './src/mainMapeosMensajes.js', // entrada adicional  
+        mapeosMensajes: './src/mainMapeosMensajes.js', // entrada adicional
+        mainUsuarios: './src/mainUsuarios.js', // entrada adicional
+        mainMenuPracticante: './src/mainMenuPracticante.js',
+        mainMenuAsignador: './src/mainMenuAsignador.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'), // Carpeta de salida
@@ -111,6 +114,24 @@ module.exports = {
             template: './public/pages/mapeosMensajes.html',
             filename: './mapeosMensajes.html', // Archivo de salida en dist
             chunks: ['mapeosMensajes']
+        }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/pages/usuarios.html',
+            filename: './usuarios.html',
+            chunks: ['mainUsuarios']
+        }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/pages/menuPracticante.html',
+            filename: './menuPracticante.html',
+            chunks: ['mainMenuPracticante']
+        }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/pages/menuAsignador.html',
+            filename: './menuAsignador.html',
+            chunks: ['mainMenuAsignador']
         }),
         new MiniCssExtractPlugin({ // Configuración del plugin CSS
             filename: 'assets/[name].[contenthash].css' // Nombre del archivo CSS con hash

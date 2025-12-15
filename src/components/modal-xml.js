@@ -1,4 +1,4 @@
-// Define un nuevo elemento personalizado 'text-area-xml'
+// Define un nuevo elemento personalizado 'modal-xml'
 class modalXML extends HTMLElement {
     constructor() {
         super();

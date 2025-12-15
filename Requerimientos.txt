@@ -1,5 +1,6 @@
 Docuentación varios lenguajes: https://www.w3schools.com/
 Animaciones: https://animate.style/
+Api prueba: https://httpbin.org/
 
 Instalar Node.js v18.13.0 o superior.
 JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
@@ -20,12 +21,19 @@ Actualizar PATH proyecto
 //-----------------PATH Gradle (Para pruebas automatizadas)
     GRADLE_PATH="/c/workspace/gradle-9.0.0-bin/gradle-9.0.0/bin"
     export PATH="$GRADLE_PATH:$PATH"
+	
+//------------------Ejecutar Spring Boot
+	set PATH=%PATH%;C:\tools
+	gradle bootRun
 
 Crear proyecto y posicionado en la raíz inicializar proyecto Node.js:
     npm init -y
 
 Para permitir que el servidor Node.js acepte solicitudes de diferentes origenes middleware 'cors'
     npm install cors
+
+//---------------Ejecutar Spring Boot
+    gradle bootRun
 
 //------------Dependencias necesarias:
 npm install express multer
@@ -328,4 +336,4 @@ podman run -d --name pgadmin -p 8080:80 \
 
 Pendiente:
 1. Opción Token.
-2. Cambiar contacto comercial por Consultor.
+2. Ajustar estructura JSon con padre para Mapeos.

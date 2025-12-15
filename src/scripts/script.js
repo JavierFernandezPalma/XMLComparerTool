@@ -13,26 +13,31 @@ document.addEventListener("DOMContentLoaded", function () {
     let xmlInput1;
     let xmlInput2;
 
-    // 🔒 Espera a que el editor esté listo
-    customElement1.addEventListener('codemirror-ready', (e) => {
-        // Configuración inicial del CodeMirror para xmlInput1
-        xmlInput1 = customElement1.getCodeMirrorInstance();
-    });
 
-    // 🔒 Espera a que el editor 2 esté listo
-    customElement2.addEventListener('codemirror-ready', (e) => {
-        // Configuración inicial del CodeMirror para xmlInput2
-        xmlInput2 = customElement2.getCodeMirrorInstance();
+    if (customElement1) {
+        // Espera a que el editor esté listo SOLO si el elemento existe
+        customElement1.addEventListener('codemirror-ready', (e) => {
+            // Configuración inicial del CodeMirror para xmlInput1
+            xmlInput1 = customElement1.getCodeMirrorInstance();
+        });
+    }
 
-        // Obtiene elementos DOM
-        const scrollSwitch = document.getElementById('scrollSwitch');
-        const scrollSizeInput = document.getElementById('scrollSizeInput');
+    if (customElement2) {
+        // 🔒 Espera a que el editor 2 esté listo
+        customElement2.addEventListener('codemirror-ready', (e) => {
+            // Configuración inicial del CodeMirror para xmlInput2
+            xmlInput2 = customElement2.getCodeMirrorInstance();
 
-        // Maneja cambios del switch de scroll
-        handleScrollSwitchChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput2);
-        // Maneja cambios del tamaño del scroll
-        handleScrollSizeInputChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput2);
-    });
+            // Obtiene elementos DOM
+            const scrollSwitch = document.getElementById('scrollSwitch');
+            const scrollSizeInput = document.getElementById('scrollSizeInput');
+
+            // Maneja cambios del switch de scroll
+            handleScrollSwitchChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput2);
+            // Maneja cambios del tamaño del scroll
+            handleScrollSizeInputChange(scrollSwitch, scrollSizeInput, xmlInput1, xmlInput2);
+        });
+    }
 
     // Crea un contenedor para íconos SVG personalizados y los agrega al DOM.
     customIcon();

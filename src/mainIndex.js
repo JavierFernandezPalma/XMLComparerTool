@@ -1,5 +1,6 @@
 // import Template from './templates/TemplateIndex.js';
 import '@components/text-area-xml.js';
+import '@components/xml-tools-menu.js';
 import '@scripts/script.js';
 import '@scripts/index.js';
 import '@scripts/comparerXMLTour.js';

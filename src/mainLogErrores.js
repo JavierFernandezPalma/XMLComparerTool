@@ -1,5 +1,6 @@
 import { loadVersion } from '@scripts/config.js';
-import "./components/modal-xml";
+import "@components/modal-xml";
+import '@components/xml-tools-menu.js';
 import '@styles/main.css';
 
 // Esperamos a que el DOM esté completamente cargado

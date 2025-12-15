@@ -77,7 +77,7 @@ window.startTourValidateXML = function startTour() {
     tour.addStep({
         id: 'step-5',
         title: 'Card de resultados',
-        text: 'Aquí visualizas los resultados de la comparación.',
+        text: 'Aquí visualizas los resultados de la validación.',
         attachTo: {
             element: '#cardResultComparer',
             on: 'top'

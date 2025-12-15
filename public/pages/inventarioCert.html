@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" />
     <!-- Enlace a la librería DataTables Buttons (para los botones de exportación) -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.dataTables.min.css" />
+        <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <!-- Enlaces a jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -175,16 +177,8 @@
                         aria-haspopup="true" aria-expanded="false">Herramientas XML</a>
                     <!-- Contenido del menú desplegable -->
                     <div class="dropdown-menu" aria-labelledby="dropdown10">
-                        <!-- Opción del menú que enlaza a 'Comparar Estructuras XML' -->
-                        <a class="dropdown-item" href="index.html">Comparar Estructuras XML</a>
-                        <!-- Opción del menú que enlaza a 'Validar XML' -->
-                        <a class="dropdown-item" href="validarXML.html">Validar XML</a>
-                        <!-- Opción del menú que enlaza a 'Lector Inventario Certificados' -->
-                        <a class="dropdown-item" href="inventarioCert.html">Inventario Certificados</a>
-                        <!-- Opción del menú que enlaza a 'Log de errores' -->
-                        <a class="dropdown-item" href="logErrores.html">Log de errores</a>
-                         <!-- Opción del menú que enlaza a 'Mapeos de mensajes' -->
-                         <a class="dropdown-item" href="mapeosMensajes.html">Mapeos de mensajes</a>                       
+                        <!-- Componente personalizado para el menú de herramientas XML -->
+                        <xml-tools-menu></xml-tools-menu>
                     </div>
                 </li>
             </ul>

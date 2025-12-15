@@ -1,6 +1,6 @@
 // routes/actividadesRoutes.js
 const express = require('express');
-const ActividadesServices = require('../services/actividadesServices');
+const ActividadesServices = require('../services/ActividadesServices');
 const path = require('path');
 
 // ✅ USA RUTA ABSOLUTA

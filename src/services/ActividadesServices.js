@@ -1,10 +1,11 @@
 // services/actividadesServices.js - CON SEQUELIZE
+
 const { Actividad } = require('../db/models/actividadesModel');
 const { EstadoTarea } = require('../db/models/estadoTareasModel');
 const { Tarea } = require('../db/models/tareasModel');
 
 class ActividadesServices {
-  
+
   // Crear una nueva actividad
   async create({ id_tarea, descripcion, id_estado_tarea = 1 }) {
     const actividad = await Actividad.create({
@@ -71,7 +72,7 @@ class ActividadesServices {
   // Cambiar estado de una actividad
   async updateEstado(id_actividad, id_estado) {
     const actividad = await Actividad.findByPk(id_actividad);
-    
+
     if (!actividad) {
       throw new Error(`Actividad con id ${id_actividad} no encontrada`);
     }
@@ -83,7 +84,7 @@ class ActividadesServices {
   // Actualizar descripción de una actividad
   async updateDescripcion(id_actividad, descripcion) {
     const actividad = await Actividad.findByPk(id_actividad);
-    
+
     if (!actividad) {
       throw new Error(`Actividad con id ${id_actividad} no encontrada`);
     }
@@ -95,7 +96,7 @@ class ActividadesServices {
   // Eliminar actividad
   async delete(id_actividad) {
     const actividad = await Actividad.findByPk(id_actividad);
-    
+
     if (!actividad) {
       throw new Error(`Actividad con id ${id_actividad} no encontrada`);
     }
